@@ -7,7 +7,7 @@
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications.sln"
+                "${workspaceFolder}/Songhay.Modules.Bolero.sln"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -17,69 +17,69 @@
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications.sln",
+                "${workspaceFolder}/Songhay.Modules.Bolero.sln",
                 "--configuration",
                 "Release"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet build [Songhay.Modules.Publications]",
+            "label": "dotnet build [Songhay.Modules.Bolero]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj"
+                "${workspaceFolder}/Songhay.Modules.Bolero/Songhay.Modules.Bolero.fsproj"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet build [Songhay.Modules.Publications, Release]",
+            "label": "dotnet build [Songhay.Modules.Bolero, Release]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj",
+                "${workspaceFolder}/Songhay.Modules.Bolero/Songhay.Modules.Bolero.fsproj",
                 "--configuration",
                 "Release"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet pack [Songhay.Modules.Publications, Debug]",
+            "label": "dotnet pack [Songhay.Modules.Bolero, Debug]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "pack",
-                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj",
+                "${workspaceFolder}/Songhay.Modules.Bolero/Songhay.Modules.Bolero.fsproj",
                 "--configuration",
                 "Debug",
-                "-p:NuspecFile=${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.nuspec",
-                "-p:NuspecBasePath=${workspaceFolder}/Songhay.Modules.Publications",
+                "-p:NuspecFile=${workspaceFolder}/Songhay.Modules.Bolero/Songhay.Modules.Bolero.nuspec",
+                "-p:NuspecBasePath=${workspaceFolder}/Songhay.Modules.Bolero",
                 "--output",
-                "${workspaceFolder}/Songhay.Modules.Publications",
+                "${workspaceFolder}/Songhay.Modules.Bolero",
                 "--verbosity",
                 "normal"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet build [Songhay.Modules.Publications.Tests]",
+            "label": "dotnet build [Songhay.Modules.Bolero.Tests]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj"
+                "${workspaceFolder}/Songhay.Modules.Bolero.Tests/Songhay.Modules.Bolero.Tests.fsproj"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet test [Songhay.Modules.Publications.Tests]",
+            "label": "dotnet test [Songhay.Modules.Bolero.Tests]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "test",
-                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "${workspaceFolder}/Songhay.Modules.Bolero.Tests/Songhay.Modules.Bolero.Tests.fsproj",
                 "--logger:trx",
                 "--results-directory:${workspaceFolder}/TestResults",
                 "--verbosity:normal",
@@ -88,24 +88,24 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet build [Songhay.Modules.Publications.Tests, Release]",
+            "label": "dotnet build [Songhay.Modules.Bolero.Tests, Release]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "${workspaceFolder}/Songhay.Modules.Bolero.Tests/Songhay.Modules.Bolero.Tests.fsproj",
                 "--configuration",
                 "Release"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "dotnet test [Songhay.Modules.Publications.Tests, filtered by selected text]",
+            "label": "dotnet test [Songhay.Modules.Bolero.Tests, filtered by selected text]",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "test",
-                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "${workspaceFolder}/Songhay.Modules.Bolero.Tests/Songhay.Modules.Bolero.Tests.fsproj",
                 "--filter:${selectedText}",
                 "--logger:trx",
                 "--results-directory:${workspaceFolder}/TestResults",
