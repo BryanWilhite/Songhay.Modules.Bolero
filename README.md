@@ -14,7 +14,7 @@ These are the main concerns of this work:
 
 There are four utilities:
 
-1. a utility for Bolero [[src](Songhay.Modules.Bolero/BoleroUtility.fs)]
+1. a utility for [Bolero](https://github.com/fsbolero/bolero) [[src](Songhay.Modules.Bolero/BoleroUtility.fs)]
 2. a utility for JSON documents [[src](Songhay.Modules.Bolero/JsonDocumentUtility.fs)]
 3. a utility for `IJSRuntime` [[src](Songhay.Modules.Bolero/JsRuntimeUtility.fs)]
 4. a utility for `IRemoteService` [[src](Songhay.Modules.Bolero/RemoteHandlerUtility.fs)]
