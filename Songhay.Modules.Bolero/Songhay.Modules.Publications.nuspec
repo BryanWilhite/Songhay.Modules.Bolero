@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Songhay.Modules.Publications</id>
+    <version>6.0.1</version>
+    <description>shared Publication types and functions for F# clients 🕸🖼</description>
+    <authors>Bryan D. Wilhite</authors>
+    <title>Songhay Modules, Publications</title>
+    <owners>Bryan D. Wilhite</owners>
+    <projectUrl>https://github.com/BryanWilhite/Songhay.Modules.Publications/projects</projectUrl>
+    <icon>images\songhay_icon.png</icon>
+    <license type="file">LICENSE.md</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>shared Publication types and functions for F# clients 🕸🖼</summary>
+    <releaseNotes>https://github.com/BryanWilhite/Songhay.Modules.Publications/issues/1</releaseNotes>
+    <copyright>(c) 2022 Bryan D. Wilhite</copyright>
+    <tags>FSharp;Songhay;Modules;Publications;RSS;Atom</tags>
+    <repository type="git" url="https://github.com/BryanWilhite/Songhay.Modules.Publications"></repository>
+    <dependencies>
+      <group targetFramework=".NET6.0">
+        <dependency id="FsToolkit.ErrorHandling" version="2.13.0" />
+        <dependency id="Songhay.Modules" version="6.1.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\net6.0\Songhay*.dll" target="lib\net6.0" />
+    <file src="bin\Debug\net6.0\Songhay*.json" target="lib\net6.0" />
+    <file src="**\*.fs" exclude="**\obj\**" target="src" />
+    <file src="..\LICENSE.md" target="" />
+    <file src="..\songhay_icon.png" target="images\" />
+  </files>
+</package>

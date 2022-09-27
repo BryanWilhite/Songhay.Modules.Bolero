@@ -1,0 +1,188 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet build [Solution]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications.sln"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Solution, Release]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications.sln",
+                "--configuration",
+                "Release"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Songhay.Modules.Publications]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Songhay.Modules.Publications, Release]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj",
+                "--configuration",
+                "Release"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet pack [Songhay.Modules.Publications, Debug]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "pack",
+                "${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.fsproj",
+                "--configuration",
+                "Debug",
+                "-p:NuspecFile=${workspaceFolder}/Songhay.Modules.Publications/Songhay.Modules.Publications.nuspec",
+                "-p:NuspecBasePath=${workspaceFolder}/Songhay.Modules.Publications",
+                "--output",
+                "${workspaceFolder}/Songhay.Modules.Publications",
+                "--verbosity",
+                "normal"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Songhay.Modules.Publications.Tests]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet test [Songhay.Modules.Publications.Tests]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "test",
+                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "--logger:trx",
+                "--results-directory:${workspaceFolder}/TestResults",
+                "--verbosity:normal",
+                "/p:CollectCoverage=true"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Songhay.Modules.Publications.Tests, Release]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "--configuration",
+                "Release"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet test [Songhay.Modules.Publications.Tests, filtered by selected text]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "test",
+                "${workspaceFolder}/Songhay.Modules.Publications.Tests/Songhay.Modules.Publications.Tests.fsproj",
+                "--filter:${selectedText}",
+                "--logger:trx",
+                "--results-directory:${workspaceFolder}/TestResults",
+                "--verbosity:normal"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet build [Statiq.Docs.Shell, Release]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/Statiq.Docs.Shell/Statiq.Docs.Shell.fsproj",
+                "--configuration",
+                "Release"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dotnet Statiq [Release]",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/Statiq.Docs.Shell.dll",
+                "--configuration",
+                "Release",
+                "--",
+                "--root",
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/",
+                "--log-level",
+                "Information",
+                "--log-file",
+                "${workspaceFolder}/Statiq.Docs.Shell/statiq-"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net6.0/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "git [Statiq Theme Docable]",
+            "command": "git",
+            "type": "shell",
+            "args": [
+                "submodule",
+                "add",
+                "--force",
+                "git@github.com:statiqdev/Docable.git",
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/theme/"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net6.0/"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Statiq: add .nojekyll file for GitHub",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/docs"
+            },
+            "linux": {
+                "command": "touch",
+                "args": [
+                    ".nojekyll"
+                ]
+            },
+            "windows": {
+                "command": "New-Item",
+                "args": [
+                    "-ItemType",
+                    "file",
+                    ".nojekyll"
+                ]
+            },
+            "problemMatcher": []
+        }
+    ]
+}

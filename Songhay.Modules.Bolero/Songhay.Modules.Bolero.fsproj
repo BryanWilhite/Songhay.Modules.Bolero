@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="BoleroUtility.fs" />
+      <Compile Include="JsonDocumentUtility.fs" />
+      <Compile Include="JsRuntimeUtility.fs" />
+      <Compile Include="RemoteHandlerUtility.fs" />
+      <Compile Include="SvgUtility.fs" />
+      <Compile Include="Models\CssPrimitives.fs" />
+      <Compile Include="Models\HtmlPrimitives.fs" />
+      <Compile Include="Models\SvgPrimitives.fs" />
+      <Compile Include="Models\BulmaPrimitives.fs" />
+      <Compile Include="Visuals\CssDeclaration.fs" />
+      <Compile Include="Visuals\BodyElement.fs" />
+      <Compile Include="Visuals\HeadElement.fs" />
+      <Compile Include="Visuals\Bulma\CssClass.fs" />
+      <Compile Include="Visuals\Bulma\Element.fs" />
+      <Compile Include="Visuals\Bulma\Component.fs" />
+      <Compile Include="Visuals\Bulma\Layout.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bolero" Version="0.20.18" />
+        <PackageReference Include="FsToolkit.ErrorHandling" Version="2.13.0" />
+        <PackageReference Include="Songhay.Modules" Version="6.1.0" />
+    </ItemGroup>
+
+</Project>

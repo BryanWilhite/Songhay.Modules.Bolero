@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Songhay.Modules.Bolero", "Songhay.Modules.Bolero\Songhay.Modules.Bolero.fsproj", "{203BC1D2-90E9-49BB-A35C-BB5D09B86BE2}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Songhay.Modules.Bolero.Tests", "Songhay.Modules.Bolero.Tests\Songhay.Modules.Bolero.Tests.fsproj", "{C0877EBB-4C59-4B5B-A11F-BA6F94845BBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{203BC1D2-90E9-49BB-A35C-BB5D09B86BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203BC1D2-90E9-49BB-A35C-BB5D09B86BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203BC1D2-90E9-49BB-A35C-BB5D09B86BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203BC1D2-90E9-49BB-A35C-BB5D09B86BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0877EBB-4C59-4B5B-A11F-BA6F94845BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0877EBB-4C59-4B5B-A11F-BA6F94845BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0877EBB-4C59-4B5B-A11F-BA6F94845BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0877EBB-4C59-4B5B-A11F-BA6F94845BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
