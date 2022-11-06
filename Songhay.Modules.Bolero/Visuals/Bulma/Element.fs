@@ -40,6 +40,19 @@ module Element =
         svgViewBox (0,0) (square.ToWidthOrHeight, square.ToWidthOrHeight)
 
     /// <summary>
+    /// “You can combine an icon with text, using the icon-text wrapper…”
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/elements/icon/#icon-text
+    /// </remarks>
+    let bulmaIconText (moreClasses: CssClassesOrEmpty) (attr: HtmlAttributeOrEmpty) (childNode: Node) =
+        span {
+            CssClasses [ "icon-text" ] |> moreClasses.ToHtmlClassAttribute
+            attr.Value
+            span { childNode }
+        }
+
+    /// <summary>
     /// “A container for responsive images…”
     /// </summary>
     /// <remarks>
