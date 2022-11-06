@@ -324,6 +324,26 @@ type CssFlexDirection =
     member this.Value = this.ToString() |> toKabobCase |> Option.get
 
 ///<summary>
+/// The <c>flex-wrap</c> CSS property sets whether flex items are forced onto one line or can wrap onto multiple lines.
+///</summary>
+/// <remarks>
+/// 📖 https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
+/// </remarks>
+type CssFlexWrap =
+    ///<summary> a CSS <c>flex-wrap</c> property </summary>
+    | NoWrap
+    ///<summary> a CSS <c>flex-wrap</c> property </summary>
+    | Wrap
+    ///<summary> a CSS <c>flex-wrap</c> property </summary>
+    | WrapReverse
+
+    ///<summary>Returns the <see cref="string" /> representation of the <c>flex-wrap</c> property.</summary>
+    member this.Value =
+        match this with
+        | WrapReverse -> this.ToString() |> toKabobCase |> Option.get
+        | _ -> this.ToString() |> toLowerInvariant |> Option.get
+
+///<summary>
 /// Enumerates a subset of the CSS font families
 /// and names font classifications typically in CSS frameworks.
 /// </summary>
