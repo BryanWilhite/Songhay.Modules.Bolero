@@ -266,7 +266,7 @@ module Component =
     /// See:
     /// - <see cref="bulmaNavbarContainer" />
     /// </remarks>
-    let bulmaNavbarBurger (isActive: bool) (menuId: Identifier) (childNode: Node) =
+    let bulmaNavbarBurger (isActive: bool) (menuId: Identifier) =
         a {
             [ "navbar-burger"; if isActive then CssClass.elementIsActive ] |> CssClasses.toHtmlClassFromList
             "role" => "button"
@@ -274,7 +274,11 @@ module Component =
             AriaExpanded.ToAttr "false"
             "data-target" => menuId.StringValue
 
-            childNode
+            concat {
+                span { AriaHidden.ToAttrWithTrueValue }
+                span { AriaHidden.ToAttrWithTrueValue }
+                span { AriaHidden.ToAttrWithTrueValue }
+            }
         }
 
     /// <summary>
