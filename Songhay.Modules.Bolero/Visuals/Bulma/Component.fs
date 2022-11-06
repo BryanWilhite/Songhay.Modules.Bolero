@@ -377,9 +377,9 @@ module Component =
     /// See:
     /// - <see cref="bulmaNavbarContainer" />
     /// </remarks>
-    let bulmaNavbarMenuEnd (childNode: Node) =
+    let bulmaNavbarMenuEnd (moreClasses: CssClassesOrEmpty) (childNode: Node) =
        div {
-            "navbar-end" |> CssClasses.toHtmlClass
+            CssClasses [ "navbar-end" ] |> moreClasses.ToHtmlClassAttribute
 
             childNode
         }
