@@ -304,6 +304,26 @@ type CssCommonImageAspectRatioNumber =
         | Sixteen -> "16"
 
 ///<summary>
+/// The <c>flex-direction</c> CSS property sets how flex items are placed in the flex container
+/// defining the main axis and the direction (normal or reversed).
+///</summary>
+/// <remarks>
+/// 📖 https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction
+/// </remarks>
+type CssFlexDirection =
+    ///<summary> a CSS <c>flex-direction</c> </summary>
+    | Row
+    ///<summary> a CSS <c>flex-direction</c> </summary>
+    | RowReverse
+    ///<summary> a CSS <c>flex-direction</c> </summary>
+    | Column
+    ///<summary> a CSS <c>flex-direction</c> </summary>
+    | ColumnReverse
+
+    ///<summary>Returns the <see cref="string" /> representation of the <c>flex-direction</c> property.</summary>
+    member this.Value = this.ToString() |> toKabobCase |> Option.get
+
+///<summary>
 /// Enumerates a subset of the CSS font families
 /// and names font classifications typically in CSS frameworks.
 /// </summary>
