@@ -170,6 +170,32 @@ module CssClass =
     let elementIsRelative = "is-relative"
 
     ///<summary>
+    /// Bulma CSS class-name function for justifying content.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#justify-content
+    ///</remarks>
+    let elementJustifyContent (boxAlignment: CssBoxAlignment) =
+        let suffix =
+            match boxAlignment with
+            | InheritBoxAlignment _ -> None
+            | FlexStart
+            | FlexEnd
+            | Center
+            | SpaceAround
+            | SpaceBetween
+            | SpaceEvenly
+            | Start
+            | End
+            | Left
+            | Right
+                -> Some boxAlignment.Value
+            | _ -> Some "left"
+
+        if suffix.IsNone then System.String.Empty
+        else $"is-justify-content-{suffix.Value}"
+
+    ///<summary>
     /// Bulma CSS class-name function for typography.
     ///</summary>
     ///<remarks>
