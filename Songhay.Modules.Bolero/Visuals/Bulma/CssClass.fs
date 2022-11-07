@@ -73,6 +73,24 @@ module CssClass =
     let container (width: BulmaContainerWidth) = $"container {width.CssClass}"
 
     ///<summary>
+    /// Bulma CSS class-name function for flex direction.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#flex-direction
+    ///</remarks>
+    let elementFlexDirection (direction: CssFlexDirection) =
+        $"is-flex-direction-{direction.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for flex wrapping.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#flex-wrap
+    ///</remarks>
+    let elementFlexWrap (wrap: CssFlexWrap) =
+        $"is-flex-direction-{wrap.Value}"
+
+    ///<summary>
     /// Bulma CSS class-name function for typography.
     ///</summary>
     ///<remarks>
