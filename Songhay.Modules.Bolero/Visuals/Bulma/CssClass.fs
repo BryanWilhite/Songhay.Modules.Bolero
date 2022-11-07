@@ -73,6 +73,32 @@ module CssClass =
     let container (width: BulmaContainerWidth) = $"container {width.CssClass}"
 
     ///<summary>
+    /// Bulma CSS class-name function for content alignment.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#align-content
+    ///</remarks>
+    let elementContentAlignment (wrap: CssBoxAlignment) =
+        let suffix =
+            match wrap with
+            | InheritBoxAlignment _ -> None
+            | FlexStart
+            | FlexEnd
+            | Center
+            | SpaceAround
+            | SpaceBetween
+            | SpaceEvenly
+            | Stretch
+            | Start
+            | End
+            | BaseLine
+                -> Some wrap.Value
+            | _ -> Some "start"
+
+        if suffix.IsNone then System.String.Empty
+        else $"is-align-content-{wrap.Value}"
+
+    ///<summary>
     /// Bulma CSS class-name function for flex direction.
     ///</summary>
     ///<remarks>
