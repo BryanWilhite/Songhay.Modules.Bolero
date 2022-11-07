@@ -73,12 +73,12 @@ module CssClass =
     let container (width: BulmaContainerWidth) = $"container {width.CssClass}"
 
     ///<summary>
-    /// Bulma CSS class-name function for content alignment.
+    /// Bulma CSS class-name function for flex content alignment.
     ///</summary>
     ///<remarks>
     /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#align-content
     ///</remarks>
-    let elementContentAlignment (wrap: CssBoxAlignment) =
+    let elementFlexContentAlignment (wrap: CssBoxAlignment) =
         let suffix =
             match wrap with
             | InheritBoxAlignment _ -> None
@@ -96,7 +96,7 @@ module CssClass =
             | _ -> Some "start"
 
         if suffix.IsNone then System.String.Empty
-        else $"is-align-content-{wrap.Value}"
+        else $"is-align-content-{suffix.Value}"
 
     ///<summary>
     /// Bulma CSS class-name function for flex direction.
@@ -106,6 +106,52 @@ module CssClass =
     ///</remarks>
     let elementFlexDirection (direction: CssFlexDirection) =
         $"is-flex-direction-{direction.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for flex items alignment.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#align-items
+    ///</remarks>
+    let elementFlexItemsAlignment (wrap: CssBoxAlignment) =
+        let suffix =
+            match wrap with
+            | InheritBoxAlignment _ -> None
+            | Stretch
+            | FlexStart
+            | FlexEnd
+            | Center
+            | BaseLine
+            | Start
+            | End
+            | SelfStart
+            | SelfEnd
+                -> Some wrap.Value
+            | _ -> Some "start"
+
+        if suffix.IsNone then System.String.Empty
+        else $"is-align-items-{suffix.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for flex “self” alignment.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#align-items
+    ///</remarks>
+    let elementFlexSelfAlignment (wrap: CssBoxAlignment) =
+        let suffix =
+            match wrap with
+            | InheritBoxAlignment _ -> "auto"
+            | FlexStart
+            | FlexEnd
+            | Center
+            | BaseLine
+            | Start
+            | Stretch
+                -> wrap.Value
+            | _ -> "start"
+
+        $"is-align-self-{suffix}"
 
     ///<summary>
     /// Bulma CSS class-name function for flex wrapping.
