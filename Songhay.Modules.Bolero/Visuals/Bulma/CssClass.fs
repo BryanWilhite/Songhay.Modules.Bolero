@@ -89,11 +89,10 @@ module CssClass =
             | SpaceBetween
             | SpaceEvenly
             | Stretch
-            | Start
             | End
             | BaseLine
                 -> Some wrap.Value
-            | _ -> Some "start"
+            | _ -> Some Start.Value
 
         if suffix.IsNone then System.String.Empty
         else $"is-align-content-{suffix.Value}"
@@ -106,6 +105,45 @@ module CssClass =
     ///</remarks>
     let elementFlexDirection (direction: CssFlexDirection) =
         $"is-flex-direction-{direction.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for flex grow.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#flex-grow-and-flex-shrink
+    ///</remarks>
+    let elementFlexGrow (level: BulmaValueSuffix) =
+        let value =
+            match level with
+            | L0 | L1 | L2 | L3 | L4 | L5 -> level.Value
+            | _ -> L0.Value
+
+        $"is-flex-grow-{value}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for justifying content.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#justify-content
+    ///</remarks>
+    let elementFlexJustifyContent (boxAlignment: CssBoxAlignment) =
+        let suffix =
+            match boxAlignment with
+            | InheritBoxAlignment _ -> None
+            | FlexStart
+            | FlexEnd
+            | Center
+            | SpaceAround
+            | SpaceBetween
+            | SpaceEvenly
+            | Start
+            | End
+            | Right
+                -> Some boxAlignment.Value
+            | _ -> Some Left.Value
+
+        if suffix.IsNone then System.String.Empty
+        else $"is-justify-content-{suffix.Value}"
 
     ///<summary>
     /// Bulma CSS class-name function for flex items alignment.
@@ -122,12 +160,11 @@ module CssClass =
             | FlexEnd
             | Center
             | BaseLine
-            | Start
             | End
             | SelfStart
             | SelfEnd
                 -> Some wrap.Value
-            | _ -> Some "start"
+            | _ -> Some Start.Value
 
         if suffix.IsNone then System.String.Empty
         else $"is-align-items-{suffix.Value}"
@@ -141,17 +178,29 @@ module CssClass =
     let elementFlexSelfAlignment (wrap: CssBoxAlignment) =
         let suffix =
             match wrap with
-            | InheritBoxAlignment _ -> "auto"
             | FlexStart
             | FlexEnd
             | Center
             | BaseLine
-            | Start
             | Stretch
                 -> wrap.Value
-            | _ -> "start"
+            | _ -> "auto"
 
         $"is-align-self-{suffix}"
+
+    ///<summary>
+    /// Bulma CSS class-name function for flex shrink.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#flex-grow-and-flex-shrink
+    ///</remarks>
+    let elementFlexShrink (level: BulmaValueSuffix) =
+        let value =
+            match level with
+            | L0 | L1 | L2 | L3 | L4 | L5 -> level.Value
+            | _ -> L0.Value
+
+        $"is-flex-shrink-{value}"
 
     ///<summary>
     /// Bulma CSS class-name function for flex wrapping.
@@ -160,7 +209,7 @@ module CssClass =
     /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#flex-wrap
     ///</remarks>
     let elementFlexWrap (wrap: CssFlexWrap) =
-        $"is-flex-direction-{wrap.Value}"
+        $"is-flex-wrap-{wrap.Value}"
 
     ///<summary>
     /// Bulma CSS class-name function for typography.
@@ -258,32 +307,6 @@ module CssClass =
     ///</summary>
     [<Literal>]
     let elementIsRelative = "is-relative"
-
-    ///<summary>
-    /// Bulma CSS class-name function for justifying content.
-    ///</summary>
-    ///<remarks>
-    /// 📖 https://bulma.io/documentation/helpers/flexbox-helpers/#justify-content
-    ///</remarks>
-    let elementJustifyContent (boxAlignment: CssBoxAlignment) =
-        let suffix =
-            match boxAlignment with
-            | InheritBoxAlignment _ -> None
-            | FlexStart
-            | FlexEnd
-            | Center
-            | SpaceAround
-            | SpaceBetween
-            | SpaceEvenly
-            | Start
-            | End
-            | Left
-            | Right
-                -> Some boxAlignment.Value
-            | _ -> Some "left"
-
-        if suffix.IsNone then System.String.Empty
-        else $"is-justify-content-{suffix.Value}"
 
     ///<summary>
     /// Bulma CSS class-name function for typography.
