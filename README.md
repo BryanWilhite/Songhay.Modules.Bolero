@@ -88,11 +88,34 @@ These models support the functions of the Visuals:
 6. Bulma Element Visuals [[src](Songhay.Modules.Bolero/Visuals/Bulma/Element.fs)]
 7. Bulma Layout Visuals [[src](Songhay.Modules.Bolero/Visuals/Bulma/Layout.fs)]
 
-The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML DSL on which this work depends heavily. The _generic_ CSS coverage is starting off with typography. The Bulma-specific coverage is the  most extensive but lacking in the following areas:
+The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML DSL on which this work depends heavily. The _generic_ CSS coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:
 
 - [the Bulma form](https://bulma.io/documentation/form/)
 - [Bulma pagination](https://bulma.io/documentation/components/pagination/)
 
 I look forward to working a bit more on this Bulma coverage, likely starting with Bulma pagination.
+
+### custom JavaScript is needed for the Bulma Navbar
+
+In order to toggle the Bulma Navbar [burger](https://bulma.io/documentation/components/navbar/#navbar-burger) and its dropdown menu, the following JavaScript is needed:
+
+```javascript
+(() => {
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const burger = document.querySelector('.navbar-burger');
+        const nav = document.querySelector(`#${burger.dataset.target}`);
+        const isActiveCssClass = 'is-active';
+
+        burger.addEventListener('click', () => {
+            burger.classList.toggle(isActiveCssClass);
+            nav.classList.toggle(isActiveCssClass);
+        });
+    });
+
+})();
+```
+
+This JavaScript is similar to [the code provided in the Bulma documentation](https://bulma.io/documentation/components/navbar/#navbar-menu).
 
 @[BryanWilhite](https://twitter.com/BryanWilhite)
