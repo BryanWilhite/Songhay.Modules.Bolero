@@ -92,7 +92,7 @@ type DomElementEvent =
     /// <summary>Prevent the default event behavior for a given HTML event.</summary>
     /// <remarks>
     /// This <see cref="on.preventDefault" /> attribute is surely based
-    /// on the <c>@on{DOM EVENT}:preventDefault<c> directive attribute of Blazor.
+    /// on the <c>@on{DOM EVENT}:preventDefault</c> directive attribute of Blazor.
     /// 📖 https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#prevent-default-actions
     /// </remarks>
     member this.PreventDefault = on.preventDefault $"on{this.Name}" true

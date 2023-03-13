@@ -32,7 +32,7 @@ module JsRuntimeUtility =
     let tryGetElementReference (htmlRef: HtmlRef) =
         match htmlRef.Value with
         | Some elementRef -> Ok elementRef
-        | _ -> Error (FormatException "The expected HTML element reference is not here.")
+        | _ -> Error <| FormatException "The expected HTML element reference is not here."
 
     ///<summary>
     /// Calls the methods of the JavaScript <c>console</c> object

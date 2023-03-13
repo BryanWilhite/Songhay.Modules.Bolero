@@ -152,7 +152,7 @@ module Layout =
     ///</summary>
     ///<remarks>
     /// “In a <c>level-item</c>, you can then insert almost anything you want…
-    /// No matter what elements you put inside a Bulma <c>level<c/>, they will always be vertically centered.”
+    /// No matter what elements you put inside a Bulma <c>level</c>, they will always be vertically centered.”
     /// 📖 https://bulma.io/documentation/layout/level/
     ///</remarks>
     let bulmaLevelItem (moreClasses: CssClassesOrEmpty) (attributes: HtmlAttributeOrEmpty) (childNode: Node) =

@@ -24,7 +24,7 @@ module JsonDocumentUtility =
                     fun code ->
                         if logger.IsSome then
                             logger.Value.LogError($"The expected {nameof HttpStatusCode}, `{code},` is not here.")
-                        exn $"{nameof HttpStatusCode}: {code.ToString()}"
+                        JsonException <| $"{nameof HttpStatusCode}: {code.ToString()}"
                )
         |> Result.bind (fun json -> json |> tryGetRootElement)
         |> Result.mapError
