@@ -2,6 +2,7 @@ namespace Songhay.Modules.Bolero.Models
 
 open System
 
+open Songhay.Modules.Models
 open Songhay.Modules.StringUtility
 
 ///<summary>

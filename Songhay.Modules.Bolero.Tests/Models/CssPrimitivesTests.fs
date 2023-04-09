@@ -18,15 +18,3 @@ let CssClassesToAttributeValueTestData : seq<obj[]> =
 let ``CssClasses ToAttributeValue test`` (expected: string, classes: CssClasses) =
     let actual = classes.ToAttributeValue
     Assert.Equal(expected, actual)
-
-let CssInheritanceTestData : seq<obj[]> =
-    seq {
-        yield [| "inherit"; Inherit |]
-        yield [| "revert-layer"; RevertLayer |]
-    }
-
-[<Theory>]
-[<MemberData(nameof CssInheritanceTestData)>]
-let ``CssInheritance test`` (expected: string, inheritance: CssInheritance) =
-    let actual = inheritance.Value
-    Assert.Equal<string>(expected, actual)

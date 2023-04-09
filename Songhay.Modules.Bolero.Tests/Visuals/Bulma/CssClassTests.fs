@@ -2,6 +2,7 @@ module Songhay.Modules.Bolero.Tests.Visuals.Bulma.CssClassTests
 
 open Xunit
 
+open Songhay.Modules.Models
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 

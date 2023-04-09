@@ -1,5 +1,6 @@
 namespace Songhay.Modules.Bolero.Visuals.Bulma
 
+open Songhay.Modules.Models
 open Songhay.Modules.Bolero.Models
 
 ///<summary>

@@ -15,7 +15,6 @@
       <Compile Include="Models\HtmlPrimitives.fs" />
       <Compile Include="Models\SvgPrimitives.fs" />
       <Compile Include="Models\BulmaPrimitives.fs" />
-      <Compile Include="Visuals\CssDeclaration.fs" />
       <Compile Include="Visuals\BodyElement.fs" />
       <Compile Include="Visuals\HeadElement.fs" />
       <Compile Include="Visuals\Bulma\CssClass.fs" />
@@ -26,8 +25,8 @@
 
     <ItemGroup>
         <PackageReference Include="Bolero" Version="0.21.25" />
-        <PackageReference Include="FsToolkit.ErrorHandling" Version="4.4.0" />
-        <PackageReference Include="Songhay.Modules" Version="6.3.2" />
+        <PackageReference Include="FsToolkit.ErrorHandling" Version="4.5.0" />
+        <PackageReference Include="Songhay.Modules" Version="6.3.5" />
     </ItemGroup>
 
 </Project>

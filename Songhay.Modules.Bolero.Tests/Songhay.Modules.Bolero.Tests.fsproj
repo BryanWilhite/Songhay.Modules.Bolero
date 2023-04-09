@@ -11,13 +11,12 @@
         <Compile Include="Models\CssPrimitivesTests.fs" />
         <Compile Include="Models\HtmlPrimitivesTests.fs" />
         <Compile Include="Models\BulmaPrimitivesTests.fs" />
-        <Compile Include="Visuals\CssDeclarationTests.fs" />
         <Compile Include="Visuals\Bulma\CssClassTests.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FsToolkit.ErrorHandling" Version="4.4.0" />
+        <PackageReference Include="FsToolkit.ErrorHandling" Version="4.5.0" />
         <PackageReference Include="FsUnit.xUnit" Version="5.2.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageReference Include="xunit" Version="2.4.2" />
