@@ -123,6 +123,15 @@ module JsRuntimeUtility =
         jsRuntime.InvokeAsync<string>($"{rx}.{CssUtility}.getComputedStylePropertyValueByQuery", query, propertyName).AsTask()
 
     ///<summary>
+    /// Calls the <see cref="consoleErrorAsync" /> function
+    /// with the any label and the specified <see cref="exn"/>
+    /// —and passes the <see cref="exn"/> through.
+    ///</summary>
+    let passErrorToConsole (label: string option) (ex: exn) (jsRuntime: IJSRuntime) =
+        jsRuntime |> consoleErrorAsync [| if label.IsSome then label; ex |] |> ignore
+        ex
+
+    ///<summary>
     /// Calls the <c>CssUtility.setComputedStylePropertyValue</c> method in <c>songhay-core</c>.
     ///</summary>
     /// <remarks>
