@@ -211,6 +211,24 @@ module Component =
     /// </summary>
     /// <remarks>
     /// 📖 https://bulma.io/documentation/components/modal/
+    ///
+    /// This function is a building block of <see cref="bulmaModalContainer" />.
+    /// </remarks>
+    let bulmaModalBackground (modalBackgroundAttributes: HtmlAttributeOrEmpty)=
+            div {
+                [ "modal-background" ] |> CssClasses.toHtmlClassFromList
+
+                modalBackgroundAttributes.Value
+            }
+
+    /// <summary>
+    /// “A classic modal overlay, in which you can include any content you want…
+    /// <c>modal-close</c>: a simple cross located in the top right corner …”
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/components/modal/
+    ///
+    /// This function is a building block of <see cref="bulmaModalContainer" />.
     /// </remarks>
     let bulmaModalClose (moreContainerClasses: CssClassesOrEmpty) =
         button {
@@ -225,10 +243,12 @@ module Component =
     /// </summary>
     /// <remarks>
     /// 📖 https://bulma.io/documentation/components/modal/
+    ///
+    /// This function is a building block of <see cref="bulmaModalContainer" />.
     /// </remarks>
     let bulmaModalContent (moreContainerClasses: CssClassesOrEmpty) (childNode: Node) =
         div {
-            CssClasses [ "modal-background" ] |> moreContainerClasses.ToHtmlClassAttribute
+            CssClasses [ "modal-content" ] |> moreContainerClasses.ToHtmlClassAttribute
 
             childNode
         }
@@ -240,16 +260,16 @@ module Component =
     /// 📖 https://bulma.io/documentation/components/modal/
     ///
     /// See:
+    /// - <see cref="bulmaModalBackground" />
     /// - <see cref="bulmaModalClose" />
     /// - <see cref="bulmaModalContent" />
     /// </remarks>
-    let bulmaModalContainer (showBackground: bool) (childNode: Node) =
+    let bulmaModalContainer
+        (moreClasses: CssClassesOrEmpty)
+        (isModalVisible: bool)
+        (childNode: Node) =
         div {
-            (CssClasses [ "modal" ]).ToHtmlClassAttribute
-
-            cond showBackground <| function
-                | true -> div { CssClasses[ "modal-background" ].ToHtmlClassAttribute }
-                | false -> empty()
+            CssClasses [ "modal"; if isModalVisible then CssClass.elementIsActive ] |> moreClasses.ToHtmlClassAttribute
 
             childNode
 
