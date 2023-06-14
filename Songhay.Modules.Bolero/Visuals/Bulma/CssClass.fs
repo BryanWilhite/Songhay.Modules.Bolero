@@ -267,6 +267,15 @@ module CssClass =
     ///<summary>
     /// Bulma CSS class-name literal.
     ///</summary>
+    ///<remarks>
+    /// Adds overflow hidden
+    ///</remarks>
+    [<Literal>]
+    let elementIsFlex = "is-flex"
+
+    ///<summary>
+    /// Bulma CSS class-name literal.
+    ///</summary>
     [<Literal>]
     let elementIsHidden = "is-hidden"
 
