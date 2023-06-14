@@ -399,6 +399,15 @@ module CssClass =
     /// Bulma CSS class-name literal.
     ///</summary>
     ///<remarks>
+    /// 📖 https://bulma.io/documentation/overview/modifiers/
+    ///</remarks>
+    [<Literal>]
+    let isLoadingModifier = "is-loading"
+
+    ///<summary>
+    /// Bulma CSS class-name literal.
+    ///</summary>
+    ///<remarks>
     /// “By default, columns are only activated on tablet and desktop.
     /// If you want to use columns on mobile too,
     /// add the is-mobile modifier on the columns container.”
@@ -406,6 +415,15 @@ module CssClass =
     ///</remarks>
     [<Literal>]
     let isMobileModifier = "is-mobile"
+
+    ///<summary>
+    /// Bulma CSS class-name literal.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/overview/modifiers/
+    ///</remarks>
+    [<Literal>]
+    let isOutlinedModifier = "is-outlined"
 
     ///<summary>
     /// Bulma CSS class-name function for layout.
