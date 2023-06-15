@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Models\StudioFloorTab.fs" />
+    <Compile Include="Models\StudioFloorMessage.fs" />
+    <Compile Include="Models\StudioFloorModel.fs" />
+    <Compile Include="ProgramComponentUtility.fs" />
+    <Compile Include="Components\TabsElmishComponent.fs" />
+    <Compile Include="Components\StudioFloorProgramComponent.fs" />
+    <Compile Include="Startup.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bolero" Version="0.*" />
+    <PackageReference Include="Bolero.Build" Version="0.21.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.*" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\scss\index.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\index.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
+    <_ContentIncludedByDefault Remove="wwwroot\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="package-lock.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Songhay.Modules.Bolero\Songhay.Modules.Bolero.fsproj" />
+  </ItemGroup>
+</Project>

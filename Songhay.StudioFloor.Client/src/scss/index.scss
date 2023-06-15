@@ -1,0 +1,109 @@
+@charset "utf-8";
+/*
+
+    According to Bulma docs (and comments in `*.sass` files), the order of `@import` is:
+
+    1. fonts (with `url`)
+    2. your “brand” colors (with Bulma variables)
+    3. your customization of other Bulma globals
+    4. `bulma/sass/utilities*`
+    5. `bulma/sass/base*`
+    6. `bulma/sass/elements*`
+    7. `bulma/sass/form*`
+    8. `bulma/sass/components*`
+    9. `bulma/sass/layout*`
+
+    [ https://bulma.io/documentation/customize/with-sass-cli/#6-add-your-own-bulma-styles ]
+
+*/
+
+// #1
+// @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+// #2
+// @import "./colors/bulma.scss";
+
+// #4
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/functions";
+@import "bulma/sass/utilities/derived-variables";
+@import "bulma/sass/utilities/mixins";
+@import "bulma/sass/utilities/controls";
+@import "bulma/sass/utilities/extends";
+// @import "bulma/sass/utilities/animations"; “The animations.sass file has MOVED.”
+
+// TODO: the Bulma docs have not caught up to `helpers`:
+@import "bulma/sass/helpers/color";
+@import "bulma/sass/helpers/flexbox";
+// @import "bulma/sass/helpers/float";
+@import "bulma/sass/helpers/other";
+@import "bulma/sass/helpers/overflow";
+@import "bulma/sass/helpers/position";
+@import "bulma/sass/helpers/spacing";
+@import "bulma/sass/helpers/typography";
+@import "bulma/sass/helpers/visibility";
+
+// #5
+@import "bulma/sass/base/minireset";
+@import "bulma/sass/base/generic";
+// @import "bulma/sass/base/helpers"; “The helpers.sass file is DEPRECATED.”
+@import "bulma/sass/base/animations";
+
+// #6
+@import "bulma/sass/elements/_all";
+
+// #7
+// @import "bulma/sass/form/shared";
+// @import "bulma/sass/form/input-textarea";
+// @import "bulma/sass/form/checkbox-radio";
+// @import "bulma/sass/form/select";
+// @import "bulma/sass/form/file";
+// @import "bulma/sass/form/tools";
+
+// #8
+// @import "bulma/sass/components/media";
+// @import "bulma/sass/components/pagination";
+@import "bulma/sass/components/message";
+@import "bulma/sass/components/modal";
+
+// @import "bulma/sass/components/breadcrumb";
+// @import "bulma/sass/components/card";
+@import "bulma/sass/components/dropdown";
+@import "bulma/sass/components/level";
+@import "bulma/sass/components/menu";
+@import "bulma/sass/components/navbar";
+// @import "bulma/sass/components/panel";
+@import "bulma/sass/components/tabs";
+
+// #9
+// @import "bulma/sass/layout/hero";
+// @import "bulma/sass/layout/section";
+// @import "bulma/sass/layout/footer";
+
+// TODO: the Bulma docs have not caught up to `grid`:
+@import "bulma/sass/grid/_all";
+
+@import "../../../Songhay.Player.ProgressiveAudio/src/scss/player-progressive-audio.scss";
+
+html, body {
+    background-color: #4a4a4a;
+    min-height: 100%;
+}
+
+.notification {
+    h1, h2, li, p {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    h1 {
+        font-size: 3rem;
+    }
+    h2 {
+        font-size: 2.5rem;
+    }
+    li {
+        list-style-type: square;
+        margin-left: 1.5rem;
+    }
+}
