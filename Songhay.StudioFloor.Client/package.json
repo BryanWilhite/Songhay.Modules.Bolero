@@ -7,6 +7,7 @@
     "scripts": {
         "build": "tsc",
         "index:sass": "npx sass ./src/scss/index.scss ./wwwroot/css/index.min.css --load-path=./node_modules --no-source-map --style=compressed",
+        "pandoc": "pandoc ../README.md -o ./wwwroot/README.html",
         "start": "http-server ./bin/Release/net6.0/publish/wwwroot -o -c-1",
         "version:patch": "npm version patch -m \":rocket: :snowflake: version patch up to %s\"",
         "webpack:bundle": "npx webpack --config-name=default-config --mode=production",
