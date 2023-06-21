@@ -12,6 +12,13 @@ open Songhay.StudioFloor.Client.Models
 type TabsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
+    let tabs = [
+        (text "README", ReadMeTab)
+        (concat { text "Bolero "; code { text "IJsRuntime" }; text " " }, BoleroJsRuntimeTab)
+        (text "Bulma: Columns", BulmaColumnsTab)
+        (text "SVG", SvgTab)
+    ]
+
     static member EComp model dispatch =
         ecomp<TabsElmishComponent, _, _> model dispatch { attr.empty() }
 
@@ -20,13 +27,6 @@ type TabsElmishComponent() =
         || oldModel.readMeData <> newModel.readMeData
 
     override this.View model dispatch =
-        let tabs = [
-            ("README", ReadMeTab)
-            ("Bolero `IJsRuntime`", BoleroJsRuntimeTab)
-            ("Bulma: Columns", BulmaColumnsTab)
-            ("SVG", SvgTab)
-        ]
-
         concat {
             div {
                 [
@@ -38,13 +38,13 @@ type TabsElmishComponent() =
                 ] |> CssClasses.toHtmlClassFromList
 
                 ul {
-                    forEach tabs <| fun (label, pg) ->
+                    forEach tabs <| fun (node, pg) ->
                     li {
                         a {
                             attr.href "#"
                             DomElementEvent.Click.PreventDefault
                             on.click (fun _ -> SetTab pg |> dispatch)
-                            text label
+                            node
                         }
                     }
                 }
@@ -61,8 +61,19 @@ type TabsElmishComponent() =
                         (bulmaNotification
                             (HasClasses <| CssClasses [ "is-info" ])
                             (rawHtml model.readMeData.Value))
-            | BoleroJsRuntimeTab
-            | BulmaColumnsTab
+
+            | BoleroJsRuntimeTab ->
+                bulmaContainer
+                    ContainerWidthFluid
+                    NoCssClasses
+                    (BoleroJsRuntimeElmishComponent.EComp model dispatch)
+
+            | BulmaColumnsTab ->
+                bulmaContainer
+                    ContainerWidthFluid
+                    NoCssClasses
+                    (empty())
+
             | SvgTab ->
                 bulmaContainer
                     ContainerWidthFluid
