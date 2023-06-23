@@ -4,6 +4,7 @@ open Bolero
 open Bolero.Html
 open Elmish
 
+open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
@@ -16,19 +17,65 @@ type BoleroJsRuntimeElmishComponent() =
 
     let blockWrapperRef = HtmlRef()
 
-    let demoBlock (model: StudioFloorModel) (dispatch: Dispatch<StudioFloorMessage>) =
+    let demoBlock (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
+        let colorAzure = "azure"
+        let colorYellow = "yellow"
+        let cssVariable = CssVariable.fromInput "main-bg-color"
+        let cssVariableAndValue = CssVariableAndValue (cssVariable, CssValue colorAzure)
         let styleList =
             [
-                "--main-bg-color: brown"
-                "background-color: var(--main-bg-color)"
+                cssVariableAndValue.toCssDeclaration
+                $"background-color: {cssVariable.toCssPropertyValue};"
             ]
 
         div {
-            attr.style (styleList |> List.reduce (fun a i -> $"{a};{i}"))
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
+            attr.style (styleList |> List.reduce (fun a i -> $"{a}{i}"))
             attr.ref blockWrapperRef
-        }
+            div {
+                [ notification; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ] |> CssClasses.toHtmlClassFromList
+                div {
+                    content |> CssClasses.toHtmlClass
+                    rawHtml @"
+                        <p>Click the button to demonstrate:</p>
+                        <ol class=""is-lower-roman"">
+                            <li>a call <code>getComputedStylePropertyValueAsync</code> to get the current color</li>
+                            <li>a get the next color and call <code>consoleInfoAsync</code> to log the current and next color</li>
+                            <li>a call <code>setComputedStylePropertyValueAsync</code> to set the background color</li>
+                        </ol>
+                    "
+                }
+            }
+            button {
+                [
+                    buttonClass
+                    "is-ghost"
+                    "is-large"
+                    DisplayInlineBlock.CssClass
+                    m (All, L4)
+                ] |> CssClasses.toHtmlClassFromList
+                on.async.click (fun _ ->
+                    async {
+                        let! currentColor =
+                            model.blazorServices.jsRuntime
+                            |> getComputedStylePropertyValueAsync blockWrapperRef cssVariable.Value
+                            |> Async.AwaitTask
 
-    static let click = DomElementEvent.Click
+                        let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
+
+                        model.blazorServices.jsRuntime
+                        |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
+                        |> ignore
+
+                        model.blazorServices.jsRuntime
+                        |> setComputedStylePropertyValueAsync blockWrapperRef cssVariable.Value nextColor
+                        |> ignore
+                    }
+                )
+
+                text "set computed style with CSS variable"
+            }
+        }
 
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeElmishComponent, _, _> model dispatch { attr.empty() }

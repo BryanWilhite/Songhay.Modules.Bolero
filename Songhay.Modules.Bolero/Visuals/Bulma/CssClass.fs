@@ -9,7 +9,7 @@ open Songhay.Modules.Bolero.Models
 module CssClass =
 
     ///<summary>
-    /// Bulma CSS class-name literal for Bulma elements.
+    /// Bulma CSS class-name literal for Bulma box elements.
     ///</summary>
     ///<remarks>
     /// “The box element is a simple container with a white background, some padding, and a box shadow…”
@@ -19,7 +19,17 @@ module CssClass =
     let box = "box"
 
     ///<summary>
-    /// Bulma CSS class-name literal for the Bulma card element.
+    /// Bulma CSS class-name literal for the Bulma button element.
+    ///</summary>
+    ///<remarks>
+    /// “The button is an essential element of any design. It’s meant to look and behave as an interactive element of your page…”
+    /// 📖 https://bulma.io/documentation/elements/button/
+    ///</remarks>
+    [<Literal>]
+    let buttonClass = "button"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma card component.
     ///</summary>
     ///<remarks>
     /// “The card component comprises several elements that you can mix and match…”

@@ -187,7 +187,7 @@ module Component =
                 "dropdown-trigger" |> CssClasses.toHtmlClass
 
                 button {
-                    "button" |> CssClasses.toHtmlClass
+                    CssClass.buttonClass |> CssClasses.toHtmlClass
                     AriaHasPopup.ToAttrWithTrueValue
                     AriaControls.AttrName => "dropdown-menu"
                     on.click callback
