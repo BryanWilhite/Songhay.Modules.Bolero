@@ -17,7 +17,7 @@ type BoleroJsRuntimeElmishComponent() =
 
     let blockWrapperRef = HtmlRef()
 
-    let demoBlock (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
+    let demoCssVariableBlock (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
         let colorAzure = "azure"
         let colorYellow = "yellow"
         let cssVariable = CssVariable.fromInput "main-bg-color"
@@ -94,7 +94,7 @@ type BoleroJsRuntimeElmishComponent() =
                 }
                 h2 {
                     (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ] |> CssClasses.toHtmlClassFromList
-                    text "This utility meets the concern of Blazor-JavaScript interoperability."
+                    text "changing a CSS variable (custom property)"
                 }
-                demoBlock model dispatch
+                demoCssVariableBlock model dispatch
             })
