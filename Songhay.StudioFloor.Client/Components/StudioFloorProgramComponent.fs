@@ -27,6 +27,9 @@ type StudioFloorProgramComponent() =
         | GotReadMe data ->
             let m = { model with readMeData = data |> Some }
             m, Cmd.none
+        | NextProgress ->
+            let m = { model with progressValue = model.progressValue + 1 }
+            m, Cmd.none
         | SetTab tab ->
             let m = { model with tab = tab }
             m, Cmd.none

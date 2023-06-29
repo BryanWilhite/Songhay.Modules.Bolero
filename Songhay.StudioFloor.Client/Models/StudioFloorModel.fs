@@ -10,6 +10,7 @@ type StudioFloorModel =
         blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
         tab: StudioFloorTab
         readMeData: string option
+        progressValue: int
     }
 
     static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
@@ -17,4 +18,5 @@ type StudioFloorModel =
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
             tab = ReadMeTab
             readMeData = None
+            progressValue = 0 
         }

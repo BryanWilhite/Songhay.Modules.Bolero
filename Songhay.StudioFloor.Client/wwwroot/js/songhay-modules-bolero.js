@@ -751,6 +751,9 @@ class BoleroUtility {
 }
 BoleroUtility.css = CssUtility;
 BoleroUtility.dom = DomUtility;
+DomUtility.runWhenWindowContentLoaded(() => {
+    console.info({ DotNet });
+});
 
 ;// CONCATENATED MODULE: ./src/index.ts
 /* utilities */

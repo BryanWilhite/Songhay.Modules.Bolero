@@ -1,5 +1,8 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open System.Threading.Tasks
+open Microsoft.JSInterop
+
 open Bolero
 open Bolero.Html
 open Elmish
@@ -15,7 +18,7 @@ open Songhay.StudioFloor.Client.Models
 type BoleroJsRuntimeElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
-    let blockWrapperRef = HtmlRef()
+    let demoCssVariableHtmlRef = HtmlRef()
 
     let demoCssVariableBlock (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
         let colorAzure = "azure"
@@ -31,7 +34,7 @@ type BoleroJsRuntimeElmishComponent() =
         div {
             [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
             attr.style (styleList |> List.reduce (fun a i -> $"{a}{i}"))
-            attr.ref blockWrapperRef
+            attr.ref demoCssVariableHtmlRef
             div {
                 [ notification; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ] |> CssClasses.toHtmlClassFromList
                 div {
@@ -58,7 +61,7 @@ type BoleroJsRuntimeElmishComponent() =
                     async {
                         let! currentColor =
                             model.blazorServices.jsRuntime
-                            |> getComputedStylePropertyValueAsync blockWrapperRef cssVariable.Value
+                            |> getComputedStylePropertyValueAsync demoCssVariableHtmlRef cssVariable.Value
                             |> Async.AwaitTask
 
                         let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
@@ -68,9 +71,42 @@ type BoleroJsRuntimeElmishComponent() =
                         |> ignore
 
                         model.blazorServices.jsRuntime
-                        |> setComputedStylePropertyValueAsync blockWrapperRef cssVariable.Value nextColor
+                        |> setComputedStylePropertyValueAsync demoCssVariableHtmlRef cssVariable.Value nextColor
                         |> ignore
                     }
+                )
+
+                text "set computed style with CSS variable"
+            }
+        }
+
+    let demoWindowAnimationBlock (eComp: BoleroJsRuntimeElmishComponent) (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
+        div {
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
+            div {
+                [ notification; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ] |> CssClasses.toHtmlClassFromList
+                div {
+                    content |> CssClasses.toHtmlClass
+                    rawHtml @"
+                        <p>Click the button to demonstrate:</p>
+                        <ol class=""is-lower-roman"">
+                            <li></li>
+                        </ol>
+                    "
+                }
+            }
+            button {
+                [
+                    buttonClass
+                    "is-ghost"
+                    "is-large"
+                    DisplayInlineBlock.CssClass
+                    m (All, L4)
+                ] |> CssClasses.toHtmlClassFromList
+                on.click (fun _ ->
+                    let qualifiedName = $"{rx}.StudioFloorUtility.runMyAnimation"
+                    model.blazorServices
+                        .jsRuntime.InvokeVoidAsync(qualifiedName, [| eComp.componentRef |]).AsTask() |> ignore
                 )
 
                 text "set computed style with CSS variable"
@@ -92,9 +128,23 @@ type BoleroJsRuntimeElmishComponent() =
                     title DefaultBulmaFontSize @ [ ColorPrimary.TextCssClass ] |> CssClasses.toHtmlClassFromList
                     text "the "; code { text "JsRuntimeUtility" }; text " module"
                 }
+
                 h2 {
                     (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ] |> CssClasses.toHtmlClassFromList
                     text "changing a CSS variable (custom property)"
                 }
                 demoCssVariableBlock model dispatch
+
+                h2 {
+                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ] |> CssClasses.toHtmlClassFromList
+                    text "the JavaScript "; code { text "WindowAnimation" }; text " class"
+                }
+                demoWindowAnimationBlock this model dispatch
             })
+
+    member this.componentRef: DotNetObjectReference<_> = DotNetObjectReference.Create(this)
+
+    [<JSInvokable>]
+    member this.getNextX _ =
+        this.Dispatch NextProgress
+        Task.FromResult this.Model.progressValue
