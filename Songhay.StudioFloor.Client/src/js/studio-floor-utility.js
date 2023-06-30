@@ -13,5 +13,6 @@ export class StudioFloorUtility {
 }
 DomUtility.runWhenWindowContentLoaded(() => {
     console.info('the `DotNet` “namespace” should not be undefined:', { DotNet });
+    console.warn({ StudioFloorUtility }, { window });
 });
 //# sourceMappingURL=studio-floor-utility.js.map

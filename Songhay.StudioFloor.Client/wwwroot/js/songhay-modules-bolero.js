@@ -746,7 +746,7 @@ class DomUtility {
 
 
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./src/ts/bolero-utility.ts
+;// CONCATENATED MODULE: ./src/bolero-utility.ts
 
 class BoleroUtility {
 }
@@ -1076,7 +1076,7 @@ function __classPrivateFieldIn(state, receiver) {
   __classPrivateFieldIn,
 });
 
-;// CONCATENATED MODULE: ./src/ts/studio-floor-utility.ts
+;// CONCATENATED MODULE: ./src/studio-floor-utility.ts
 
 
 class StudioFloorUtility {
@@ -1092,9 +1092,10 @@ class StudioFloorUtility {
 }
 DomUtility.runWhenWindowContentLoaded(() => {
     console.info('the `DotNet` “namespace” should not be undefined:', { DotNet });
+    console.warn({ StudioFloorUtility }, { window });
 });
 
-;// CONCATENATED MODULE: ./src/index.ts
+;// CONCATENATED MODULE: ./src/_index.ts
 /* utilities */
 
 

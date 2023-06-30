@@ -109,7 +109,7 @@ type BoleroJsRuntimeElmishComponent() =
                         .jsRuntime.InvokeVoidAsync(qualifiedName, [| eComp.componentRef |]).AsTask() |> ignore
                 )
 
-                text "set computed style with CSS variable"
+                text "start animation"
             }
         }
 

@@ -7,7 +7,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const sharedConfig = {
     entry: {
         scripts: [
-            './src/index.ts',
+            './src/_index.ts',
         ]
     },
     plugins: [
