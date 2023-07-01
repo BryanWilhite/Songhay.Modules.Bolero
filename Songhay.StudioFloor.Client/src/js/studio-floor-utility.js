@@ -2,13 +2,22 @@ import { __awaiter } from "tslib";
 import { DomUtility, WindowAnimation } from 'songhay';
 export class StudioFloorUtility {
     static runMyAnimation(instance) {
+        console.warn({ instance });
         WindowAnimation.registerAndGenerate(1, (animation) => __awaiter(this, void 0, void 0, function* () {
-            const x = yield instance.invokeMethodAsync('getNextX');
-            console.info(animation.getDiagnosticStatus());
-            if (!x || x > 99) {
-                animation.shouldStopAnimation = true;
+            try {
+                const x = yield instance.invokeMethodAsync('invokeAsync', null);
+                console.warn({ x });
+                console.info(animation.getDiagnosticStatus());
+                if (!x || x > 99) {
+                    WindowAnimation.cancelAnimation();
+                }
+            }
+            catch (error) {
+                console.error({ error });
+                WindowAnimation.cancelAnimation();
             }
         }));
+        WindowAnimation.animate();
     }
 }
 DomUtility.runWhenWindowContentLoaded(() => {

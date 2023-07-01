@@ -24,6 +24,7 @@ type TabsElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
+        || oldModel.progressValue <> newModel.progressValue
         || oldModel.readMeData <> newModel.readMeData
 
     override this.View model dispatch =

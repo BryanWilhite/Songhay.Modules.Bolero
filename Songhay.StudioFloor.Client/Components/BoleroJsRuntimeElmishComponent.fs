@@ -80,7 +80,8 @@ type BoleroJsRuntimeElmishComponent() =
             }
         }
 
-    let demoWindowAnimationBlock (eComp: BoleroJsRuntimeElmishComponent) (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
+    let demoWindowAnimationBlock (comp: BoleroJsRuntimeElmishComponent) (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
+
         div {
             [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
             div {
@@ -104,9 +105,10 @@ type BoleroJsRuntimeElmishComponent() =
                     m (All, L4)
                 ] |> CssClasses.toHtmlClassFromList
                 on.click (fun _ ->
+                    let dotNetObjectReference = DotNetObjectReference.Create(comp)
                     let qualifiedName = $"{rx}.StudioFloorUtility.runMyAnimation"
                     model.blazorServices
-                        .jsRuntime.InvokeVoidAsync(qualifiedName, [| eComp.componentRef |]).AsTask() |> ignore
+                        .jsRuntime.InvokeVoidAsync(qualifiedName, dotNetObjectReference).AsTask() |> ignore
                 )
 
                 text "start animation"
@@ -118,6 +120,7 @@ type BoleroJsRuntimeElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
+        || oldModel.progressValue <> newModel.progressValue
 
     override this.View model dispatch =
         bulmaSection
@@ -142,9 +145,7 @@ type BoleroJsRuntimeElmishComponent() =
                 demoWindowAnimationBlock this model dispatch
             })
 
-    member this.componentRef: DotNetObjectReference<_> = DotNetObjectReference.Create(this)
-
     [<JSInvokable>]
-    member this.getNextX _ =
+    member this.invokeAsync() =
         this.Dispatch NextProgress
         Task.FromResult this.Model.progressValue

@@ -18,5 +18,5 @@ type StudioFloorModel =
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
             tab = ReadMeTab
             readMeData = None
-            progressValue = 0 
+            progressValue = 1
         }
