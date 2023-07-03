@@ -115,7 +115,7 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
     /// </remarks>
-    let orderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node[]) =
+    let orderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node list) =
         ol {
             cssClasses.Value
 
@@ -204,7 +204,7 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
     /// </remarks>
-    let unOrderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node[]) =
+    let unOrderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node list) =
         ul {
             cssClasses.Value
 

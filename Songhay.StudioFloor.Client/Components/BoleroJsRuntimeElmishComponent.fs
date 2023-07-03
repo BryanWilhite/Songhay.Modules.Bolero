@@ -9,6 +9,8 @@ open Elmish
 
 open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.BodyElement
+open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
@@ -32,23 +34,20 @@ type BoleroJsRuntimeElmishComponent() =
             ]
 
         div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; box ] |> CssClasses.toHtmlClassFromList
             attr.style (styleList |> List.reduce (fun a i -> $"{a}{i}"))
             attr.ref demoCssVariableHtmlRef
-            div {
-                [ notification; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ] |> CssClasses.toHtmlClassFromList
-                div {
-                    content |> CssClasses.toHtmlClass
-                    rawHtml @"
-                        <p>Click the button to demonstrate:</p>
-                        <ol class=""is-lower-roman"">
-                            <li>a call <code>getComputedStylePropertyValueAsync</code> to get the current color</li>
-                            <li>a get the next color and call <code>consoleInfoAsync</code> to log the current and next color</li>
-                            <li>a call <code>setComputedStylePropertyValueAsync</code> to set the background color</li>
-                        </ol>
-                    "
-                }
-            }
+            bulmaMessage
+                (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
+                (Html.p { text "Click the button to demonstrate:" })
+                (
+                    [
+                        li { text "a call "; code { text "getComputedStylePropertyValueAsync" }; text " to get the current color" }
+                        li { text "a get the next color and call "; code { text "consoleInfoAsync" }; text " to log the current and next color" }
+                        li { text "a call "; code { text "setComputedStylePropertyValueAsync" }; text " to set the background color" }
+                    ]
+                    |> orderedList (HasClasses <| CssClasses [ "is-lower-roman"; elementTextAlign AlignLeft ])
+                )
             button {
                 [
                     buttonClass
@@ -83,19 +82,18 @@ type BoleroJsRuntimeElmishComponent() =
     let demoWindowAnimationBlock (comp: BoleroJsRuntimeElmishComponent) (model: StudioFloorModel) (_: Dispatch<StudioFloorMessage>) =
 
         div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
-            div {
-                [ notification; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ] |> CssClasses.toHtmlClassFromList
-                div {
-                    content |> CssClasses.toHtmlClass
-                    rawHtml @"
-                        <p>Click the button to demonstrate:</p>
-                        <ol class=""is-lower-roman"">
-                            <li></li>
-                        </ol>
-                    "
-                }
-            }
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorLight.BackgroundCssClass; box ] |> CssClasses.toHtmlClassFromList
+            bulmaMessage
+                (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
+                ( Html.p { text "Click the button to demonstrate:" })
+                (
+                    [
+                        li { text "calling the JavaScript that will start a browser-window-level animation callback loop" }
+                        li { text "that the callback will call a .NET method that returns data to the loop" }
+                        li { text "that the loop will use that data to continue or stop the loop" }
+                    ]
+                    |> orderedList (HasClasses <| CssClasses [ "is-lower-roman"; elementTextAlign AlignLeft ])
+                )
             button {
                 [
                     buttonClass
@@ -113,6 +111,12 @@ type BoleroJsRuntimeElmishComponent() =
 
                 text "start animation"
             }
+            progress {
+                [ "progress"; "is-large" ] |> CssClasses.toHtmlClassFromList
+                attr.value model.progressValue
+                attr.max 100
+                text $"{model.progressValue}%%"
+            }
         }
 
     static member EComp model dispatch =
@@ -128,21 +132,28 @@ type BoleroJsRuntimeElmishComponent() =
             NoAttr
             (concat {
                 h1 {
-                    title DefaultBulmaFontSize @ [ ColorPrimary.TextCssClass ] |> CssClasses.toHtmlClassFromList
+                    title DefaultBulmaFontSize @ [ ColorPrimary.TextCssClass ]
+                    |> CssClasses.toHtmlClassFromList
                     text "the "; code { text "JsRuntimeUtility" }; text " module"
                 }
 
-                h2 {
-                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ] |> CssClasses.toHtmlClassFromList
-                    text "changing a CSS variable (custom property)"
+                details {
+                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1);] |> CssClasses.toHtmlClassFromList
+                    summary {
+                        elementIsClickable |> CssClasses.toHtmlClass
+                        text "changing a CSS variable (custom property)"
+                    }
+                    demoCssVariableBlock model dispatch
                 }
-                demoCssVariableBlock model dispatch
 
-                h2 {
-                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ] |> CssClasses.toHtmlClassFromList
-                    text "the JavaScript "; code { text "WindowAnimation" }; text " class"
+                details {
+                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1);] |> CssClasses.toHtmlClassFromList
+                    summary {
+                        elementIsClickable |> CssClasses.toHtmlClass
+                        text "the JavaScript "; code { text "WindowAnimation" }; text " class"
+                    }
+                    demoWindowAnimationBlock this model dispatch
                 }
-                demoWindowAnimationBlock this model dispatch
             })
 
     [<JSInvokable>]

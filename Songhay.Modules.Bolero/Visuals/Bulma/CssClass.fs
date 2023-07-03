@@ -510,6 +510,36 @@ module CssClass =
     ///</remarks>
     let mediaContent ="media-content"
 
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma message component.
+    ///</summary>
+    ///<remarks>
+    /// “Colored message blocks, to emphasize part of your page…”
+    /// 📖 https://bulma.io/documentation/components/message/
+    ///</remarks>
+    [<Literal>]
+    let message = "message"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma message component.
+    ///</summary>
+    ///<remarks>
+    /// “Colored message blocks, to emphasize part of your page…”
+    /// 📖 https://bulma.io/documentation/components/message/
+    ///</remarks>
+    [<Literal>]
+    let messageBody = "message-body"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma message component.
+    ///</summary>
+    ///<remarks>
+    /// “Colored message blocks, to emphasize part of your page…”
+    /// 📖 https://bulma.io/documentation/components/message/
+    ///</remarks>
+    [<Literal>]
+    let messageHeader = "message-header"
+
     /// <summary>
     /// “A responsive horizontal navbar that can support images, links, buttons, and dropdowns…
     /// <c>navbar-item</c>: each single item of the <c>navbar</c>,

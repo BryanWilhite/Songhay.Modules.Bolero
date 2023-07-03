@@ -29,7 +29,7 @@ module Component =
     /// - <see cref="BulmaBreadcrumbSize" />
     /// - <see cref="bulmaBreadcrumbListItem" />
     /// </remarks>
-    let bulmaBreadcrumbContainer (moreClasses: CssClassesOrEmpty) (liNodes: Node[]) =
+    let bulmaBreadcrumbContainer (moreClasses: CssClassesOrEmpty) (liNodes: Node list) =
         nav {
             CssClasses [ "breadcrumb" ] |> moreClasses.ToHtmlClassAttribute
             AriaLabel.ToAttr "breadcrumbs"
@@ -202,6 +202,25 @@ module Component =
                     "dropdown-content" |> CssClasses.toHtmlClass
                     dropDownContent
                 }
+            }
+        }
+
+    /// <summary>
+    /// “Colored message blocks, to emphasize part of your page …”
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/components/message/
+    /// </remarks>
+    let bulmaMessage (cssClasses: CssClassesOrEmpty) (messageHeaderNode: Node) (messageBodyNode: Node) =
+        div {
+            CssClasses [ CssClass.message ] |> cssClasses.ToHtmlClassAttribute
+            div {
+                CssClass.messageHeader |> CssClasses.toHtmlClass
+                messageHeaderNode
+            }
+            div {
+                CssClass.messageBody |> CssClasses.toHtmlClass
+                messageBodyNode
             }
         }
 

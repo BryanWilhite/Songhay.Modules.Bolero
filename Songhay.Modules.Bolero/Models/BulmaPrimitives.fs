@@ -154,6 +154,10 @@ type BulmaColor =
     | ColorWarning
     /// <summary> a Bulma color classification </summary>
     | ColorDanger
+    /// <summary> a Bulma color classification </summary>
+    | ColorLight
+    /// <summary> a Bulma color classification </summary>
+    | ColorDark
 
     ///<summary>Returns the CSS class color name of the Bulma color classification.</summary>
     member this.ColorName =
