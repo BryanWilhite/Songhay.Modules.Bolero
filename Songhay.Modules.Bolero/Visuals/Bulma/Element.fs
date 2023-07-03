@@ -25,6 +25,22 @@ module Element =
             childNode
         }
 
+    ///<summary>
+    /// Returns the HTML <c>details</c> element and its child <c>summary</c> element, adorned with any CSS classes.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+    /// </remarks>
+    let bulmaDetailsElement (cssClasses: CssClassesOrEmpty) (summaryNode: Node) (detailsNode: Node) =
+        details {
+            cssClasses.Value
+            summary {
+                CssClass.elementIsClickable |> CssClasses.toHtmlClass
+                summaryNode
+            }
+            detailsNode
+        }
+
     /// <summary>
     /// “…a container for any type of icon font…”
     /// </summary>

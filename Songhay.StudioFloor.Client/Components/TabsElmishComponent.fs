@@ -14,7 +14,7 @@ type TabsElmishComponent() =
 
     let tabs = [
         (text "README", ReadMeTab)
-        (concat { text "Bolero "; code { text "IJsRuntime" }; text " " }, BoleroJsRuntimeTab)
+        (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
         (text "Bulma: Columns", BulmaColumnsTab)
         (text "SVG", SvgTab)
     ]

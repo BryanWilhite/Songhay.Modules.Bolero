@@ -12,6 +12,7 @@ open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
+open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
 open Songhay.Modules.Models
@@ -137,23 +138,15 @@ type BoleroJsRuntimeElmishComponent() =
                     text "the "; code { text "JsRuntimeUtility" }; text " module"
                 }
 
-                details {
-                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1);] |> CssClasses.toHtmlClassFromList
-                    summary {
-                        elementIsClickable |> CssClasses.toHtmlClass
-                        text "changing a CSS variable (custom property)"
-                    }
-                    demoCssVariableBlock model dispatch
-                }
+                bulmaDetailsElement
+                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
+                    (text "changing a CSS variable (custom property)")
+                    (demoCssVariableBlock model dispatch)
 
-                details {
-                    (subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1);] |> CssClasses.toHtmlClassFromList
-                    summary {
-                        elementIsClickable |> CssClasses.toHtmlClass
-                        text "the JavaScript "; code { text "WindowAnimation" }; text " class"
-                    }
-                    demoWindowAnimationBlock this model dispatch
-                }
+                bulmaDetailsElement
+                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
+                    (concat { text "the JavaScript "; code { text "WindowAnimation" }; text " class" })
+                    (demoWindowAnimationBlock this model dispatch)
             })
 
     [<JSInvokable>]
