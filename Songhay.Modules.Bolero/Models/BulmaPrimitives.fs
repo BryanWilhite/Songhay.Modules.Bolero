@@ -104,32 +104,6 @@ type BulmaBreakpoint =
     member this.Value = this.ToString().ToLowerInvariant()
 
 /// <summary>
-/// Defines light and dark versions of <see cref="BulmaColor" />.
-///</summary>
-/// <remarks>
-/// 📖 https://bulma.io/documentation/helpers/color-helpers/
-/// </remarks>
-type BulmaColorModifier =
-    // <summary> a color modifier </summary>
-    | ColorLight
-    // <summary> a color modifier </summary>
-    | ColorDark
-    // <summary> a color modifier </summary>
-    | ColorLightSuffix
-    // <summary> a color modifier </summary>
-    | ColorDarkSuffix
-
-    /// <summary>
-    /// Returns the Bulma CSS class name or suffix to modify a Bulma color.
-    /// </summary>
-    member this.CssClassOrSuffix =
-        match this with
-        | ColorLight -> "is-light"
-        | ColorDark -> "is-dark"
-        | ColorLightSuffix -> "-light"
-        | ColorDarkSuffix -> "-dark"
-
-/// <summary>
 /// Defines Bulma color classifications.
 ///</summary>
 /// <remarks>
@@ -137,7 +111,11 @@ type BulmaColorModifier =
 /// </remarks>
 type BulmaColor =
     /// <summary> a Bulma color classification </summary>
-    | ColorDefault
+    | ColorEmpty
+    // <summary> a color modifier </summary>
+    | ColorGhost
+    /// <summary> a Bulma color classification </summary>
+    | ColorGrey
     /// <summary> a Bulma color classification </summary>
     | ColorWhite
     /// <summary> a Bulma color classification </summary>
@@ -154,20 +132,30 @@ type BulmaColor =
     | ColorWarning
     /// <summary> a Bulma color classification </summary>
     | ColorDanger
-    /// <summary> a Bulma color classification </summary>
-    | ColorLight
-    /// <summary> a Bulma color classification </summary>
-    | ColorDark
+
+    member private this.backgroundCssClass (isDark: bool option) =
+        let hasBackground = "has-background"
+        let state =
+            if isDark.IsNone then String.Empty
+            else if isDark.Value then "-dark" else "-light"
+        if String.IsNullOrWhiteSpace(this.ColorName) then
+            if isDark.IsNone then String.Empty else $"{hasBackground}{state}"
+        else $"{hasBackground}-{this.ColorName}{state}"
 
     ///<summary>Returns the CSS class color name of the Bulma color classification.</summary>
     member this.ColorName =
         match this with
-        | ColorDefault -> String.Empty
+        | ColorEmpty -> String.Empty
         | _ -> this.ToString().Replace("Color", String.Empty).ToLowerInvariant()
 
     ///<summary>Returns the Bulma background-color CSS class name of the Bulma color classification.</summary>
-    member this.BackgroundCssClass =
-        if String.IsNullOrWhiteSpace(this.ColorName) then String.Empty else $"has-background-{this.ColorName}"
+    member this.BackgroundCssClass = this.backgroundCssClass None
+
+    ///<summary>Returns the Bulma background-color CSS class name of the Bulma color classification.</summary>
+    member this.BackgroundCssClassDark = this.backgroundCssClass <| Some true
+
+    ///<summary>Returns the Bulma background-color CSS class name of the Bulma color classification.</summary>
+    member this.BackgroundCssClassLight =  this.backgroundCssClass <| Some false
 
     ///<summary>Returns the CSS class name of the Bulma color classification.</summary>
     member this.CssClass =
@@ -176,14 +164,14 @@ type BulmaColor =
     ///<summary>Returns the CSS class name of the Bulma color classification.</summary>
     member this.CssClassDark =
         match this with
-        | ColorDefault -> String.Empty
+        | ColorEmpty -> String.Empty
         | ColorBlack | ColorWhite -> this.CssClass
         | _ -> $"is-{this.ColorName}-dark"
 
     ///<summary>Returns the CSS class name of the Bulma color classification.</summary>
     member this.CssClassLight =
         match this with
-        | ColorDefault -> String.Empty
+        | ColorEmpty -> String.Empty
         | ColorBlack | ColorWhite -> this.CssClass
         | _ -> $"is-{this.ColorName}-light"
 
@@ -259,22 +247,23 @@ type BulmaFontSizeOrDefault =
         | HasFontSize size -> size.Value
 
 ///<summary>
-/// Defines the sizes of the Bulma hero layout.
+/// Defines the sizes of the Bulma elements,
+/// specifically in the hero layout.
 ///</summary>
 ///<remarks>
 /// 📖 https://bulma.io/documentation/layout/hero/#sizes
 ///</remarks>
-type BulmaHeroSizes =
+type BulmaElementSize =
     /// <summary> a Bulma hero size </summary>
-    | HeroSmall
+    | BulmaElementSmall
     /// <summary> a Bulma hero size </summary>
-    | HeroMedium
+    | BulmaElementMedium
     /// <summary> a Bulma hero size </summary>
-    | HeroLarge
+    | BulmaElementLarge
     /// <summary> a Bulma hero size </summary>
-    | HeroHalfHeight
+    | BulmaElementHalfHeight
     /// <summary> a Bulma hero size </summary>
-    | HeroFullHeight
+    | BulmaElementFullHeight
     /// <summary> a Bulma hero size </summary>
     | HeroFullHeightWithNavbar
 
@@ -282,7 +271,7 @@ type BulmaHeroSizes =
     member this.CssClass =
         match this with
         | HeroFullHeightWithNavbar -> "is-fullheight-with-navbar"
-        | _ -> this.ToString().Replace("Hero", String.Empty).ToLowerInvariant() |> fun s -> $"is-{s}"
+        | _ -> this.ToString().Replace("BulmaElement", String.Empty).ToLowerInvariant() |> fun s -> $"is-{s}"
 
 ///<summary>
 /// Defines the 12 Bulma horizontal-space sizes.
@@ -390,33 +379,30 @@ type BulmaNavbarModifier =
         match this with
         | NavbarAncestorHasFixedTop -> "has-navbar-fixed-top"
         | NavbarAncestorHasFixedBottom -> "has-navbar-fixed-bottom"
-        | NavbarTransparent -> "is-transparent"
-        | NavbarFixedTop -> "is-fixed-top"
-        | NavbarFixedBottom -> "is-fixed-bottom"
-        | NavbarHasShadow -> "has-shadow"
-        | NavbarIsSpaced -> "is-spaced"
+        | _ ->
+            let name = this.ToString().Replace("Navbar", String.Empty) |> toKabobCase |> Option.get
+            $"is-{name}"
 
 ///<summary>
-/// Defines all Bulma size modifiers.
+/// Defines all Bulma ordered list alternatives.
 ///</summary>
 /// <remarks>
-/// 📖 https://bulma.io/documentation/components/pagination/#sizes
-/// 📖 https://bulma.io/documentation/elements/button/#sizes
-/// 📖 https://bulma.io/documentation/form/general/#horizontal-form
-/// 📖 https://bulma.io/documentation/layout/section/#sizes
+/// 📖 https://bulma.io/documentation/elements/content/#ordered-lists-alternatives
 /// </remarks>
-type BulmaSizeModifier =
-    /// <summary> a Bulma size modifier </summary>
-    | SizeSmall
-    /// <summary> a Bulma size modifier </summary>
-    | SizeNormal
-    /// <summary> a Bulma size modifier </summary>
-    | SizeMedium
-    /// <summary> a Bulma size modifier </summary>
-    | SizeLarge
+type BulmaOrderedListAlternative =
+    /// <summary> a Bulma ordered list alternative </summary>
+    | LowerAlpha
+    /// <summary> a Bulma ordered list alternative </summary>
+    | LowerRoman
+    /// <summary> a Bulma ordered list alternative </summary>
+    | UpperAlpha
+    /// <summary> a Bulma ordered list alternative </summary>
+    | UpperRoman
 
-    ///<summary>Returns the Bulma CSS class name of the Bulma size modifier.</summary>
-    member this.CssClass = this.ToString().Replace("Size", String.Empty).ToLowerInvariant() |> fun s -> $"is-{s}"
+    ///<summary>Returns the CSS class color name of the Bulma color classification.</summary>
+    member this.CssClass =
+        let name = this.ToString() |> toKabobCase |> Option.get
+        $"is-{name}"
 
 /// <summary>
 /// Defines Bulma shade classifications.
@@ -455,6 +441,28 @@ type BulmaShade =
 
     ///<summary>Returns the Bulma text-color CSS class name of the Bulma color classification.</summary>
     member this.TextCssClass = $"has-text-{this.ShadeName}"
+
+///<summary>
+/// Defines all Bulma size modifiers.
+///</summary>
+/// <remarks>
+/// 📖 https://bulma.io/documentation/components/pagination/#sizes
+/// 📖 https://bulma.io/documentation/elements/button/#sizes
+/// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+/// 📖 https://bulma.io/documentation/layout/section/#sizes
+/// </remarks>
+type BulmaSizeModifier =
+    /// <summary> a Bulma size modifier </summary>
+    | SizeSmall
+    /// <summary> a Bulma size modifier </summary>
+    | SizeNormal
+    /// <summary> a Bulma size modifier </summary>
+    | SizeMedium
+    /// <summary> a Bulma size modifier </summary>
+    | SizeLarge
+
+    ///<summary>Returns the Bulma CSS class name of the Bulma size modifier.</summary>
+    member this.CssClass = this.ToString().Replace("Size", String.Empty).ToLowerInvariant() |> fun s -> $"is-{s}"
 
 ///<summary>
 /// Defines all Bulma square dimensions.

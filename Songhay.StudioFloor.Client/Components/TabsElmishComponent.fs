@@ -4,6 +4,7 @@ open Bolero
 open Bolero.Html
 
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
@@ -29,27 +30,11 @@ type TabsElmishComponent() =
 
     override this.View model dispatch =
         concat {
-            div {
-                [
-                    "tabs";
-                    "has-background-grey-light";
-                    "is-toggle";
-                    "is-fullwidth";
-                    "is-large"
-                ] |> CssClasses.toHtmlClassFromList
-
-                ul {
-                    forEach tabs <| fun (node, pg) ->
-                    li {
-                        a {
-                            attr.href "#"
-                            DomElementEvent.Click.PreventDefault
-                            on.click (fun _ -> SetTab pg |> dispatch)
-                            node
-                        }
-                    }
-                }
-            }
+            bulmaTabs
+                (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
+                (fun pg -> model.tab = pg)
+                (fun  pg _ -> SetTab pg |> dispatch)
+                tabs
 
             cond model.tab <| function
             | ReadMeTab ->
@@ -60,7 +45,7 @@ type TabsElmishComponent() =
                         ContainerWidthFluid
                         NoCssClasses
                         (bulmaNotification
-                            (HasClasses <| CssClasses [ "is-info" ])
+                            (HasClasses <| CssClasses [ ColorInfo.CssClass ])
                             (rawHtml model.readMeData.Value))
 
             | BoleroJsRuntimeTab ->

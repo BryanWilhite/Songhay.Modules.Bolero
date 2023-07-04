@@ -94,3 +94,20 @@ module Element =
 
              childNode
         }
+
+    ///<summary>
+    /// Returns the HTML <c>progress</c> element, adorned with any CSS classes.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
+    /// </remarks>
+    let bulmaProgressElement (moreClasses: CssClassesOrEmpty) ((value, max): int * int) (childNode: Node) =
+        progress {
+            CssClasses [ "progress" ] |> moreClasses.ToHtmlClassAttribute
+
+            attr.value value
+            attr.max max
+
+            childNode
+
+        }

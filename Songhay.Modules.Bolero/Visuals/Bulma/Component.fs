@@ -562,3 +562,31 @@ module Component =
 
             visualNode
         }
+
+
+    /// <summary>
+    /// “Simple responsive horizontal navigation tabs, with different styles…”
+    /// This returns an <c>div</c> element of CSS class <c>tabs</c>
+    /// with a child of <c>ul</c>.
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/components/panel/
+    /// </remarks>
+    let bulmaTabs (moreClasses: CssClassesOrEmpty) isActiveGetter clickHandler (tabs: (Node * 'a) list) =
+        div {
+            CssClasses [ "tabs" ] |> moreClasses.ToHtmlClassAttribute
+
+            ul {
+                forEach tabs <| fun (node, pg) ->
+                li {
+                    attr.``class`` (if (isActiveGetter pg) then "is-active" else null)
+
+                    a {
+                        attr.href "#"
+                        DomElementEvent.Click.PreventDefault
+                        on.click (clickHandler pg)
+                        node
+                    }
+                }
+            }
+        }

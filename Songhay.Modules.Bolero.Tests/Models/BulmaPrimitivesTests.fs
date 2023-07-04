@@ -17,6 +17,36 @@ let ``BulmaColor.ColorName test`` (expected: string, input: BulmaColor) =
     let actual = input.ColorName
     Assert.Equal(expected, actual)
 
+let BulmaShadeBackgroundTestData : seq<obj[]> =
+    seq {
+        yield [| "has-background-grey-dark"; ShadeGreyDark |]
+        yield [| "has-background-grey-darker"; ShadeGreyDarker |]
+        yield [| "has-background-white-bis"; ShadeWhiteBis |]
+    }
+
+[<Theory>]
+[<MemberData(nameof BulmaShadeBackgroundTestData)>]
+let ``BulmaShade.BackgroundCssClass test`` (expected: string, input: BulmaShade) =
+    let actual = input.BackgroundCssClass
+    Assert.Equal(expected, actual)
+
+let BulmaBackgroundColorTestData : seq<obj[]> =
+    seq {
+        yield [| "has-background-primary"; ColorPrimary; None |]
+        yield [| "has-background-primary-dark"; ColorPrimary; Some true |]
+        yield [| "has-background-primary-light"; ColorPrimary; Some false |]
+        yield [| "has-background-dark"; ColorEmpty; Some true |]
+    }
+
+[<Theory>]
+[<MemberData(nameof BulmaBackgroundColorTestData)>]
+let ``BulmaColor.BackgroundCssClass test`` (expected: string, input: BulmaColor, isDark: bool option) =
+    let actual =
+        if isDark.IsNone then input.BackgroundCssClass
+        else if isDark.Value then input.BackgroundCssClassDark
+        else input.BackgroundCssClassLight
+    Assert.Equal(expected, actual)
+
 let BulmaFontSizeOrDefaultTestData : seq<obj[]> =
     seq {
         yield [| String.Empty; DefaultBulmaFontSize |]
