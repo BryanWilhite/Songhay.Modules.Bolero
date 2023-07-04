@@ -45,7 +45,7 @@ type TabsElmishComponent() =
                         ContainerWidthFluid
                         NoCssClasses
                         (bulmaNotification
-                            (HasClasses <| CssClasses [ ColorInfo.CssClass ])
+                            (HasClasses <| CssClasses [ ColorPrimary.CssClass ])
                             (rawHtml model.readMeData.Value))
 
             | BoleroJsRuntimeTab ->

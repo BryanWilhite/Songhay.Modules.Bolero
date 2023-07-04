@@ -1,0 +1,179 @@
+/*
+    the attempt here is to cascade Bulma variables in the following order:
+
+    1. custom colors
+    2. scheme variables
+    3. link and text
+    4. body element
+    5. `*` element background and border
+    6. `*` element prompts
+    7. `pre` and `code` elements
+    8. panel component
+
+    [ https://bulma.io/documentation/customize/variables/ ]
+
+    the `*-bis` (slightly lighter) and `*-ter` (lighter) suffixes is a French ordinal thing?
+    [ https://github.com/jgthms/bulma/issues/1756#issuecomment-376188013 ]
+*/
+
+/*
+    scheme variables
+
+    [ https://bulma.io/2019/10/15/light-dark-colors/#scheme-variables-for-dark-mode ]
+*/
+// $scheme-main: $white;
+// $scheme-main-bis: $white-bis;
+// $scheme-main-ter: $white-ter;
+// $scheme-invert: $black;
+// $scheme-invert-bis: $black-bis;
+// $scheme-invert-ter: $black-ter;
+
+/*
+    link and text
+*/
+//$link: $blue;
+//$link-light: findLightColor($link);
+//$link-dark: findDarkColor($link);
+//$link-visited: $purple;
+//$link-hover: $grey-darker;
+//$link-hover-border: $grey-light;
+//$link-focus: $grey-darker;
+//$link-focus-border: $blue;
+//$link-active: $grey-darker;
+//$link-active-border: $grey-dark;
+
+// $text: $grey-dark;
+// $text-light: $grey;
+// $text-strong: $grey-darker;
+// default: $strong-color: $text-strong;
+
+/*
+    body element
+*/
+//$body-background-color: $scheme-main; 
+//$body-color: $text;
+//$footer-background-color: $scheme-main-bis;
+//$footer-color: false;
+// [ https://bulma.io/documentation/layout/footer/ ]
+// TODO: `footer-*` is not documented 😶
+// [ see https://github.com/jgthms/bulma/blob/master/sass/layout/footer.sass ]
+
+/*
+    `*` element background and border
+*/
+// $background: $white-ter;
+
+// $border: $grey-lighter;
+// $border-hover: $grey-light;
+// $border-light: $grey-lightest;
+// $border-light-hover: $grey-light;
+
+// $hr-background-color: $background;
+
+// $shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02);
+
+/*
+    `*` element prompts
+*/
+$primary: $turquoise;
+// $primary-dark: findDarkColor($primary);
+// $primary-light: findLightColor($primary);
+
+// $info: $cyan;
+// $info-light: findLightColor($info);
+// $info-dark: findDarkColor($info);
+
+// $success: $green;
+// $success-light: findLightColor($success);
+// $success-dark: findDarkColor($success);
+
+// $warning: $yellow;
+// $warning-light: findLightColor($warning);
+// $warning-dark: findDarkColor($warning);
+
+// $danger: $red;
+// $danger-light: findLightColor($danger);
+// $danger-dark: findDarkColor($danger);
+
+/*
+    `pre` and `code` elements
+*/
+// $pre: $text;
+// $pre-background: $background;
+
+// $code: darken($red, 15%);
+// $code-background: $background;
+
+/*
+    panel component
+
+    [ https://bulma.io/documentation/components/panel/#variables ]
+*/
+//$panel-item-border: 1px solid $border-light;
+//$panel-heading-background-color: $border-light;
+//$panel-heading-color: $text-strong;
+//$panel-tab-border-bottom: 1px solid $border;
+//$panel-tab-active-border-bottom-color: $link-active-border;
+//$panel-tab-active-color: $link-active;
+//$panel-list-item-color: $text;
+//$panel-list-item-hover-color: $link;
+//$panel-block-color: $text-strong;
+//$panel-block-hover-background-color: $background;
+//$panel-block-active-color: $link-active;
+//$panel-block-active-icon-color: $link;
+//$panel-icon-color: $text-light;
+//$panel-colors: $colors;
+
+/*
+    card component
+
+    [ https://bulma.io/documentation/components/card/#variables ]
+*/
+// $card-color: $text;
+// $card-background-color: $scheme-main;
+// $card-shadow: $shadow;
+// $card-radius: 0.25rem;
+// $card-header-background-color: transparent;
+// $card-header-color: $text-strong;
+// $card-header-padding: 0.75rem 1rem;
+// $card-header-shadow: 0 0.125em 0.25em rgba($scheme-invert, 0.1);
+// $card-header-weight: $weight-bold;
+// $card-content-background-color: transparent;
+// $card-content-padding: 1.5rem;
+// $card-footer-background-color: transparent;
+// $card-footer-border-top: 1px solid $border-light;
+// $card-footer-padding: 0.75rem;
+// $card-media-margin: $block-spacing;
+
+/*
+    tabs
+
+    [ https://bulma.io/documentation/components/tabs/#variables ]
+*/
+//$tabs-border-bottom-color: $border;
+//$tabs-border-bottom-style: solid;
+//$tabs-border-bottom-width: 1px;
+//$tabs-link-color: $text;
+//$tabs-link-hover-border-bottom-color: $text-strong;
+//$tabs-link-hover-color: $text-strong;
+//$tabs-link-active-border-bottom-color: $link;
+//$tabs-link-active-color: $link;
+//$tabs-link-padding: 0.5em 1em;
+
+//$tabs-boxed-link-radius: $radius;
+//$tabs-boxed-link-hover-background-color: $background;
+//$tabs-boxed-link-hover-border-bottom-color: $border;
+
+//$tabs-boxed-link-active-background-color: $scheme-main;
+//$tabs-boxed-link-active-border-color: $border;
+//$tabs-boxed-link-active-border-bottom-color: transparent;
+
+//$tabs-toggle-link-border-color: $border;
+//$tabs-toggle-link-border-style: solid;
+//$tabs-toggle-link-border-width: 1px;
+//$tabs-toggle-link-hover-background-color: $background;
+//$tabs-toggle-link-hover-border-color: $border-hover;
+//$tabs-toggle-link-radius: $radius;
+$tabs-toggle-link-active-background-color: $primary; //default: $link;
+//$tabs-toggle-link-active-border-color: $link;
+//$tabs-toggle-link-active-color: $link-invert;

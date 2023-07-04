@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\scss\index.scss" />
+    <Content Include="src\scss\colors\bulma.scss" />
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\index.min.css" />
