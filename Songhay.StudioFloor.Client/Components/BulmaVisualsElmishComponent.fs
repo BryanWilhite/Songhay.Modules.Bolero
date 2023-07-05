@@ -11,17 +11,16 @@ open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
 open Songhay.StudioFloor.Client.Models
 
-type BoleroJsRuntimeElmishComponent() =
+type BulmaVisualsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
     static member EComp model dispatch =
-        ecomp<BoleroJsRuntimeElmishComponent, _, _> model dispatch { attr.empty() }
+        ecomp<BulmaVisualsElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
-        || oldModel.progressValue <> newModel.progressValue
 
-    override this.View model dispatch =
+    override this.View _ _ =
         bulmaSection
             NoCssClasses
             NoAttr
@@ -29,16 +28,16 @@ type BoleroJsRuntimeElmishComponent() =
                 h1 {
                     title DefaultBulmaFontSize @ [ ColorPrimary.TextCssClass ]
                     |> CssClasses.toHtmlClassFromList
-                    text "the "; code { text "JsRuntimeUtility" }; text " module"
+                    text "Bulma visuals"
                 }
 
                 bulmaDetailsElement
                     (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "changing a CSS variable (custom property)")
-                    (BoleroJsRuntimeCssVariableElmishComponent.EComp model dispatch)
+                    (text "Bulma columns")
+                    BulmaColumnsComponent.BComp
 
                 bulmaDetailsElement
                     (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (concat { text "the JavaScript "; code { text "WindowAnimation" }; text " class" })
-                    (BoleroJsRuntimeWindowAnimationComponent.EComp model dispatch)
+                    (text "SVG")
+                    SvgComponent.BComp
             })

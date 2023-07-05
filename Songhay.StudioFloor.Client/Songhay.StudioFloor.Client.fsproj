@@ -11,6 +11,9 @@
     <Compile Include="Components\BoleroJsRuntimeCssVariableElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeWindowAnimationComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeElmishComponent.fs" />
+    <Compile Include="Components\BulmaColumnsComponent.fs" />
+    <Compile Include="Components\SvgComponent.fs" />
+    <Compile Include="Components\BulmaVisualsElmishComponent.fs" />
     <Compile Include="Components\TabsElmishComponent.fs" />
     <Compile Include="Components\StudioFloorProgramComponent.fs" />
     <Compile Include="Startup.fs" />

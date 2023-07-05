@@ -13,13 +13,6 @@ open Songhay.StudioFloor.Client.Models
 type TabsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
-    let tabs = [
-        (text "README", ReadMeTab)
-        (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
-        (text "Bulma: Columns", BulmaColumnsTab)
-        (text "SVG", SvgTab)
-    ]
-
     static member EComp model dispatch =
         ecomp<TabsElmishComponent, _, _> model dispatch { attr.empty() }
 
@@ -29,6 +22,12 @@ type TabsElmishComponent() =
         || oldModel.readMeData <> newModel.readMeData
 
     override this.View model dispatch =
+        let tabs = [
+            (text "README", ReadMeTab)
+            (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
+            (text "Bulma Visuals", BulmaVisualsTab)
+        ]
+
         concat {
             bulmaTabs
                 (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
@@ -54,15 +53,9 @@ type TabsElmishComponent() =
                     NoCssClasses
                     (BoleroJsRuntimeElmishComponent.EComp model dispatch)
 
-            | BulmaColumnsTab ->
+            | BulmaVisualsTab ->
                 bulmaContainer
                     ContainerWidthFluid
                     NoCssClasses
-                    (empty())
-
-            | SvgTab ->
-                bulmaContainer
-                    ContainerWidthFluid
-                    NoCssClasses
-                    (empty())
+                    (BulmaVisualsElmishComponent.EComp model dispatch)
         }
