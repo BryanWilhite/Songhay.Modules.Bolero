@@ -16,53 +16,51 @@
 <li>a utility for <code>IRemoteService</code> [<a href="Songhay.Modules.Bolero/RemoteHandlerUtility.fs">src</a>]</li>
 </ol>
 <h2 id="visuals-and-models">Visuals and Models</h2>
-<p>Here is my first attempt at building a <acronym title="Domain-Specific Language">DSL</acronym> for HTML, CSS and Bulma CSS on top of Bolero. For example, here is an expression for building a Bulma footer:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> footerNode =</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cssClassesParentLevel = CssClasses <span class="op">[</span> levelContainer; isMobileModifier <span class="op">]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cssClassesSvgVersionNodes = <span class="op">[</span> bulmaTextGreyLightTone <span class="op">]</span> |&gt; cssClassesParentLevel.AppendList</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> versionsNode =</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        div <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            cssClassesSvgVersionNodes.ToHtmlClassAttribute</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            forEach App<span class="kw">.</span>appVersions &lt;| svgVersionNode</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> socialNode =</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        bulmaLevel</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> isMobileModifier <span class="op">]))</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>forEach App<span class="kw">.</span>appSocialLinks &lt;| studioAnchor<span class="op">)</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> signatureNode =</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        paragraphElement</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            NoCssClasses</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            NoAttr</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>span <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;copyright&quot;</span> |&gt; CssClasses<span class="kw">.</span>toHtmlClass</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                rawHtml $<span class="st">&quot;© Bryan D. Wilhite {DateTime.Now.Year}&quot;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">})</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    bulmaContainer</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        ContainerWidthFluid</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        NoCssClasses</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">(</span>concat <span class="op">{</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            bulmaColumnsContainer</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                NoCssClasses</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                <span class="op">(</span>concat <span class="op">{</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                    bulmaColumn</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> HSize4<span class="kw">.</span>CssClass; elementTextAlign AlignCentered <span class="op">]))</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                        studioLogo</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                    bulmaColumn</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> HSize4<span class="kw">.</span>CssClass <span class="op">]))</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                        socialNode</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                    bulmaColumn</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> HSize4<span class="kw">.</span>CssClass; elementTextAlign AlignCentered <span class="op">]))</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                        signatureNode</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                <span class="op">})</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            bulmaColumnsContainer</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> AlignCentered<span class="kw">.</span>CssClass <span class="op">]))</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                <span class="op">(</span>concat <span class="op">{</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                    bulmaColumn</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>HasClasses <span class="op">(</span>CssClasses <span class="op">[</span> HSize4<span class="kw">.</span>CssClass <span class="op">]))</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                        versionsNode</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="op">})</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="op">})</span></span></code></pre></div>
-<p>The preference here (at the moment) is to have more types than functions for the DSL. These types are grouped into four models of primitives:</p>
+<p>Here is my first attempt at building a <acronym title="Domain-Specific Language">DSL</acronym> for HTML, CSS and Bulma CSS on top of Bolero. For example, here is an expression [<a href="https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.StudioFloor.Client/Components/TabsElmishComponent.fs#L24">GitHub</a>], rendering <a href="https://bulma.io/documentation/components/tabs/">Bulma tabs</a>, overriding the Bolero <code>ElmishComponent&lt;_,_&gt;</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">override</span> this.View model dispatch =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    concat <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> tabs = <span class="op">[</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>text <span class="st">&quot;README&quot;</span>, ReadMeTab<span class="op">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>concat <span class="op">{</span> text <span class="st">&quot;Bolero &quot;</span>; code <span class="op">{</span> text <span class="st">&quot;IJsRuntime&quot;</span> <span class="op">}</span> <span class="op">}</span>, BoleroJsRuntimeTab<span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>text <span class="st">&quot;Bulma Visuals&quot;</span>, BulmaVisualsTab<span class="op">)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        bulmaTabs</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>HasClasses &lt;| CssClasses <span class="op">[</span> ColorEmpty<span class="kw">.</span>BackgroundCssClassLight; <span class="st">&quot;is-toggle&quot;</span>; <span class="st">&quot;is-fullwidth&quot;</span>; SizeLarge<span class="kw">.</span>CssClass <span class="op">])</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span><span class="kw">fun</span> pg -&gt; model.tab = pg<span class="op">)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span><span class="kw">fun</span> pg _ -&gt; SetTab pg |&gt; dispatch<span class="op">)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            tabs</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        cond model.tab &lt;| <span class="kw">function</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        | ReadMeTab -&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> model.readMeData.IsNone <span class="kw">then</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                text <span class="st">&quot;loading…&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                bulmaContainer</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                    ContainerWidthFluid</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                    NoCssClasses</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                    <span class="op">(</span>bulmaNotification</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>HasClasses &lt;| CssClasses <span class="op">[</span> ColorPrimary<span class="kw">.</span>CssClass <span class="op">])</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span>rawHtml model.readMeData.Value<span class="op">))</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        | BoleroJsRuntimeTab -&gt;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            bulmaContainer</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                ContainerWidthFluid</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                NoCssClasses</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                <span class="op">(</span>BoleroJsRuntimeElmishComponent<span class="kw">.</span>EComp model dispatch<span class="op">)</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        | BulmaVisualsTab -&gt;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>            bulmaContainer</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                ContainerWidthFluid</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                NoCssClasses</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                <span class="op">(</span>BulmaVisualsElmishComponent<span class="kw">.</span>EComp model dispatch<span class="op">)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>This approach to the <acronym title="Domain-Specific Language">DSL</acronym> is wrapping functions around <acronym title="Computation Expression">CE</acronym>s instead of wrapping <acronym title="Computation Expression">CE</acronym>s with <acronym title="Computation Expression">CE</acronym>s. Research in this direction is underway… on and off…</p>
+</blockquote>
+<p>The preference here (at the moment) is to have more types than functions for the <acronym title="Domain-Specific Language">DSL</acronym>. These types are grouped into four models of primitives:</p>
 <ol type="1">
 <li>Bulma Primitives [<a href="Songhay.Modules.Bolero/Models/BulmaPrimitives.fs">src</a>]</li>
 <li>CSS Primitives [<a href="Songhay.Modules.Bolero/Models/CssPrimitives.fs">src</a>]</li>
@@ -79,7 +77,7 @@
 <li>Bulma Element Visuals [<a href="Songhay.Modules.Bolero/Visuals/Bulma/Element.fs">src</a>]</li>
 <li>Bulma Layout Visuals [<a href="Songhay.Modules.Bolero/Visuals/Bulma/Layout.fs">src</a>]</li>
 </ol>
-<p>The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML DSL on which this work depends heavily. The <em>generic</em> CSS coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:</p>
+<p>The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML <acronym title="Domain-Specific Language">DSL</acronym> on which this work depends heavily. The <em>generic</em> <acronym title="Cascading Style Sheets">CSS</acronym> coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:</p>
 <ul>
 <li><a href="https://bulma.io/documentation/form/">the Bulma form</a></li>
 <li><a href="https://bulma.io/documentation/components/pagination/">Bulma pagination</a></li>
@@ -102,4 +100,6 @@
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>})()<span class="op">;</span></span></code></pre></div>
 <p>This JavaScript is similar to <a href="https://bulma.io/documentation/components/navbar/#navbar-menu">the code provided in the Bulma documentation</a>.</p>
+<h2 id="setting-up-a-typescript-pipeline-for-javascript-edge-cases">setting up a Typescript pipeline for JavaScript edge cases</h2>
+<p>The whole point of this work is to avoid using JavaScript. However, this Microsoft-sponsored WebAssembly journey is a work in progress which means <em>some</em> JavaScript is <em>still</em> needed. The <code>Songhay.StudioFloor.Client</code> in this Solution [<a href="https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client">GitHub</a>] features a Typescript pipeline that should provide guidelines around how to deal with what is needed from JavaScript.</p>
 <p>@<a href="https://twitter.com/BryanWilhite">BryanWilhite</a></p>
