@@ -21,57 +21,56 @@ There are four utilities:
 
 ## Visuals and Models
 
-Here is my first attempt at building a <acronym title="Domain-Specific Language">DSL</acronym> for HTML, CSS and Bulma CSS on top of Bolero. For example, here is an expression for building a Bulma footer:
+Here is my first attempt at building a <acronym title="Domain-Specific Language">DSL</acronym> for HTML, CSS and Bulma CSS on top of Bolero. For example, here is an expression [[GitHub](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.StudioFloor.Client/Components/TabsElmishComponent.fs#L24)], rendering [Bulma tabs](https://bulma.io/documentation/components/tabs/), overriding the Bolero `ElmishComponent<_,_>`:
 
 ```fsharp
-let footerNode =
-    let cssClassesParentLevel = CssClasses [ levelContainer; isMobileModifier ]
-    let cssClassesSvgVersionNodes = [ bulmaTextGreyLightTone ] |> cssClassesParentLevel.AppendList
-    let versionsNode =
-        div {
-            cssClassesSvgVersionNodes.ToHtmlClassAttribute
-            forEach App.appVersions <| svgVersionNode
-        }
-    let socialNode =
-        bulmaLevel
-            (HasClasses (CssClasses [ isMobileModifier ]))
-            (forEach App.appSocialLinks <| studioAnchor)
-    let signatureNode =
-        paragraphElement
-            NoCssClasses
-            NoAttr
-            (span {
-                "copyright" |> CssClasses.toHtmlClass
-                rawHtml $"© Bryan D. Wilhite {DateTime.Now.Year}"
-            })
-    bulmaContainer
-        ContainerWidthFluid
-        NoCssClasses
-        (concat {
-            bulmaColumnsContainer
+override this.View model dispatch =
+    concat {
+
+        let tabs = [
+            (text "README", ReadMeTab)
+            (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
+            (text "Bulma Visuals", BulmaVisualsTab)
+        ]
+
+        bulmaTabs
+            (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
+            (fun pg -> model.tab = pg)
+            (fun pg _ -> SetTab pg |> dispatch)
+            tabs
+
+        cond model.tab <| function
+        | ReadMeTab ->
+            if model.readMeData.IsNone then
+                text "loading…"
+            else
+                bulmaContainer
+                    ContainerWidthFluid
+                    NoCssClasses
+                    (bulmaNotification
+                        (HasClasses <| CssClasses [ ColorPrimary.CssClass ])
+                        (rawHtml model.readMeData.Value))
+
+        | BoleroJsRuntimeTab ->
+            bulmaContainer
+                ContainerWidthFluid
                 NoCssClasses
-                (concat {
-                    bulmaColumn
-                        (HasClasses (CssClasses [ HSize4.CssClass; elementTextAlign AlignCentered ]))
-                        studioLogo
-                    bulmaColumn
-                        (HasClasses (CssClasses [ HSize4.CssClass ]))
-                        socialNode
-                    bulmaColumn
-                        (HasClasses (CssClasses [ HSize4.CssClass; elementTextAlign AlignCentered ]))
-                        signatureNode
-                })
-            bulmaColumnsContainer
-                (HasClasses (CssClasses [ AlignCentered.CssClass ]))
-                (concat {
-                    bulmaColumn
-                        (HasClasses (CssClasses [ HSize4.CssClass ]))
-                        versionsNode
-                })
-        })
+                (BoleroJsRuntimeElmishComponent.EComp model dispatch)
+
+        | BulmaVisualsTab ->
+            bulmaContainer
+                ContainerWidthFluid
+                NoCssClasses
+                (BulmaVisualsElmishComponent.EComp model dispatch)
+    }
 ```
 
-The preference here (at the moment) is to have more types than functions for the DSL. These types are grouped into four models of primitives:
+>**Warning**
+>
+>This approach to the <acronym title="Domain-Specific Language">DSL</acronym> is wrapping functions around <acronym title="Computation Expression">CE</acronym>s instead of wrapping <acronym title="Computation Expression">CE</acronym>s with <acronym title="Computation Expression">CE</acronym>s. Research in this direction is underway… on and off…
+>
+
+The preference here (at the moment) is to have more types than functions for the <acronym title="Domain-Specific Language">DSL</acronym>. These types are grouped into four models of primitives:
 
 1. Bulma Primitives [[src](Songhay.Modules.Bolero/Models/BulmaPrimitives.fs)]
 2. CSS Primitives [[src](Songhay.Modules.Bolero/Models/CssPrimitives.fs)]
@@ -88,7 +87,7 @@ These models support the functions of the Visuals:
 6. Bulma Element Visuals [[src](Songhay.Modules.Bolero/Visuals/Bulma/Element.fs)]
 7. Bulma Layout Visuals [[src](Songhay.Modules.Bolero/Visuals/Bulma/Layout.fs)]
 
-The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML DSL on which this work depends heavily. The _generic_ CSS coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:
+The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML <acronym title="Domain-Specific Language">DSL</acronym> on which this work depends heavily. The _generic_ <acronym title="Cascading Style Sheets">CSS</acronym> coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:
 
 - [the Bulma form](https://bulma.io/documentation/form/)
 - [Bulma pagination](https://bulma.io/documentation/components/pagination/)
@@ -117,5 +116,9 @@ In order to toggle the Bulma Navbar [burger](https://bulma.io/documentation/comp
 ```
 
 This JavaScript is similar to [the code provided in the Bulma documentation](https://bulma.io/documentation/components/navbar/#navbar-menu).
+
+## setting up a Typescript pipeline for JavaScript edge cases
+
+The whole point of this work is to avoid using JavaScript. However, this Microsoft-sponsored WebAssembly journey is a work in progress which means _some_ JavaScript is _still_ needed. The `Songhay.StudioFloor.Client` in this Solution [[GitHub](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client)] features a Typescript pipeline that should provide guidelines around how to deal with what is needed from JavaScript.
 
 @[BryanWilhite](https://twitter.com/BryanWilhite)

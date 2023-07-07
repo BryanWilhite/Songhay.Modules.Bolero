@@ -22,17 +22,18 @@ type TabsElmishComponent() =
         || oldModel.readMeData <> newModel.readMeData
 
     override this.View model dispatch =
-        let tabs = [
-            (text "README", ReadMeTab)
-            (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
-            (text "Bulma Visuals", BulmaVisualsTab)
-        ]
-
         concat {
+
+            let tabs = [
+                (text "README", ReadMeTab)
+                (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
+                (text "Bulma Visuals", BulmaVisualsTab)
+            ]
+
             bulmaTabs
                 (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
                 (fun pg -> model.tab = pg)
-                (fun  pg _ -> SetTab pg |> dispatch)
+                (fun pg _ -> SetTab pg |> dispatch)
                 tabs
 
             cond model.tab <| function
