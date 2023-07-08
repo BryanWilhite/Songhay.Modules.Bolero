@@ -20,8 +20,8 @@
         <dependencies>
             <group targetFramework=".NET6.0">
                 <dependency id="Bolero" version="0.22.44" />
-                <dependency id="FsToolkit.ErrorHandling" version="4.6.0" />
-                <dependency id="Songhay.Modules" version="6.3.6" />
+                <dependency id="FsToolkit.ErrorHandling" version="4.8.0" />
+                <dependency id="Songhay.Modules" version="6.3.7" />
             </group>
         </dependencies>
     </metadata>
