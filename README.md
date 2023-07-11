@@ -124,6 +124,6 @@ The `Songhay.StudioFloor.Client` project [[GitHub](https://github.com/BryanWilhi
 1. demonstrate how the [Bulma](https://bulma.io/) components and elements look and operate
 2. provide a “reference” <acronym title="Sassy CSS">SCSS</acronym> and Typescript `npm` pipeline
 
-![the ‘studio floor’ for this Solution](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client/Songhay.StudioFloor.Client.gif)
+![the ‘studio floor’ for this Solution](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.StudioFloor.Client/Songhay.StudioFloor.Client.gif)
 
 @[BryanWilhite](https://twitter.com/BryanWilhite)
