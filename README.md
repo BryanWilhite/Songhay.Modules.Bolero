@@ -117,8 +117,13 @@ In order to toggle the Bulma Navbar [burger](https://bulma.io/documentation/comp
 
 This JavaScript is similar to [the code provided in the Bulma documentation](https://bulma.io/documentation/components/navbar/#navbar-menu).
 
-## setting up a Typescript pipeline for JavaScript edge cases
+## the ‘studio floor’ for this Solution
 
-The whole point of this work is to avoid using JavaScript. However, this Microsoft-sponsored WebAssembly journey is a work in progress which means _some_ JavaScript is _still_ needed. The `Songhay.StudioFloor.Client` in this Solution [[GitHub](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client)] features a Typescript pipeline that should provide guidelines around how to deal with what is needed from JavaScript.
+The `Songhay.StudioFloor.Client` project [[GitHub](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client)] has at least two purposes:
+
+1. demonstrate how the [Bulma](https://bulma.io/) components and elements look and operate
+2. provide a “reference” <acronym title="Sassy CSS">SCSS</acronym> and Typescript `npm` pipeline
+
+![the ‘studio floor’ for this Solution](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client/Songhay.StudioFloor.Client.gif)
 
 @[BryanWilhite](https://twitter.com/BryanWilhite)
