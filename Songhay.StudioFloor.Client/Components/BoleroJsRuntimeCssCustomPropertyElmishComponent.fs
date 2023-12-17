@@ -12,13 +12,13 @@ open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 
 open Songhay.StudioFloor.Client.Models
 
-type BoleroJsRuntimeCssVariableElmishComponent() =
+type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
-    let demoCssVariableHtmlRef = HtmlRef()
+    let demoCssCustomPropertyHtmlRef = HtmlRef()
 
     static member EComp model dispatch =
-        ecomp<BoleroJsRuntimeCssVariableElmishComponent, _, _> model dispatch { attr.empty() }
+        ecomp<BoleroJsRuntimeCssCustomPropertyElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
@@ -27,8 +27,8 @@ type BoleroJsRuntimeCssVariableElmishComponent() =
     override this.View model _ =
         let colorAzure = "azure"
         let colorYellow = "yellow"
-        let cssVariable = CssVariable.fromInput "main-bg-color"
-        let cssVariableAndValue = CssVariableAndValue (cssVariable, CssValue colorAzure)
+        let cssVariable = CssCustomProperty.fromInput "main-bg-color"
+        let cssVariableAndValue = CssCustomPropertyAndValue (cssVariable, CssValue colorAzure)
         let styleList =
             [
                 cssVariableAndValue.toCssDeclaration
@@ -38,7 +38,7 @@ type BoleroJsRuntimeCssVariableElmishComponent() =
         div {
             [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; box ] |> CssClasses.toHtmlClassFromList
             attr.style (styleList |> List.reduce (fun a i -> $"{a}{i}"))
-            attr.ref demoCssVariableHtmlRef
+            attr.ref demoCssCustomPropertyHtmlRef
             bulmaMessage
                 (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
                 (Html.p { text "Click the button to demonstrate:" })
@@ -56,7 +56,7 @@ type BoleroJsRuntimeCssVariableElmishComponent() =
                     async {
                         let! currentColor =
                             model.blazorServices.jsRuntime
-                            |> getComputedStylePropertyValueAsync demoCssVariableHtmlRef cssVariable.Value
+                            |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value
                             |> Async.AwaitTask
 
                         let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
@@ -66,7 +66,7 @@ type BoleroJsRuntimeCssVariableElmishComponent() =
                         |> ignore
 
                         model.blazorServices.jsRuntime
-                        |> setComputedStylePropertyValueAsync demoCssVariableHtmlRef cssVariable.Value nextColor
+                        |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor
                         |> ignore
                     }
                 )

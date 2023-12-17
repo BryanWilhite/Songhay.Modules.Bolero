@@ -35,7 +35,7 @@ type BoleroJsRuntimeElmishComponent() =
                 bulmaDetailsElement
                     (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
                     (text "changing a CSS variable (custom property)")
-                    (BoleroJsRuntimeCssVariableElmishComponent.EComp model dispatch)
+                    (BoleroJsRuntimeCssCustomPropertyElmishComponent.EComp model dispatch)
 
                 bulmaDetailsElement
                     (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
