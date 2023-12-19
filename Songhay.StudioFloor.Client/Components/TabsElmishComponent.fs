@@ -23,17 +23,25 @@ type TabsElmishComponent() =
 
     override this.View model dispatch =
         concat {
+            let anchor tab (node: Node) =
+                a {
+                    attr.href "#"
+                    DomElementEvent.Click.PreventDefault
+                    on.click (fun _ -> SetTab tab |> dispatch)
+                    node
+                }
 
-            let tabs = [
-                (text "README", ReadMeTab)
-                (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
-                (text "Bulma Visuals", BulmaVisualsTab)
-            ]
+            let tabs =
+                [
+                    (text "README", ReadMeTab)
+                    (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
+                    (text "Bulma Visuals", BulmaVisualsTab)
+                ]
+                |> List.map (fun (node, tab) -> anchor tab node, tab)
 
             bulmaTabs
                 (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
                 (fun pg -> model.tab = pg)
-                (fun pg _ -> SetTab pg |> dispatch)
                 tabs
 
             cond model.tab <| function

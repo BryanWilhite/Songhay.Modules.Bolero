@@ -233,12 +233,12 @@ module Component =
     ///
     /// This function is a building block of <see cref="bulmaModalContainer" />.
     /// </remarks>
-    let bulmaModalBackground (modalBackgroundAttributes: HtmlAttributeOrEmpty)=
-            div {
-                [ "modal-background" ] |> CssClasses.toHtmlClassFromList
+    let bulmaModalBackground (modalBackgroundAttributes: HtmlAttributeOrEmpty) =
+        div {
+            [ "modal-background" ] |> CssClasses.toHtmlClassFromList
 
-                modalBackgroundAttributes.Value
-            }
+            modalBackgroundAttributes.Value
+        }
 
     /// <summary>
     /// “A classic modal overlay, in which you can include any content you want…
@@ -563,30 +563,30 @@ module Component =
             visualNode
         }
 
-
     /// <summary>
     /// “Simple responsive horizontal navigation tabs, with different styles…”
     /// This returns an <c>div</c> element of CSS class <c>tabs</c>
-    /// with a child of <c>ul</c>.
+    /// with a child of <c>ul</c>, populated by the specified <c>nodePair</c> <see cref="list"/>.
     /// </summary>
     /// <remarks>
     /// 📖 https://bulma.io/documentation/components/panel/
+    ///
+    /// An example of binding to <c>isActivePageGetter</c>:
+    ///
+    /// <code>
+    /// (fun pg -> model.page = pg)
+    /// </code>
     /// </remarks>
-    let bulmaTabs (moreClasses: CssClassesOrEmpty) isActiveGetter clickHandler (tabs: (Node * 'a) list) =
+    let bulmaTabs (moreClasses: CssClassesOrEmpty) isActivePageGetter (nodePair: (Node * 'page) list) =
         div {
             CssClasses [ "tabs" ] |> moreClasses.ToHtmlClassAttribute
 
             ul {
-                forEach tabs <| fun (node, pg) ->
-                li {
-                    attr.``class`` (if (isActiveGetter pg) then "is-active" else null)
+              forEach nodePair <| fun (node, pg) ->
+              li {
+                  attr.``class`` (if (isActivePageGetter pg) then "is-active" else null)
 
-                    a {
-                        attr.href "#"
-                        DomElementEvent.Click.PreventDefault
-                        on.click (clickHandler pg)
-                        node
-                    }
-                }
+                  node
+              }
             }
         }
