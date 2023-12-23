@@ -39,6 +39,52 @@ module BodyElement =
         }
 
     ///<summary>
+    /// Returns the HTML <c>a</c> element,
+    /// declaring an eventing 🗲🐎 callback and adorned with any CSS classes.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+    /// </remarks>
+    let anchorButtonElement
+        (cssClasses: CssClassesOrEmpty)
+        (moreAttrs: HtmlAttributeOrEmpty)
+        (callback: Web.MouseEventArgs -> unit)
+        (childNode: Node) =
+        a {
+            cssClasses.Value
+
+            on.click callback
+            DomElementEvent.Click.PreventDefault
+            attr.href "#"
+            moreAttrs.Value
+
+            childNode
+        }
+
+    ///<summary>
+    /// Returns the HTML <c>a</c> element,
+    /// declaring an asynchronous eventing 🗲🐎 callback and adorned with any CSS classes.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+    /// </remarks>
+    let anchorButtonElementAsync
+        (cssClasses: CssClassesOrEmpty)
+        (moreAttrs: HtmlAttributeOrEmpty)
+        (callback: Web.MouseEventArgs -> Async<unit>)
+        (childNode: Node) =
+        a {
+            cssClasses.Value
+
+            on.async.click callback
+            DomElementEvent.Click.PreventDefault
+            attr.href "#"
+            moreAttrs.Value
+
+            childNode
+        }
+
+    ///<summary>
     /// Returns the HTML <c>button</c> element,
     /// declaring an eventing 🗲🐎 callback and adorned with any CSS classes.
     ///</summary>
