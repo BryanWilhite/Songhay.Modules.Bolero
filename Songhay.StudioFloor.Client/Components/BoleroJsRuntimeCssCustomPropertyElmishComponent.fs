@@ -52,6 +52,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                 )
             buttonElementAsync
                 (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
+                NoAttr
                 (fun _ ->
                     async {
                         let! currentColor =

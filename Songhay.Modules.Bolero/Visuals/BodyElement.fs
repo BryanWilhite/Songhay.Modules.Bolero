@@ -45,11 +45,16 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
     /// </remarks>
-    let buttonElement (cssClasses: CssClassesOrEmpty) (callback: Web.MouseEventArgs -> unit) (childNode: Node) =
+    let buttonElement
+        (cssClasses: CssClassesOrEmpty)
+        (moreAttrs: HtmlAttributeOrEmpty)
+        (callback: Web.MouseEventArgs -> unit)
+        (childNode: Node) =
         button {
             cssClasses.Value
 
             on.click callback
+            moreAttrs.Value
 
             childNode
         }
@@ -61,11 +66,16 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
     /// </remarks>
-    let buttonElementAsync (cssClasses: CssClassesOrEmpty) (callback: Web.MouseEventArgs -> Async<unit>) (childNode: Node) =
+    let buttonElementAsync
+        (cssClasses: CssClassesOrEmpty)
+        (moreAttrs: HtmlAttributeOrEmpty)
+        (callback: Web.MouseEventArgs -> Async<unit>)
+        (childNode: Node) =
         button {
             cssClasses.Value
 
             on.async.click callback
+            moreAttrs.Value
 
             childNode
         }
