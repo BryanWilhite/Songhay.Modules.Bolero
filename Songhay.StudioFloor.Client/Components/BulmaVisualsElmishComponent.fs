@@ -3,13 +3,13 @@ namespace Songhay.StudioFloor.Client.Components
 open Bolero
 open Bolero.Html
 
-open Songhay.Modules.Models
+open Songhay.Modules.Bolero.Components
 open Songhay.Modules.Bolero.Models
+
+open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
-open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
-open Songhay.Modules.Bolero.Components
 
 open Songhay.StudioFloor.Client.Models
 
@@ -30,58 +30,99 @@ type BulmaVisualsElmishComponent() =
                 h1 {
                     title DefaultBulmaFontSize @ [ ColorPrimary.TextCssClass ]
                     |> CssClasses.toHtmlClassFromList
-                    text "Bulma visuals"
+                    text "Bulma visuals and components"
                 }
-
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "Bulma columns")
-                    BulmaColumnsComponent.BComp
-
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "SVG")
-                    SvgComponent.BComp
-
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "Bulma dropdown")
-                    (bulmaDropdown
-                        true
-                        "Content"
-                        (fun _ -> ())
-                        (concat {
-                            bulmaDropdownItem
-                                false
-                                (fun _ -> ())
-                                "Item 1"
-                            bulmaDropdownDivider()
-                            bulmaDropdownItem
-                                false
-                                (fun _ -> ())
-                                "Item 2"
-                            bulmaDropdownDivider()
-                            bulmaDropdownItem
-                                false
-                                (fun _ -> ())
-                                "Item 3"
-                        })
-                    )
-
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text $"{nameof AppVersionsComponent}")
-                    (bulmaColumnsContainer
-                        NoCssClasses
-                        (concat {
-                            bulmaColumn
-                                (HasClasses <| CssClasses [ HSize4.CssClass; elementTextAlign AlignCentered ])
-                                (empty())
-                            bulmaColumn
-                                (HasClasses <| CssClasses [ HSize4.CssClass ])
+                bulmaTile
+                    HSizeAuto
+                    (HasClasses <| CssClasses [tileIsAncestor])
+                    (concat {
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text "Bulma columns")
+                                BulmaColumnsComponent.BComp
+                            })
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text "SVG")
+                                SvgComponent.BComp
+                            })
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text "Bulma dropdown")
+                                bulmaDropdown
+                                    true
+                                    "Content"
+                                    (fun _ -> ())
+                                    (concat {
+                                        bulmaDropdownItem
+                                            false
+                                            (fun _ -> ())
+                                            "Item 1"
+                                        bulmaDropdownDivider()
+                                        bulmaDropdownItem
+                                            false
+                                            (fun _ -> ())
+                                            "Item 2"
+                                        bulmaDropdownDivider()
+                                        bulmaDropdownItem
+                                            false
+                                            (fun _ -> ())
+                                            "Item 3"
+                                    })
+                            })
+                    })
+                bulmaTile
+                    HSizeAuto
+                    (HasClasses <| CssClasses [tileIsAncestor])
+                    (concat {
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text $"{nameof AppVersionsComponent}")
                                 AppVersionsComponent.BComp
-                            bulmaColumn
-                                (HasClasses <| CssClasses [ HSize4.CssClass; elementTextAlign AlignCentered ])
-                                (empty())
-                        }))
+                            })
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text "")
+                            })
+                        bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsParent])
+                            (article {
+                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    (text "")
+                            })
+                    })
             })
