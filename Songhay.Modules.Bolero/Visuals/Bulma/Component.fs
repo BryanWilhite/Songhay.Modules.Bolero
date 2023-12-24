@@ -141,6 +141,37 @@ module Component =
             footerNode
 
     /// <summary>
+    /// “…a horizontal line to separate dropdown items…”
+    /// This returns an <c>hr</c> element of class <c>dropdown-divider</c>.
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/components/dropdown/
+    /// </remarks>
+    let bulmaDropdownDivider() =
+        hr {
+            "dropdown-divider" |> CssClasses.toHtmlClass
+        }
+
+    /// <summary>
+    /// “…a container for a dropdown button and a dropdown menu…”
+    /// This returns a <c>div</c> element of class <c>dropdown-item</c>,
+    /// representing a single item of the dropdown.
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/components/dropdown/#dropdown-content
+    /// </remarks>
+    let bulmaDropdownContentItem
+        (isActive: bool)
+        (contentNode: Node) =
+        div {
+            [
+                "dropdown-item"
+                if isActive then CssClass.elementIsActive
+            ] |> CssClasses.toHtmlClassFromList
+            contentNode
+        }
+
+    /// <summary>
     /// “…a container for a dropdown button and a dropdown menu…”
     /// This returns an anchor element of class <c>dropdown-item</c>,
     /// representing a single item of the dropdown.
@@ -152,16 +183,14 @@ module Component =
         (isActive: bool)
         (callback: MouseEventArgs -> unit)
         (displayText: string) =
-        a {
-            attr.href "#"
-            [
+        anchorButtonElement
+            (HasClasses <| CssClasses [
                 "dropdown-item"
                 if isActive then CssClass.elementIsActive
-            ] |> CssClasses.toHtmlClassFromList
-            DomElementEvent.Click.PreventDefault
-            on.click callback
-            text displayText
-        }
+            ])
+            NoAttr
+            callback
+            (text displayText)
 
     /// <summary>
     /// “…a container for a dropdown button and a dropdown menu…”
@@ -186,14 +215,14 @@ module Component =
             div {
                 "dropdown-trigger" |> CssClasses.toHtmlClass
 
-                button {
-                    CssClass.buttonClass |> CssClasses.toHtmlClass
-                    AriaHasPopup.ToAttrWithTrueValue
-                    AriaControls.AttrName => "dropdown-menu"
-                    on.click callback
-
-                    span { text displayText }
-                }
+                buttonElement
+                    (HasClasses <| CssClasses [ CssClass.buttonClass ])
+                    (HasAttr <| attrs {
+                        AriaHasPopup.ToAttrWithTrueValue
+                        AriaControls.AttrName => "dropdown-menu"
+                    })
+                    callback
+                    (span { text displayText })
             }
             div {
                 "dropdown-menu" |> CssClasses.toHtmlClass; "role" => "menu"

@@ -22,6 +22,7 @@
       <Compile Include="Visuals\Bulma\Element.fs" />
       <Compile Include="Visuals\Bulma\Component.fs" />
       <Compile Include="Visuals\Bulma\Layout.fs" />
+      <Compile Include="Components\AppVersionsComponent.fs" />
     </ItemGroup>
 
     <ItemGroup>
