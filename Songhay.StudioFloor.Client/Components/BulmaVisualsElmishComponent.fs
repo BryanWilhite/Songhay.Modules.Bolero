@@ -21,8 +21,9 @@ type BulmaVisualsElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
+        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
 
-    override this.View _ _ =
+    override this.View model dispatch =
         bulmaSection
             NoCssClasses
             NoAttr
@@ -68,23 +69,23 @@ type BulmaVisualsElmishComponent() =
                                     NoAttr
                                     (text "Bulma dropdown")
                                 bulmaDropdown
-                                    true
+                                    (model.bulmaVisualsStates.hasState DropDownContentActive)
                                     "Content"
-                                    (fun _ -> ())
+                                    (fun _ -> dispatch <| ToggleBulmaVisualsState DropDownContentActive)
                                     (concat {
                                         bulmaDropdownItem
-                                            false
-                                            (fun _ -> ())
+                                            (model.bulmaVisualsStates.hasState (DropDownItem 1))
+                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 1))
                                             "Item 1"
                                         bulmaDropdownDivider()
                                         bulmaDropdownItem
-                                            false
-                                            (fun _ -> ())
+                                            (model.bulmaVisualsStates.hasState (DropDownItem 2))
+                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 2))
                                             "Item 2"
                                         bulmaDropdownDivider()
                                         bulmaDropdownItem
-                                            false
-                                            (fun _ -> ())
+                                            (model.bulmaVisualsStates.hasState (DropDownItem 3))
+                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 3))
                                             "Item 3"
                                     })
                             })

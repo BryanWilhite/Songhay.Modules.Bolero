@@ -99,6 +99,15 @@ module JsRuntimeUtility =
     let consoleWarnAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "warn" args
 
     ///<summary>
+    /// Calls the <c>window.navigator.clipboard.writeText</c> method.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText
+    /// </remarks>
+    let copyToClipboard (data: string) (jsRuntime: IJSRuntime) =
+        jsRuntime.InvokeVoidAsync("window.navigator.clipboard.writeText", data).AsTask()
+
+    ///<summary>
     /// Calls the <c>CssUtility.getComputedStylePropertyValue</c> method in <c>songhay-core</c>.
     ///</summary>
     /// <remarks>
@@ -134,6 +143,15 @@ module JsRuntimeUtility =
     let passErrorToConsole (label: string option) (ex: exn) (jsRuntime: IJSRuntime) =
         jsRuntime |> consoleErrorAsync [| if label.IsSome then label; ex |] |> ignore
         ex
+
+    ///<summary>
+    /// Calls the <c>window.navigator.clipboard.readText</c> method.
+    ///</summary>
+    /// <remarks>
+    /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/readText
+    /// </remarks>
+    let readFromClipboard (jsRuntime: IJSRuntime) =
+        jsRuntime.InvokeAsync<string>("window.navigator.clipboard.readText").AsTask()
 
     ///<summary>
     /// Calls the <c>CssUtility.setComputedStylePropertyValue</c> method in <c>songhay-core</c>.

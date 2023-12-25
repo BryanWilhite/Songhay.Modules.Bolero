@@ -4,12 +4,12 @@ open Bolero
 open Bolero.Html
 
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
 open Songhay.StudioFloor.Client.Models
-
 type TabsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
@@ -20,16 +20,16 @@ type TabsElmishComponent() =
         oldModel.tab <> newModel.tab
         || oldModel.progressValue <> newModel.progressValue
         || oldModel.readMeData <> newModel.readMeData
+        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
 
     override this.View model dispatch =
         concat {
             let anchor tab (node: Node) =
-                a {
-                    attr.href "#"
-                    DomElementEvent.Click.PreventDefault
-                    on.click (fun _ -> SetTab tab |> dispatch)
+                anchorButtonElement
+                    NoCssClasses
+                    NoAttr
+                    (fun _ -> SetTab tab |> dispatch)
                     node
-                }
 
             let tabs =
                 [

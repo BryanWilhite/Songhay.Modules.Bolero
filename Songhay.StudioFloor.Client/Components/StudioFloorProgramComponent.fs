@@ -1,7 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
 open System.Net.Http
-open Bolero.Remoting.Client
 open Microsoft.AspNetCore.Components
 open Microsoft.JSInterop
 
@@ -32,6 +31,23 @@ type StudioFloorProgramComponent() =
             m, Cmd.none
         | SetTab tab ->
             let m = { model with tab = tab }
+            m, Cmd.none
+        | ToggleBulmaVisualsState state ->
+            let m =
+                match state with
+                | DropDownItem _ ->
+                    let getState() =
+                        match model.bulmaVisualsStates.hasState state with
+                        | true ->
+                            model.bulmaVisualsStates
+                                .removeStates(DropDownItem 1, DropDownItem 2, DropDownItem 3)
+                        | false ->
+                            model.bulmaVisualsStates
+                                .removeStates(DropDownItem 1, DropDownItem 2, DropDownItem 3)
+                                .addState(state)
+                    { model with bulmaVisualsStates = getState() }
+                | _ ->
+                    { model with bulmaVisualsStates = model.bulmaVisualsStates.toggleState state }
             m, Cmd.none
 
     let view model dispatch =
