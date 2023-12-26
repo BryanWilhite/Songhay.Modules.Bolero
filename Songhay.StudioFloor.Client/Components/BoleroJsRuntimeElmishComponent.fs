@@ -19,7 +19,7 @@ type BoleroJsRuntimeElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
-        || oldModel.progressValue <> newModel.progressValue
+        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
 
     override this.View model dispatch =
         bulmaSection
