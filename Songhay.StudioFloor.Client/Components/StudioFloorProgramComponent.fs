@@ -35,17 +35,8 @@ type StudioFloorProgramComponent() =
         | ToggleBulmaVisualsState state ->
             let m =
                 match state with
-                | DropDownItem _ ->
-                    {
-                        model with bulmaVisualsStates =
-                                    model.bulmaVisualsStates
-                                        .removeStates(
-                                            [|DropDownItem 1; DropDownItem 2; DropDownItem 3|] |> Array.except [|state|]
-                                        )
-                                        .toggleState(state)
-                    }
-                | _ ->
-                    { model with bulmaVisualsStates = model.bulmaVisualsStates.toggleState state }
+                | DropDownItem n -> { model with bulmaVisualsStates = model.toggleDropDownItemState n }
+                | _ -> { model with bulmaVisualsStates = model.bulmaVisualsStates.toggleState state }
             m, Cmd.none
 
     let view model dispatch =

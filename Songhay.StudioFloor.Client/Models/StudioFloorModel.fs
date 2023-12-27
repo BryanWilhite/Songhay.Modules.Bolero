@@ -31,3 +31,10 @@ type StudioFloorModel =
         let currentScalar = this.getProgressValue()
         let nextValue = ProgressValue <| currentScalar + 1
         this.bulmaVisualsStates.removeState(ProgressValue currentScalar).addState(nextValue)
+
+    member this.toggleDropDownItemState n =
+        this.bulmaVisualsStates
+            .removeStates(
+                [|DropDownItem 1; DropDownItem 2; DropDownItem 3|] |> Array.except [|DropDownItem n|]
+            )
+            .toggleState(DropDownItem n)
