@@ -4,6 +4,7 @@ open Bolero
 open Bolero.Html
 
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.Bulma
 
 ///<summary>
 /// Bulma Form controls
@@ -20,7 +21,7 @@ module Form =
     /// </remarks>
     let bulmaField (cssClasses: CssClassesOrEmpty) (childNode: Node) =
         div {
-            CssClasses [ "field" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.field ] |> cssClasses.ToHtmlClassAttribute
 
             childNode
         }
@@ -33,7 +34,7 @@ module Form =
     /// </remarks>
     let bulmaLabel (cssClasses: CssClassesOrEmpty) (attr: HtmlAttributeOrEmpty) (childNode: Node) =
         label {
-            CssClasses [ "label" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.label ] |> cssClasses.ToHtmlClassAttribute
             attr.Value
 
             childNode
@@ -47,7 +48,7 @@ module Form =
     /// </remarks>
     let bulmaControl (cssClasses: CssClassesOrEmpty) (childNode: Node) =
         div {
-            CssClasses [ "control" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.control ] |> cssClasses.ToHtmlClassAttribute
 
             childNode
         }
@@ -60,7 +61,7 @@ module Form =
     /// </remarks>
     let bulmaInput (cssClasses: CssClassesOrEmpty) (attr: HtmlAttributeOrEmpty) =
         input {
-            CssClasses [ "input" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.input ] |> cssClasses.ToHtmlClassAttribute
             attr.Value
         }
 
@@ -72,7 +73,7 @@ module Form =
     /// </remarks>
     let bulmaSelect (cssClasses: CssClassesOrEmpty) (attr: HtmlAttributeOrEmpty) (childNode: Node) =
         div {
-            CssClasses [ "select" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.select ] |> cssClasses.ToHtmlClassAttribute
             select {
                 attr.Value
 
@@ -88,7 +89,7 @@ module Form =
     /// </remarks>
     let bulmaTextarea (cssClasses: CssClassesOrEmpty) (attr: HtmlAttributeOrEmpty) (childNode: Node) =
         textarea {
-            CssClasses [ "textarea" ] |> cssClasses.ToHtmlClassAttribute
+            CssClasses [ CssClass.textarea ] |> cssClasses.ToHtmlClassAttribute
             attr.Value
 
             childNode

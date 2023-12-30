@@ -59,6 +59,16 @@ module CssClass =
     let cardImage = "card-image"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let checkbox = "checkbox"
+
+    ///<summary>
     /// Bulma CSS class-name literal for Bulma content.
     ///</summary>
     ///<remarks>
@@ -82,6 +92,16 @@ module CssClass =
     /// 📖 https://bulma.io/documentation/layout/container/
     ///</remarks>
     let container (width: BulmaContainerWidth) = $"container {width.CssClass}"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let control = "control"
 
     ///<summary>
     /// Bulma CSS class-name function for flex content alignment.
@@ -366,9 +386,29 @@ module CssClass =
     let elementTextIsUnselectable = "is-unselectable"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let field = "field"
+
+    ///<summary>
     /// Bulma CSS class-name function.
     ///</summary>
     let fontSize (size: BulmaFontSize) = $"is-size-{size.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let help = "help"
 
     ///<summary>
     /// Bulma CSS class-name function.
@@ -406,6 +446,16 @@ module CssClass =
     let imageIsRounded = "is-rounded"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let input = "input"
+
+    ///<summary>
     /// Bulma CSS class-name literal.
     ///</summary>
     ///<remarks>
@@ -434,6 +484,16 @@ module CssClass =
     ///</remarks>
     [<Literal>]
     let isOutlinedModifier = "is-outlined"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let label = "label"
 
     ///<summary>
     /// Bulma CSS class-name function for layout.
@@ -594,6 +654,26 @@ module CssClass =
     let panel = "panel"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let radio = "radio"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let select = "select"
+
+    ///<summary>
     /// Bulma CSS class-name function for Bulma elements.
     ///</summary>
     ///<remarks>
@@ -605,6 +685,16 @@ module CssClass =
         | DefaultBulmaFontSize -> [ "subtitle" ]
         | HasFontSize Size7 -> [ "subtitle"; $"is-{Size6.Value}" ]
         | _ -> ["subtitle"; $"is-{size.Value}"]
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “All generic form controls, designed for consistency…”
+    /// 📖 https://bulma.io/documentation/form/general/
+    ///</remarks>
+    [<Literal>]
+    let textarea = "textarea"
 
     ///<summary>
     /// Bulma CSS class-name literal for Bulma tiles.
