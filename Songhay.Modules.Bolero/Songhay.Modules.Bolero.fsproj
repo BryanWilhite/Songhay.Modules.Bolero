@@ -19,8 +19,9 @@
       <Compile Include="Visuals\HeadElement.fs" />
       <Compile Include="Visuals\SvgElement.fs" />
       <Compile Include="Visuals\Bulma\CssClass.fs" />
-      <Compile Include="Visuals\Bulma\Element.fs" />
       <Compile Include="Visuals\Bulma\Component.fs" />
+      <Compile Include="Visuals\Bulma\Element.fs" />
+      <Compile Include="Visuals\Bulma\Form.fs" />
       <Compile Include="Visuals\Bulma\Layout.fs" />
       <Compile Include="Components\AppVersionsComponent.fs" />
     </ItemGroup>
