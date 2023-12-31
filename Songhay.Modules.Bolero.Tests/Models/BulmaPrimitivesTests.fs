@@ -17,6 +17,42 @@ let ``BulmaColor.ColorName test`` (expected: string, input: BulmaColor) =
     let actual = input.ColorName
     Assert.Equal(expected, actual)
 
+let BulmaColumnsOptionTestData : seq<obj[]> =
+    seq {
+        yield [| "is-gapless"; BulmaColumnsOption.Gapless.CssClass |]
+        yield [| "is-multiline"; BulmaColumnsOption.MultiLine.CssClass |]
+        yield [| "is-8"; BulmaColumnsOption.Gap8.CssClass |]
+        yield [| "is-variable"; BulmaColumnsOption.Variable.CssClass |]
+        yield [| "is-1-fullhd"; BulmaColumnsOption.Gap1.CssBreakpointClass BulmaBreakpoint.FullHD |]
+        yield [| "is-vcentered"; BulmaColumnsOption.VCentered.CssClass |]
+        yield [| "is-centered"; BulmaColumnsOption.Centered.CssClass |]
+    }
+
+[<Theory>]
+[<MemberData(nameof BulmaColumnsOptionTestData)>]
+let ``BulmaColumnsOption test`` (expected: string, actual: string) =
+    Assert.Equal(expected, actual)
+
+let BulmaColumnSizeTestData : seq<obj[]> =
+    seq {
+        yield [| "is-three-quarters"; BulmaColumnSize.ThreeQuarters.CssClass |]
+        yield [| "is-one-third"; BulmaColumnSize.OneThird.CssClass |]
+        yield [| "is-four-fifths"; BulmaColumnSize.FourFifths.CssClass |]
+        yield [| "is-9"; BulmaColumnSize.Size9over12.CssClass |]
+        yield [| "is-offset-one-quarter"; BulmaColumnSize.OneQuarter.CssOffsetClass |]
+        yield [| "is-offset-8"; BulmaColumnSize.Size8over12.CssOffsetClass |]
+        yield [| "is-narrow"; BulmaColumnSize.Narrow.CssClass |]
+        yield [| "is-narrow-widescreen"; BulmaColumnSize.Narrow.CssBreakpointClass BulmaBreakpoint.WideScreen |]
+        yield [| "is-desktop"; BulmaBreakpoint.Desktop.CssClass |]
+        yield [| "is-two-thirds-tablet"; BulmaColumnSize.TwoThirds.CssBreakpointClass BulmaBreakpoint.Tablet |]
+        yield [| "is-one-quarter-fullhd"; BulmaColumnSize.OneQuarter.CssBreakpointClass BulmaBreakpoint.FullHD |]
+    }
+
+[<Theory>]
+[<MemberData(nameof BulmaColumnSizeTestData)>]
+let ``BulmaColumnSize test`` (expected: string, actual: string) =
+    Assert.Equal(expected, actual)
+
 let BulmaShadeBackgroundTestData : seq<obj[]> =
     seq {
         yield [| "has-background-grey-dark"; ShadeGreyDark |]

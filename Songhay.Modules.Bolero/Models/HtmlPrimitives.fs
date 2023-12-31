@@ -323,9 +323,6 @@ type HtmlLinkedDocumentRelationship =
     ///<summary>Returns the <see cref="string" /> representation of the linked-document relationship.</summary>
     member this.Value = this.ToString().Substring(3).ToLowerInvariant()
 
-    ///<summary>Returns <see cref="this.Value" />.</summary>
-    override this.ToString() = this.Value
-
 ///<summary>
 /// Defines selected HTML <c>link[as]</c> values.
 ///</summary>
@@ -389,9 +386,6 @@ type HtmlPrefetchOrPreLoadType =
         let s = this.ToString().ToLowerInvariant()
         if s.StartsWith(prefetch) then s.Replace(prefetch, String.Empty)
         else s.Replace(preload, String.Empty)
-
-    ///<summary>Returns <see cref="this.Value" />.</summary>
-    override this.ToString() = this.Value
 
 ///<summary>
 /// Defines a type representing an <see cref="Node" />

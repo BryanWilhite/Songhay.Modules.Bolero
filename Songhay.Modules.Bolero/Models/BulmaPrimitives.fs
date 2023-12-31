@@ -100,6 +100,9 @@ type BulmaBreakpoint =
     ///<summary>1408px and above</summary>
     | FullHD
 
+    ///<summary>Returns the CSS class name of the Bulma breakpoint name.</summary>
+    member this.CssClass = $"is-{this.Value}"
+
     ///<summary>Returns the <see cref="string" /> representation of the breakpoint name.</summary>
     member this.Value = this.ToString().ToLowerInvariant()
 
@@ -179,6 +182,56 @@ type BulmaColor =
     member this.TextCssClass =
         if String.IsNullOrWhiteSpace(this.ColorName) then String.Empty else $"has-text-{this.ColorName}"
 
+
+///<summary>
+/// Defines options for the Bulma <c>column</c>.
+///</summary>
+/// <remarks>
+/// 📖 https://bulma.io/documentation/columns/gap/
+/// 📖 https://bulma.io/documentation/columns/options/
+/// </remarks>
+type BulmaColumnsOption =
+    /// <summary> a Bulma <c>columns</c> option </summary>
+    | Centered
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap0
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap1
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap2
+    /// <summary> a Bulma <c>columns</c> gap option (<c>0.75rem</c>, the default) </summary>
+    | Gap3
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap4
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap5
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap6
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gap7
+    /// <summary> a Bulma <c>columns</c> gap option (<c>2rem</c>, the maximum) </summary>
+    | Gap8
+    /// <summary> a Bulma <c>columns</c> gap option </summary>
+    | Gapless
+    /// <summary> a Bulma <c>columns</c> option </summary>
+    | MultiLine
+    /// <summary> a Bulma <c>columns</c> option </summary>
+    | Variable
+    /// <summary> a Bulma <c>columns</c> option </summary>
+    | VCentered
+
+    ///<summary>Returns the CSS class name of the Bulma <c>column</c> option.</summary>
+    member this.CssClass =
+        let prefix = "is"
+        let gap = "Gap"
+        match this.ToString() with
+        | s when s.Contains(gap) && not <| s.EndsWith("less") ->
+            [$"{prefix}-"; s.Replace(gap, String.Empty)] |> String.concat String.Empty
+        | s -> $"{prefix}-{s.ToLowerInvariant()}"
+
+    ///<summary>Returns the CSS class name of the Bulma <c>column</c> breakpoint.</summary>
+    member this.CssBreakpointClass (breakpoint: BulmaBreakpoint) = $"{this.CssClass}-{breakpoint.Value}"
+
 ///<summary>
 /// Defines Bulma widths for the Bulma <c>column</c>.
 ///</summary>
@@ -245,7 +298,7 @@ type BulmaColumnSize =
     member this.CssClass = this.getCssClass "is"
 
     ///<summary>Returns the CSS class name of the Bulma <c>column</c> breakpoint.</summary>
-    member this.CssBreakpointClass (breakpoint: BulmaBreakpoint) = $"is-narrow-{breakpoint.Value}"
+    member this.CssBreakpointClass (breakpoint: BulmaBreakpoint) = $"{this.CssClass}-{breakpoint.Value}"
 
     ///<summary>Returns the CSS class name of the Bulma <c>column</c> offset.</summary>
     member this.CssOffsetClass = this.getCssClass "is-offset"
