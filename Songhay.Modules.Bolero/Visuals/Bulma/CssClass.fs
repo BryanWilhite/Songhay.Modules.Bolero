@@ -358,7 +358,7 @@ module CssClass =
         let suffix =
             match alignment with
             | AlignCentered | AlignJustified | AlignRight -> alignment.AlignmentName
-            | _ -> "left"
+            | _ -> AlignLeft.AlignmentName
 
         $"has-text-{suffix}"
 
@@ -399,6 +399,70 @@ module CssClass =
     /// Bulma CSS class-name literal for Bulma Form controls.
     ///</summary>
     ///<remarks>
+    /// “If you want a full width…” child element of the <see cref="control"/> container.
+    /// 📖 https://bulma.io/documentation/form/general/#form-addons
+    ///</remarks>
+    [<Literal>]
+    let fieldControlIsFullWidth = "is-fullwidth"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “…to append a static button…”
+    /// 📖 https://bulma.io/documentation/form/general/#form-addons
+    ///</remarks>
+    [<Literal>]
+    let fieldControlIsStatic = "is-static"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “If you want to attach controls together, use the <c>has-addons</c> modifier on the <c>field</c> container…”
+    /// 📖 https://bulma.io/documentation/form/general/#form-addons
+    ///</remarks>
+    [<Literal>]
+    let fieldHasAddOns = "has-addons"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “Use the <c>is-expanded</c> modifier on the element you want to fill up the remaining space…”
+    /// 📖 https://bulma.io/documentation/form/general/#form-addons
+    ///</remarks>
+    [<Literal>]
+    let fieldIsExpanded = "is-expanded"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “If you want to group controls together, use the <c>is-grouped</c> modifier on the <c>field</c> container…”
+    /// 📖 https://bulma.io/documentation/form/general/#form-group
+    ///</remarks>
+    let fieldIsGrouped (alignment: BulmaAlignment) =
+        let isGrouped = "is-grouped"
+        match alignment with
+        | AlignRight -> [ isGrouped; "is-grouped-right" ]
+        | AlignCentered -> [ isGrouped; "is-grouped-centered" ]
+        | _ -> [ isGrouped ]
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “Add the <c>is-grouped-multiline</c> modifier to allow controls to fill up multiple lines…”
+    /// 📖 https://bulma.io/documentation/form/general/#form-group
+    ///</remarks> 
+    [<Literal>]
+    let fieldIsGroupedMultiline = "is-grouped-multiline"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
     /// “…use the <c>is-horizontal</c> modifier on the <c>field</c> container…”
     /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
     ///</remarks>
@@ -406,9 +470,61 @@ module CssClass =
     let fieldIsHorizontal = "is-horizontal"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “If you want a horizontal form control, use… <c>field-body</c> for the input/select/textarea container…”
+    /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+    /// <seealso cref="label"/>
+    ///</remarks>
+    [<Literal>]
+    let fieldBody = "field-body"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “If you want a horizontal form control, use… <c>field-label</c> for the side label…”
+    /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+    /// <seealso cref="label"/>
+    ///</remarks>
+    [<Literal>]
+    let fieldLabel = "field-label"
+
+    ///<summary>
     /// Bulma CSS class-name function.
     ///</summary>
     let fontSize (size: BulmaFontSize) = $"is-size-{size.Value}"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/form/general/#with-icons
+    /// <seealso cref="formIconAlign"/>
+    ///</remarks>
+    let formControlIconAlign (alignment: BulmaAlignment) =
+        let suffix =
+            match alignment with
+            | AlignLeft | AlignRight -> alignment.AlignmentName
+            | _ -> AlignLeft.AlignmentName
+
+        $"has-icons-{suffix}"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// 📖 https://bulma.io/documentation/form/general/#with-icons
+    /// <seealso cref="formControlIconAlign"/>
+    ///</remarks>
+    let formIconAlign (alignment: BulmaAlignment) =
+        let suffix =
+            match alignment with
+            | AlignLeft | AlignRight -> alignment.AlignmentName
+            | _ -> AlignLeft.AlignmentName
+
+        $"is-{suffix}"
 
     ///<summary>
     /// Bulma CSS class-name literal for Bulma Form controls.
@@ -501,6 +617,7 @@ module CssClass =
     ///<remarks>
     /// “All generic form controls, designed for consistency…”
     /// 📖 https://bulma.io/documentation/form/general/
+    /// <seealso cref="fieldLabel"/>
     ///</remarks>
     [<Literal>]
     let label = "label"

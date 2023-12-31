@@ -180,6 +180,77 @@ type BulmaColor =
         if String.IsNullOrWhiteSpace(this.ColorName) then String.Empty else $"has-text-{this.ColorName}"
 
 ///<summary>
+/// Defines Bulma widths for the Bulma <c>column</c>.
+///</summary>
+/// <remarks>
+/// 📖 https://bulma.io/documentation/columns/sizes/
+/// </remarks>
+type BulmaColumnSize =
+    /// <summary> a Bulma <c>column</c> width (<c>0.20</c>) </summary>
+    | OneFifth
+    /// <summary> a Bulma <c>column</c> width (<c>0.25</c>) </summary>
+    | OneQuarter
+    /// <summary> a Bulma <c>column</c> width (<c>~0.33</c>) </summary>
+    | OneThird
+    /// <summary> a Bulma <c>column</c> width  (<c>0.40</c>)</summary>
+    | TwoFifths
+    /// <summary> a Bulma <c>column</c> width (<c>0.50</c>) </summary>
+    | Half
+    /// <summary> a Bulma <c>column</c> width  (<c>~0.66</c>)</summary>
+    | TwoThirds
+    /// <summary> a Bulma <c>column</c> width (<c>0.60</c>) </summary>
+    | ThreeFifths
+    /// <summary> a Bulma <c>column</c> width (<c>0.75</c>) </summary>
+    | ThreeQuarters
+    /// <summary> a Bulma <c>column</c> width (<c>0.80</c>) </summary>
+    | FourFifths
+    /// <summary> a Bulma <c>column</c> width (<c>1.00</c>) </summary>
+    | Full
+    /// <summary> a Bulma <c>column</c> width for when “you want a column to only take the space it needs”</summary>
+    /// <remarks> 📖 https://bulma.io/documentation/columns/sizes/#narrow-column </remarks>
+    | Narrow
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size1over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size2over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size3over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size4over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size5over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size6over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size7over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size8over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size9over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size10over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size11over12
+    /// <summary> a Bulma <c>column</c> width for 12 columns system</summary>
+    | Size12over12
+
+    member private this.getCssClass prefix =
+        let over12 = "over12"
+        match this.ToString() with
+        | s when s.Contains(over12) ->
+            [$"{prefix}-"; s.Replace("Size", String.Empty).Replace(over12, String.Empty)] |> String.concat String.Empty
+        | s -> s |> toKabobCase |> Option.get |> fun s -> $"{prefix}-{s}"
+
+    ///<summary>Returns the CSS class name of the Bulma <c>column</c> width.</summary>
+    member this.CssClass = this.getCssClass "is"
+
+    ///<summary>Returns the CSS class name of the Bulma <c>column</c> breakpoint.</summary>
+    member this.CssBreakpointClass (breakpoint: BulmaBreakpoint) = $"is-narrow-{breakpoint.Value}"
+
+    ///<summary>Returns the CSS class name of the Bulma <c>column</c> offset.</summary>
+    member this.CssOffsetClass = this.getCssClass "is-offset"
+
+///<summary>
 /// Defines Bulma widths for the Bulma <c>container</c>.
 ///</summary>
 /// <remarks>
