@@ -396,6 +396,16 @@ module CssClass =
     let field = "field"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls.
+    ///</summary>
+    ///<remarks>
+    /// “…use the <c>is-horizontal</c> modifier on the <c>field</c> container…”
+    /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+    ///</remarks>
+    [<Literal>]
+    let fieldIsHorizontal = "is-horizontal"
+
+    ///<summary>
     /// Bulma CSS class-name function.
     ///</summary>
     let fontSize (size: BulmaFontSize) = $"is-size-{size.Value}"

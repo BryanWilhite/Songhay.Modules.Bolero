@@ -141,6 +141,70 @@ type HtmlElementActiveOrDefault =
     | DefaultState
 
 ///<summary>
+/// Defines all values for the <c>type</c> attribute of the <c>input</c> element.
+///</summary>
+/// <remarks>
+/// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types
+/// </remarks>
+type HtmlInputType =
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Button
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Checkbox
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Color
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Date
+    ///<summary> a <c>type</c> attribute value </summary>
+    | DateTimeLocal
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Email
+    ///<summary> a <c>type</c> attribute value </summary>
+    | File
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Hidden
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Image
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Month
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Number
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Password
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Radio
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Range
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Reset
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Search
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Submit
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Tel
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Text
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Time
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Url
+    ///<summary> a <c>type</c> attribute value </summary>
+    | Week
+
+    ///<summary>Returns the <see cref="Attr" /> representation of the <c>type</c> attribute value.</summary>
+    member this.ToAttr = attr.``type`` <| this.Value
+
+    ///<summary>Returns the <see cref="string" /> representation of the <c>type</c> attribute value.</summary>
+    member this.Value =
+        match this with
+        | DateTimeLocal -> "datetime-local"
+        | _ -> this.ToString().ToLowerInvariant()
+
+    ///<summary>Returns <see cref="this.Value" />.</summary>
+    override this.ToString() = this.Value
+
+///<summary>
 /// Defines all HTML <c>meta</c> elements.
 ///</summary>
 /// <remarks>
@@ -259,6 +323,9 @@ type HtmlLinkedDocumentRelationship =
     ///<summary>Returns the <see cref="string" /> representation of the linked-document relationship.</summary>
     member this.Value = this.ToString().Substring(3).ToLowerInvariant()
 
+    ///<summary>Returns <see cref="this.Value" />.</summary>
+    override this.ToString() = this.Value
+
 ///<summary>
 /// Defines selected HTML <c>link[as]</c> values.
 ///</summary>
@@ -322,6 +389,9 @@ type HtmlPrefetchOrPreLoadType =
         let s = this.ToString().ToLowerInvariant()
         if s.StartsWith(prefetch) then s.Replace(prefetch, String.Empty)
         else s.Replace(preload, String.Empty)
+
+    ///<summary>Returns <see cref="this.Value" />.</summary>
+    override this.ToString() = this.Value
 
 ///<summary>
 /// Defines a type representing an <see cref="Node" />
