@@ -26,8 +26,7 @@ type TabsElmishComponent() =
             let anchor tab (node: Node) =
                 anchorButtonElement
                     NoCssClasses
-                    NoAttr
-                    (fun _ -> SetTab tab |> dispatch)
+                    (HasAttr <| on.click (fun _ -> SetTab tab |> dispatch))
                     node
 
             let tabs =

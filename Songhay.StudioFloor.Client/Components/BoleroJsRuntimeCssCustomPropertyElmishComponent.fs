@@ -50,26 +50,28 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                     ]
                     |> orderedList (HasClasses <| CssClasses [ LowerRoman.CssClass; elementTextAlign AlignLeft ])
                 )
-            buttonElementAsync
+            buttonElement
                 (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
-                NoAttr
-                (fun _ ->
-                    async {
-                        let! currentColor =
-                            model.blazorServices.jsRuntime
-                            |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value
-                            |> Async.AwaitTask
+                (HasAttr <|
+                    attrs {
+                        on.async.click (fun _ ->
+                            async {
+                                let! currentColor =
+                                    model.blazorServices.jsRuntime
+                                    |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value
+                                    |> Async.AwaitTask
 
-                        let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
+                                let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
 
-                        model.blazorServices.jsRuntime
-                        |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
-                        |> ignore
+                                model.blazorServices.jsRuntime
+                                |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
+                                |> ignore
 
-                        model.blazorServices.jsRuntime
-                        |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor
-                        |> ignore
-                    }
-                )
+                                model.blazorServices.jsRuntime
+                                |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor
+                                |> ignore
+                            }
+                        )
+                    })
                 (text "set computed style with CSS variable")
         }

@@ -29,14 +29,16 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
                 (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
                 ( Html.p { text "Click the button to demonstrate:" })
                 (concat {
-                    buttonElementAsync
+                    buttonElement
                         (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
-                        NoAttr
-                        (fun _ ->
-                            model.blazorServices.jsRuntime
-                            |> copyToClipboard "Click the button to demonstrate:"
-                            |> Async.AwaitTask
-                        )
+                        (HasAttr <|
+                            attrs {
+                                on.async.click (fun _ ->
+                                        model.blazorServices.jsRuntime
+                                        |> copyToClipboard "Click the button to demonstrate:"
+                                        |> Async.AwaitTask
+                                    )
+                            })
                         (text "copy to clipboard 📋")
                 })
         }

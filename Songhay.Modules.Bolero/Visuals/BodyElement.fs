@@ -1,7 +1,6 @@
 namespace Songhay.Modules.Bolero.Visuals
 
 open System
-open Microsoft.AspNetCore.Components
 
 open Bolero
 open Bolero.Html
@@ -48,35 +47,10 @@ module BodyElement =
     let anchorButtonElement
         (cssClasses: CssClassesOrEmpty)
         (moreAttrs: HtmlAttributeOrEmpty)
-        (callback: Web.MouseEventArgs -> unit)
         (childNode: Node) =
         a {
             cssClasses.Value
 
-            on.click callback
-            DomElementEvent.Click.PreventDefault
-            attr.href "#"
-            moreAttrs.Value
-
-            childNode
-        }
-
-    ///<summary>
-    /// Returns the HTML <c>a</c> element,
-    /// declaring an asynchronous eventing 🗲🐎 callback and adorned with any CSS classes.
-    ///</summary>
-    /// <remarks>
-    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
-    /// </remarks>
-    let anchorButtonElementAsync
-        (cssClasses: CssClassesOrEmpty)
-        (moreAttrs: HtmlAttributeOrEmpty)
-        (callback: Web.MouseEventArgs -> Async<unit>)
-        (childNode: Node) =
-        a {
-            cssClasses.Value
-
-            on.async.click callback
             DomElementEvent.Click.PreventDefault
             attr.href "#"
             moreAttrs.Value
@@ -94,33 +68,10 @@ module BodyElement =
     let buttonElement
         (cssClasses: CssClassesOrEmpty)
         (moreAttrs: HtmlAttributeOrEmpty)
-        (callback: Web.MouseEventArgs -> unit)
         (childNode: Node) =
         button {
             cssClasses.Value
 
-            on.click callback
-            moreAttrs.Value
-
-            childNode
-        }
-
-    ///<summary>
-    /// Returns the HTML <c>button</c> element,
-    /// declaring an asynchronous eventing 🗲🐎 callback and adorned with any CSS classes.
-    ///</summary>
-    /// <remarks>
-    /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
-    /// </remarks>
-    let buttonElementAsync
-        (cssClasses: CssClassesOrEmpty)
-        (moreAttrs: HtmlAttributeOrEmpty)
-        (callback: Web.MouseEventArgs -> Async<unit>)
-        (childNode: Node) =
-        button {
-            cssClasses.Value
-
-            on.async.click callback
             moreAttrs.Value
 
             childNode

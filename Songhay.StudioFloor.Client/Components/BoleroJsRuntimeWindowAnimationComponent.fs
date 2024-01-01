@@ -40,17 +40,19 @@ type BoleroJsRuntimeWindowAnimationComponent() =
                     ]
                     |> orderedList (HasClasses <| CssClasses [ LowerRoman.CssClass; elementTextAlign AlignLeft ])
                 )
-            buttonElementAsync
+            buttonElement
                 (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
-                NoAttr
-                (fun _ ->
-                    let dotNetObjectReference = DotNetObjectReference.Create(this)
-                    let qualifiedName = $"{rx}.StudioFloorUtility.runMyAnimation"
-                    model.blazorServices
-                        .jsRuntime.InvokeVoidAsync(qualifiedName, dotNetObjectReference)
-                        .AsTask()
-                    |> Async.AwaitTask
-                )
+                (HasAttr <|
+                    attrs {
+                        on.async.click (fun _ ->
+                                let dotNetObjectReference = DotNetObjectReference.Create(this)
+                                let qualifiedName = $"{rx}.StudioFloorUtility.runMyAnimation"
+                                model.blazorServices
+                                    .jsRuntime.InvokeVoidAsync(qualifiedName, dotNetObjectReference)
+                                    .AsTask()
+                                |> Async.AwaitTask
+                            )
+                    })
                 (text "start animation")
             bulmaProgressElement
                 (HasClasses <| CssClasses [ SizeLarge.CssClass ])

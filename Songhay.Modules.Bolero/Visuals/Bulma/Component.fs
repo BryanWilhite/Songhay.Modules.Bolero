@@ -188,8 +188,7 @@ module Component =
                 "dropdown-item"
                 if isActive then CssClass.elementIsActive
             ])
-            NoAttr
-            callback
+            (HasAttr <| attrs { on.click callback })
             (text displayText)
 
     /// <summary>
@@ -220,8 +219,8 @@ module Component =
                     (HasAttr <| attrs {
                         AriaHasPopup.ToAttrWithTrueValue
                         AriaControls.AttrName => "dropdown-menu"
+                        on.click callback
                     })
-                    callback
                     (span { text displayText })
             }
             div {
