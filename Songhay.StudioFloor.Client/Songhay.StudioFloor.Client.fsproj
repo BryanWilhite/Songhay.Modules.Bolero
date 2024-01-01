@@ -9,7 +9,7 @@
     <Compile Include="Models\StudioFloorMessage.fs" />
     <Compile Include="Models\StudioFloorModel.fs" />
     <Compile Include="ProgramComponentUtility.fs" />
-    <Compile Include="Components\BoleroJsRuntimeClipboardApi.fs" />
+    <Compile Include="Components\BoleroJsRuntimeClipboardApiElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeCssCustomPropertyElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeWindowAnimationComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeElmishComponent.fs" />

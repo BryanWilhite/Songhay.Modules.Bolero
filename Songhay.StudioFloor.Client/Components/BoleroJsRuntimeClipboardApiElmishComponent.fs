@@ -10,14 +10,13 @@ open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
 
-
 open Songhay.StudioFloor.Client.Models
 
-type BoleroJsRuntimeClipboardApi() =
+type BoleroJsRuntimeClipboardApiElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
     static member EComp model dispatch =
-        ecomp<BoleroJsRuntimeClipboardApi, _, _> model dispatch { attr.empty() }
+        ecomp<BoleroJsRuntimeClipboardApiElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
