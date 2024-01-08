@@ -10,6 +10,7 @@ open Bolero.Html
 open Songhay.Modules.Models
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
+open Songhay.Modules.Bolero.Visuals.Bulma
 
 ///<summary>
 /// Bulma Components
@@ -597,7 +598,7 @@ module Component =
     /// with a child of <c>ul</c>, populated by the specified <c>nodePair</c> <see cref="list"/>.
     /// </summary>
     /// <remarks>
-    /// 📖 https://bulma.io/documentation/components/panel/
+    /// 📖 https://bulma.io/documentation/components/tabs/
     ///
     /// An example of binding to <c>isActivePageGetter</c>:
     ///
@@ -612,7 +613,7 @@ module Component =
             ul {
               forEach nodePair <| fun (node, pg) ->
               li {
-                  attr.``class`` (if (isActivePageGetter pg) then "is-active" else null)
+                  attr.``class`` (if (isActivePageGetter pg) then CssClass.elementIsActive else null)
 
                   node
               }

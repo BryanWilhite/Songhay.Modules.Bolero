@@ -5,11 +5,14 @@ open Bolero.Html
 
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
+open Songhay.Modules.Bolero.Visuals.Bulma
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
 open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
+open Songhay.Modules.Models
 open Songhay.StudioFloor.Client.Models
+
 type TabsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
@@ -38,31 +41,26 @@ type TabsElmishComponent() =
                 |> List.map (fun (node, tab) -> anchor tab node, tab)
 
             bulmaTabs
-                (HasClasses <| CssClasses [ ColorEmpty.BackgroundCssClassLight; "is-toggle"; "is-fullwidth"; SizeLarge.CssClass ])
+                (HasClasses <| CssClasses [
+                    ColorEmpty.BackgroundCssClassLight
+                    CssClass.tabsElementIsToggle
+                    CssClass.elementIsFullWidth
+                    SizeLarge.CssClass
+            ])
                 (fun pg -> model.tab = pg)
                 tabs
 
             cond model.tab <| function
             | ReadMeTab ->
                 if model.readMeData.IsNone then
-                    text "loading…"
+                    bulmaLoader
+                        (HasClasses <| CssClasses [ DisplayInlineBlock.CssClass; CssClass.p (All, L6); CssClass.m (All, L6) ])
                 else
-                    bulmaContainer
-                        ContainerWidthFluid
-                        NoCssClasses
-                        (bulmaNotification
-                            (HasClasses <| CssClasses [ ColorPrimary.CssClass ])
-                            (rawHtml model.readMeData.Value))
+                    (bulmaNotification
+                        (HasClasses <| CssClasses [ ColorPrimary.CssClass ])
+                        (rawHtml model.readMeData.Value))
 
-            | BoleroJsRuntimeTab ->
-                bulmaContainer
-                    ContainerWidthFluid
-                    NoCssClasses
-                    (BoleroJsRuntimeElmishComponent.EComp model dispatch)
+            | BoleroJsRuntimeTab -> BoleroJsRuntimeElmishComponent.EComp model dispatch
 
-            | BulmaVisualsTab ->
-                bulmaContainer
-                    ContainerWidthFluid
-                    NoCssClasses
-                    (BulmaVisualsElmishComponent.EComp model dispatch)
+            | BulmaVisualsTab -> BulmaVisualsElmishComponent.EComp model dispatch
         }

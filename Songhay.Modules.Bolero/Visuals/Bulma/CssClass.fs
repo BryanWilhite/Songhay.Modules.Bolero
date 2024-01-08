@@ -304,6 +304,20 @@ module CssClass =
     let elementIsFlex = "is-flex"
 
     ///<summary>
+    /// Bulma CSS class-name literal for Bulma Form controls
+    /// and the Bulma tab component.
+    ///</summary>
+    ///<remarks>
+    /// “If you want a full width…” child element of the <see cref="control"/> container.
+    /// 📖 https://bulma.io/documentation/form/general/#form-addons
+    ///
+    /// “If you want the tabs to take up the whole width available, use is-fullwidth.”
+    /// 📖 https://bulma.io/documentation/components/tabs/#styles
+    ///</remarks>
+    [<Literal>]
+    let elementIsFullWidth = "is-fullwidth"
+
+    ///<summary>
     /// Bulma CSS class-name literal.
     ///</summary>
     [<Literal>]
@@ -394,16 +408,6 @@ module CssClass =
     ///</remarks>
     [<Literal>]
     let field = "field"
-
-    ///<summary>
-    /// Bulma CSS class-name literal for Bulma Form controls.
-    ///</summary>
-    ///<remarks>
-    /// “If you want a full width…” child element of the <see cref="control"/> container.
-    /// 📖 https://bulma.io/documentation/form/general/#form-addons
-    ///</remarks>
-    [<Literal>]
-    let fieldControlIsFullWidth = "is-fullwidth"
 
     ///<summary>
     /// Bulma CSS class-name literal for Bulma Form controls.
@@ -812,6 +816,37 @@ module CssClass =
         | DefaultBulmaFontSize -> [ "subtitle" ]
         | HasFontSize Size7 -> [ "subtitle"; $"is-{Size6.Value}" ]
         | _ -> ["subtitle"; $"is-{size.Value}"]
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma tab component.
+    ///</summary>
+    ///<remarks>
+    /// If you want a more classic style with borders, just append the <c>is-boxed</c> modifier…”
+    /// 📖 https://bulma.io/documentation/components/tabs/#styles
+    ///</remarks>
+    [<Literal>]
+    let tabsElementIsBoxed = "is-boxed"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma tab component.
+    ///</summary>
+    ///<remarks>
+    /// “If you want mutually exclusive tabs (like radio buttons where clicking one deselects all other ones),
+    /// use the <c>is-toggle</c> modifier…”
+    /// 📖 https://bulma.io/documentation/components/tabs/#styles
+    ///</remarks>
+    [<Literal>]
+    let tabsElementIsToggle = "is-toggle"
+
+    ///<summary>
+    /// Bulma CSS class-name literal for the Bulma tab component.
+    ///</summary>
+    ///<remarks>
+    /// “If you use both <c>is-toggle</c> and <c>is-toggle-rounded</c>, the first and last items will be rounded…”
+    /// 📖 https://bulma.io/documentation/components/tabs/#styles
+    ///</remarks>
+    [<Literal>]
+    let tabsElementIsToggleRounded = "is-toggle-rounded"
 
     ///<summary>
     /// Bulma CSS class-name literal for Bulma Form controls.
