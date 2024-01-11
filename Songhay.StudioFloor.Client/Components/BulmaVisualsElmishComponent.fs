@@ -33,97 +33,72 @@ type BulmaVisualsElmishComponent() =
                     |> CssClasses.toHtmlClassFromList
                     text "Bulma visuals and components"
                 }
+                let getArticleTile (titleNode: Node) (childNode: Node) =
+                    bulmaTile
+                        HSizeAuto
+                        (HasClasses <| CssClasses [tileIsParent])
+                        (article {
+                            [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
+
+                            paragraphElement
+                                (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                NoAttr
+                                titleNode
+
+                            childNode
+                        })
+
                 bulmaTile
                     HSizeAuto
                     (HasClasses <| CssClasses [tileIsAncestor])
                     (concat {
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text "Bulma columns")
-                                BulmaColumnsComponent.BComp
-                            })
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text "SVG")
-                                SvgComponent.BComp
-                            })
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text "Bulma dropdown")
-                                bulmaDropdown
-                                    (model.bulmaVisualsStates.hasState DropDownContentActive)
-                                    "Content"
-                                    (fun _ -> dispatch <| ToggleBulmaVisualsState DropDownContentActive)
-                                    (concat {
-                                        bulmaDropdownItem
-                                            (model.bulmaVisualsStates.hasState (DropDownItem 1))
-                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 1))
-                                            "Item 1"
-                                        bulmaDropdownDivider()
-                                        bulmaDropdownItem
-                                            (model.bulmaVisualsStates.hasState (DropDownItem 2))
-                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 2))
-                                            "Item 2"
-                                        bulmaDropdownDivider()
-                                        bulmaDropdownItem
-                                            (model.bulmaVisualsStates.hasState (DropDownItem 3))
-                                            (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 3))
-                                            "Item 3"
-                                    })
-                            })
+                        getArticleTile
+                            (text "Bulma columns")
+                            BulmaColumnsComponent.BComp
+
+                        getArticleTile
+                            (text "SVG")
+                            SvgComponent.BComp
+
+                        getArticleTile
+                            (text "Bulma dropdown")
+                            (bulmaDropdown
+                                (model.bulmaVisualsStates.hasState DropDownContentActive)
+                                "Content"
+                                (fun _ -> dispatch <| ToggleBulmaVisualsState DropDownContentActive)
+                                (concat {
+                                    bulmaDropdownItem
+                                        (model.bulmaVisualsStates.hasState (DropDownItem 1))
+                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 1))
+                                        "Item 1"
+                                    bulmaDropdownDivider()
+                                    bulmaDropdownItem
+                                        (model.bulmaVisualsStates.hasState (DropDownItem 2))
+                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 2))
+                                        "Item 2"
+                                    bulmaDropdownDivider()
+                                    bulmaDropdownItem
+                                        (model.bulmaVisualsStates.hasState (DropDownItem 3))
+                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 3))
+                                        "Item 3"
+                                }))
                     })
+
                 bulmaTile
                     HSizeAuto
                     (HasClasses <| CssClasses [tileIsAncestor])
                     (concat {
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text $"{nameof AppVersionsComponent}")
-                                AppVersionsComponent.BComp
-                            })
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text "")
-                            })
-                        bulmaTile
-                            HSizeAuto
-                            (HasClasses <| CssClasses [tileIsParent])
-                            (article {
-                                [ tile; tileIsChild; box ] |> CssClasses.toHtmlClassFromList
-                                paragraphElement
-                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
-                                    NoAttr
-                                    (text "")
-                            })
+
+                        getArticleTile
+                            (text $"{nameof AppVersionsComponent}")
+                            AppVersionsComponent.BComp
+
+                        getArticleTile
+                            (text System.String.Empty)
+                            (empty())
+
+                        getArticleTile
+                            (text System.String.Empty)
+                            (empty())
                     })
             })
