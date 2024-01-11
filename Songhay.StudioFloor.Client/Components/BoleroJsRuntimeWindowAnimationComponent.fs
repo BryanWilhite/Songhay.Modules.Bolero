@@ -28,7 +28,7 @@ type BoleroJsRuntimeWindowAnimationComponent() =
 
     override this.View model _ =
         div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight; box ] |> CssClasses.toHtmlClassFromList
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight ] |> CssClasses.toHtmlClassFromList
             bulmaMessage
                 (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
                 ( Html.p { text "Click the button to demonstrate:" })

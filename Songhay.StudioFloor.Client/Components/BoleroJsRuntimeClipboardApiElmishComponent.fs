@@ -8,7 +8,7 @@ open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
-open Songhay.Modules.Bolero.Visuals.Bulma.Component
+open Songhay.Modules.Bolero.Visuals.Bulma.Form
 
 open Songhay.StudioFloor.Client.Models
 
@@ -24,21 +24,17 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
 
     override this.View model dispatch =
         div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight; box ] |> CssClasses.toHtmlClassFromList
-            bulmaMessage
-                (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
-                ( Html.p { text "Click the button to demonstrate:" })
-                (concat {
-                    buttonElement
-                        (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
-                        (HasAttr <|
-                            attrs {
-                                on.async.click (fun _ ->
-                                        model.blazorServices.jsRuntime
-                                        |> copyToClipboard "Click the button to demonstrate:"
-                                        |> Async.AwaitTask
-                                    )
-                            })
-                        (text "copy to clipboard 📋")
-                })
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight ] |> CssClasses.toHtmlClassFromList
+            Html.p { text "Click the button to demonstrate:" }
+            buttonElement
+                (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
+                (HasAttr <|
+                    attrs {
+                        on.async.click (fun _ ->
+                                model.blazorServices.jsRuntime
+                                |> copyToClipboard "Click the button to demonstrate:"
+                                |> Async.AwaitTask
+                            )
+                    })
+                (text "copy to clipboard 📋")
         }

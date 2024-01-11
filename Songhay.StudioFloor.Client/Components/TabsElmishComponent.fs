@@ -46,7 +46,7 @@ type TabsElmishComponent() =
                     CssClass.tabsElementIsToggle
                     CssClass.elementIsFullWidth
                     SizeLarge.CssClass
-            ])
+                ])
                 (fun pg -> model.tab = pg)
                 tabs
 

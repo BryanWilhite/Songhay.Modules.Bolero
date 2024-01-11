@@ -36,7 +36,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
             ]
 
         div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; box ] |> CssClasses.toHtmlClassFromList
+            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered ] |> CssClasses.toHtmlClassFromList
             attr.style (styleList |> List.reduce (fun a i -> $"{a}{i}"))
             attr.ref demoCssCustomPropertyHtmlRef
             bulmaMessage

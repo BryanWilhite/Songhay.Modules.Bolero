@@ -3,10 +3,9 @@ namespace Songhay.StudioFloor.Client.Components
 open Bolero
 open Bolero.Html
 
-open Songhay.Modules.Models
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
-open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
 open Songhay.StudioFloor.Client.Models
@@ -32,18 +31,41 @@ type BoleroJsRuntimeElmishComponent() =
                     text "the "; code { text "JsRuntimeUtility" }; text " module"
                 }
 
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "using the Clipboard API")
-                    (BoleroJsRuntimeClipboardApiElmishComponent.EComp model dispatch)
+                let getTileContent (titleNode: Node) (contentNode: Node) =
+                    bulmaTile
+                        HSizeAuto
+                        (HasClasses <| CssClasses [tileIsParent])
+                        (bulmaTile
+                            HSizeAuto
+                            (HasClasses <| CssClasses [tileIsChild; box])
+                            (concat {
+                                paragraphElement
+                                    (HasClasses <| CssClasses (title DefaultBulmaFontSize))
+                                    NoAttr
+                                    titleNode
 
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (text "changing a CSS variable (custom property)")
-                    (BoleroJsRuntimeCssCustomPropertyElmishComponent.EComp model dispatch)
+                                contentNode
+                            })
+                        )
 
-                bulmaDetailsElement
-                    (HasClasses <| CssClasses ((subtitle DefaultBulmaFontSize) @ [ ColorPrimary.TextCssClass; m (T, L1) ]))
-                    (concat { text "the JavaScript "; code { text "WindowAnimation" }; text " class" })
-                    (BoleroJsRuntimeWindowAnimationComponent.EComp model dispatch)
+                bulmaTile
+                    HSizeAuto
+                    (HasClasses <| CssClasses [tileIsAncestor])
+                    (concat {
+                        getTileContent
+                            (text "using the Clipboard API")
+                            (BoleroJsRuntimeClipboardApiElmishComponent.EComp model dispatch)
+                        getTileContent
+                            (text "changing a CSS variable (custom property)")
+                            (BoleroJsRuntimeCssCustomPropertyElmishComponent.EComp model dispatch)
+                    })
+
+                bulmaTile
+                    HSizeAuto
+                    (HasClasses <| CssClasses [tileIsAncestor])
+                    (concat {
+                        getTileContent
+                            (concat { text "the JavaScript "; code { text "WindowAnimation" }; text " class" })
+                            (BoleroJsRuntimeWindowAnimationComponent.EComp model dispatch)
+                    })
             })
