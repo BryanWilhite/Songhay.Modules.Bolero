@@ -23,18 +23,57 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
         || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
 
     override this.View model dispatch =
-        div {
-            [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight ] |> CssClasses.toHtmlClassFromList
-            Html.p { text "Click the button to demonstrate:" }
-            buttonElement
-                (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
-                (HasAttr <|
-                    attrs {
-                        on.async.click (fun _ ->
-                                model.blazorServices.jsRuntime
-                                |> copyToClipboard "Click the button to demonstrate:"
-                                |> Async.AwaitTask
-                            )
-                    })
-                (text "copy to clipboard 📋")
+        let buttonCaption = "copy Source to clipboard 📋"
+
+        form {
+            bulmaField
+                (HasClasses <| CssClasses [ fieldIsHorizontal ])
+                (concat {
+                    bulmaFieldLabelContainer
+                        (HasClasses <| CssClasses [ SizeNormal.CssClass ])
+                        (bulmaLabel
+                            NoCssClasses
+                            NoAttr
+                            (text "Source:")
+                        )
+                    bulmaFieldBodyContainer
+                        NoCssClasses
+                        (concat {
+                            bulmaField
+                                NoCssClasses
+                                (bulmaControl
+                                    NoCssClasses
+                                    (bulmaTextarea
+                                        NoCssClasses
+                                        NoAttr
+                                        (text <| model.getClipboardData())
+                                    )
+                                )
+                            bulmaField
+                                NoCssClasses
+                                (bulmaControl
+                                    NoCssClasses
+                                    (bulmaTextarea
+                                        NoCssClasses
+                                        (HasAttr <| attr.placeholder $"Press the `{buttonCaption}` button and paste here.")
+                                        (text "")
+                                    )
+                                )
+                        })
+                })
+            bulmaField
+                (HasClasses <| CssClasses [ fieldIsHorizontal ])
+                (buttonElement
+                    (HasClasses <| CssClasses [ buttonClass; ColorGhost.CssClass; BulmaElementLarge.CssClass; DisplayInlineBlock.CssClass; m (All, L4)])
+                    (HasAttr <|
+                        attrs {
+                            Button.ToAttr
+                            on.async.click (fun _ ->
+                                    model.blazorServices.jsRuntime
+                                    |> copyToClipboard (model.getClipboardData())
+                                    |> Async.AwaitTask
+                                )
+                        })
+                    (text buttonCaption)
+                )
         }

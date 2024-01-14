@@ -193,16 +193,13 @@ type HtmlInputType =
     | Week
 
     ///<summary>Returns the <see cref="Attr" /> representation of the <c>type</c> attribute value.</summary>
-    member this.ToAttr = attr.``type`` <| this.Value
+    member this.ToAttr = attr.``type`` this.Value
 
     ///<summary>Returns the <see cref="string" /> representation of the <c>type</c> attribute value.</summary>
     member this.Value =
         match this with
         | DateTimeLocal -> "datetime-local"
         | _ -> this.ToString().ToLowerInvariant()
-
-    ///<summary>Returns <see cref="this.Value" />.</summary>
-    override this.ToString() = this.Value
 
 ///<summary>
 /// Defines all HTML <c>meta</c> elements.

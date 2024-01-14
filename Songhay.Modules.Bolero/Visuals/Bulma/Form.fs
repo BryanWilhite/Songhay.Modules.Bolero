@@ -27,6 +27,37 @@ module Form =
         }
 
     /// <summary>
+    /// “…<c>field-body</c> for the input/select/textarea container …”
+    /// to be used with <see cref="bulmaField"/> parent having <c>fieldIsHorizontal</c>
+    /// </summary>
+    /// <remarks>
+    /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+    /// </remarks>
+    let bulmaFieldBodyContainer (cssClasses: CssClassesOrEmpty) (childNode: Node) =
+        div {
+            CssClasses [ CssClass.fieldBody ] |> cssClasses.ToHtmlClassAttribute
+
+            childNode
+        }
+
+    /// <summary>
+    /// “…<c>field-label</c> for the side label …”
+    /// to be used with <see cref="bulmaField"/> parent having <c>fieldIsHorizontal</c>
+    /// </summary>
+    /// <remarks>
+    /// This is the container for displaying a label on the “side” for horizontal layout.
+    /// A child node should include the <see cref="bulmaLabel"/>.
+    ///
+    /// 📖 https://bulma.io/documentation/form/general/#horizontal-form
+    /// </remarks>
+    let bulmaFieldLabelContainer (cssClasses: CssClassesOrEmpty) (childNode: Node) =
+        div {
+            CssClasses [ CssClass.fieldLabel ] |> cssClasses.ToHtmlClassAttribute
+
+            childNode
+        }
+
+    /// <summary>
     /// “…a text <c>label</c>…”
     /// </summary>
     /// <remarks>

@@ -17,10 +17,17 @@ type StudioFloorModel =
     static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
         {
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
-            bulmaVisualsStates = AppStateSet.initialize.addState(ProgressValue 1)
+            bulmaVisualsStates = AppStateSet.initialize
+                                     .addState(ProgressValue 1)
+                                     .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
             tab = ReadMeTab
             readMeData = None
         }
+
+    member this.getClipboardData() =
+        this.bulmaVisualsStates.states
+        |> Set.map(fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]" )
+        |> Set.toArray |> Array.head
 
     member this.getProgressValue() =
         this.bulmaVisualsStates.states
@@ -35,6 +42,6 @@ type StudioFloorModel =
     member this.toggleDropDownItemState n =
         this.bulmaVisualsStates
             .removeStates(
-                [|DropDownItem 1; DropDownItem 2; DropDownItem 3|] |> Array.except [|DropDownItem n|]
+                [| DropDownItem 1; DropDownItem 2; DropDownItem 3 |] |> Array.except [| DropDownItem n |]
             )
             .toggleState(DropDownItem n)
