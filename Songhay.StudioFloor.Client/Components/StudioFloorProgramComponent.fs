@@ -27,7 +27,7 @@ type StudioFloorProgramComponent() =
             let m = { model with readMeData = data |> Some }
             m, Cmd.none
         | NextProgress ->
-            let m = { model with bulmaVisualsStates = model.iterateProgressValue() }
+            let m = { model with visualStates = model.iterateProgressValue() }
             m, Cmd.none
         | SetTab tab ->
             let m = { model with tab = tab }
@@ -35,9 +35,9 @@ type StudioFloorProgramComponent() =
         | ChangeBulmaVisualsState state ->
             let m =
                 match state with
-                | ClipboardData s -> { model with bulmaVisualsStates = model.setClipboardData s }
-                | DropDownItem n -> { model with bulmaVisualsStates = model.toggleDropDownItemState n }
-                | _ -> { model with bulmaVisualsStates = model.bulmaVisualsStates.toggleState state }
+                | ClipboardData s -> { model with visualStates = model.setClipboardData s }
+                | DropDownItem n -> { model with visualStates = model.toggleDropDownItemState n }
+                | _ -> { model with visualStates = model.visualStates.toggleState state }
             m, Cmd.none
 
     let view model dispatch =

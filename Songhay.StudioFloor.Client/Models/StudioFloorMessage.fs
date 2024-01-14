@@ -5,4 +5,4 @@ type StudioFloorMessage =
     | GetReadMe | GotReadMe of string
     | NextProgress
     | SetTab of StudioFloorTab
-    | ChangeBulmaVisualsState of StudioFloorBulmaVisualsState
+    | ChangeBulmaVisualsState of StudioFloorVisualState

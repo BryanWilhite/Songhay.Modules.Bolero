@@ -22,7 +22,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
-        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
+        || oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model _ =
         let colorAzure = "azure"

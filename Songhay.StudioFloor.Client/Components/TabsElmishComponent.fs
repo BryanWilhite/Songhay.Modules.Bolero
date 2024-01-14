@@ -22,7 +22,7 @@ type TabsElmishComponent() =
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
         || oldModel.readMeData <> newModel.readMeData
-        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
+        || oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model dispatch =
         concat {

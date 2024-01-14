@@ -20,7 +20,7 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
-        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
+        || oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model dispatch =
         let buttonCaption = "copy Source to clipboard 📋"

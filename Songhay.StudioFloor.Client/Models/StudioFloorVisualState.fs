@@ -1,6 +1,6 @@
 namespace Songhay.StudioFloor.Client.Models
 
-type StudioFloorBulmaVisualsState =
+type StudioFloorVisualState =
     | ClipboardData of string
     | DropDownContentActive
     | DropDownItem of int

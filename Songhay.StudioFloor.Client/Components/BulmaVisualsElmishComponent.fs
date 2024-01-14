@@ -21,7 +21,7 @@ type BulmaVisualsElmishComponent() =
 
     override this.ShouldRender(oldModel, newModel) =
         oldModel.tab <> newModel.tab
-        || oldModel.bulmaVisualsStates.states <> newModel.bulmaVisualsStates.states
+        || oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model dispatch =
         bulmaSection
@@ -63,22 +63,22 @@ type BulmaVisualsElmishComponent() =
                         getArticleTile
                             (text "Bulma dropdown")
                             (bulmaDropdown
-                                (model.bulmaVisualsStates.hasState DropDownContentActive)
+                                (model.visualStates.hasState DropDownContentActive)
                                 "Content"
                                 (fun _ -> dispatch <| ChangeBulmaVisualsState DropDownContentActive)
                                 (concat {
                                     bulmaDropdownItem
-                                        (model.bulmaVisualsStates.hasState (DropDownItem 1))
+                                        (model.visualStates.hasState (DropDownItem 1))
                                         (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 1))
                                         "Item 1"
                                     bulmaDropdownDivider()
                                     bulmaDropdownItem
-                                        (model.bulmaVisualsStates.hasState (DropDownItem 2))
+                                        (model.visualStates.hasState (DropDownItem 2))
                                         (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 2))
                                         "Item 2"
                                     bulmaDropdownDivider()
                                     bulmaDropdownItem
-                                        (model.bulmaVisualsStates.hasState (DropDownItem 3))
+                                        (model.visualStates.hasState (DropDownItem 3))
                                         (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 3))
                                         "Item 3"
                                 }))

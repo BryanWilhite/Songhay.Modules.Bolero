@@ -9,43 +9,42 @@ open Songhay.Modules.Models
 type StudioFloorModel =
     {
         blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
-        bulmaVisualsStates: AppStateSet<StudioFloorBulmaVisualsState>
         tab: StudioFloorTab
         readMeData: string option
+        visualStates: AppStateSet<StudioFloorVisualState>
     }
 
     static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
         {
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
-            bulmaVisualsStates = AppStateSet.initialize
-                                     .addState(ProgressValue 1)
-                                     .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
             tab = ReadMeTab
             readMeData = None
+            visualStates = AppStateSet.initialize
+                                     .addState(ProgressValue 1)
+                                     .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
         }
 
-    member this.getClipboardData() =
-        this.bulmaVisualsStates.states
-        |> Set.map(fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]" )
+    member private this.getVisualState (getter: StudioFloorVisualState -> 'o) =
+        this.visualStates.states
+        |> Set.map(getter)
         |> Set.toArray |> Array.head
 
-    member this.setClipboardData data =
-        let currentData = this.getClipboardData()
-        let nextData = ClipboardData data
-        this.bulmaVisualsStates.removeState(ClipboardData currentData).addState(nextData)
+    member this.getClipboardData() = this.getVisualState (fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]" )
 
-    member this.getProgressValue() =
-        this.bulmaVisualsStates.states
-        |> Set.map(fun i -> match i with | ProgressValue n -> n | _ -> 1 )
-        |> Set.toArray |> Array.head
+    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> n | _ -> 1 )
 
     member this.iterateProgressValue() =
         let currentScalar = this.getProgressValue()
         let nextValue = ProgressValue <| currentScalar + 1
-        this.bulmaVisualsStates.removeState(ProgressValue currentScalar).addState(nextValue)
+        this.visualStates.removeState(ProgressValue currentScalar).addState(nextValue)
+
+    member this.setClipboardData data =
+        let currentData = this.getClipboardData()
+        let nextData = ClipboardData data
+        this.visualStates.removeState(ClipboardData currentData).addState(nextData)
 
     member this.toggleDropDownItemState n =
-        this.bulmaVisualsStates
+        this.visualStates
             .removeStates(
                 [| DropDownItem 1; DropDownItem 2; DropDownItem 3 |] |> Array.except [| DropDownItem n |]
             )
