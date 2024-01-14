@@ -65,21 +65,21 @@ type BulmaVisualsElmishComponent() =
                             (bulmaDropdown
                                 (model.bulmaVisualsStates.hasState DropDownContentActive)
                                 "Content"
-                                (fun _ -> dispatch <| ToggleBulmaVisualsState DropDownContentActive)
+                                (fun _ -> dispatch <| ChangeBulmaVisualsState DropDownContentActive)
                                 (concat {
                                     bulmaDropdownItem
                                         (model.bulmaVisualsStates.hasState (DropDownItem 1))
-                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 1))
+                                        (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 1))
                                         "Item 1"
                                     bulmaDropdownDivider()
                                     bulmaDropdownItem
                                         (model.bulmaVisualsStates.hasState (DropDownItem 2))
-                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 2))
+                                        (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 2))
                                         "Item 2"
                                     bulmaDropdownDivider()
                                     bulmaDropdownItem
                                         (model.bulmaVisualsStates.hasState (DropDownItem 3))
-                                        (fun _ -> dispatch <| ToggleBulmaVisualsState (DropDownItem 3))
+                                        (fun _ -> dispatch <| ChangeBulmaVisualsState (DropDownItem 3))
                                         "Item 3"
                                 }))
                     })

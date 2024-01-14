@@ -45,7 +45,11 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
                                     NoCssClasses
                                     (bulmaTextarea
                                         NoCssClasses
-                                        NoAttr
+                                        (HasAttr <|
+                                            bind.input.string
+                                                (model.getClipboardData())
+                                                (fun s -> dispatch (ChangeBulmaVisualsState <| ClipboardData s))
+                                        )
                                         (text <| model.getClipboardData())
                                     )
                                 )
@@ -56,7 +60,7 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
                                     (bulmaTextarea
                                         NoCssClasses
                                         (HasAttr <| attr.placeholder $"Press the `{buttonCaption}` button and paste here.")
-                                        (text "")
+                                        (text System.String.Empty)
                                     )
                                 )
                         })

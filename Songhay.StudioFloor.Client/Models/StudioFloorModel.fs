@@ -29,6 +29,11 @@ type StudioFloorModel =
         |> Set.map(fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]" )
         |> Set.toArray |> Array.head
 
+    member this.setClipboardData data =
+        let currentData = this.getClipboardData()
+        let nextData = ClipboardData data
+        this.bulmaVisualsStates.removeState(ClipboardData currentData).addState(nextData)
+
     member this.getProgressValue() =
         this.bulmaVisualsStates.states
         |> Set.map(fun i -> match i with | ProgressValue n -> n | _ -> 1 )

@@ -32,9 +32,10 @@ type StudioFloorProgramComponent() =
         | SetTab tab ->
             let m = { model with tab = tab }
             m, Cmd.none
-        | ToggleBulmaVisualsState state ->
+        | ChangeBulmaVisualsState state ->
             let m =
                 match state with
+                | ClipboardData s -> { model with bulmaVisualsStates = model.setClipboardData s }
                 | DropDownItem n -> { model with bulmaVisualsStates = model.toggleDropDownItemState n }
                 | _ -> { model with bulmaVisualsStates = model.bulmaVisualsStates.toggleState state }
             m, Cmd.none
