@@ -600,20 +600,20 @@ module Component =
     /// <remarks>
     /// 📖 https://bulma.io/documentation/components/tabs/
     ///
-    /// An example of binding to <c>isActivePageGetter</c>:
+    /// An Elmish example of binding to <c>isActiveTabGetter</c>:
     ///
     /// <code>
-    /// (fun pg -> model.page = pg)
+    /// (fun tab -> model.getCurrentTab() = tab)
     /// </code>
     /// </remarks>
-    let bulmaTabs (moreClasses: CssClassesOrEmpty) isActivePageGetter (nodePair: (Node * 'page) list) =
+    let bulmaTabs (moreClasses: CssClassesOrEmpty) isActiveTabGetter (nodePair: (Node * 'tab) list) =
         div {
             CssClasses [ "tabs" ] |> moreClasses.ToHtmlClassAttribute
 
             ul {
-              forEach nodePair <| fun (node, pg) ->
+              forEach nodePair <| fun (node, tab) ->
               li {
-                  attr.``class`` (if (isActivePageGetter pg) then CssClass.elementIsActive else null)
+                  attr.``class`` (if (isActiveTabGetter tab) then CssClass.elementIsActive else null)
 
                   node
               }

@@ -9,7 +9,7 @@ open Songhay.Modules.Models
 type StudioFloorModel =
     {
         blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
-        tab: StudioFloorTab
+        page: StudioFloorPage
         readMeData: string option
         visualStates: AppStateSet<StudioFloorVisualState>
     }
@@ -17,11 +17,11 @@ type StudioFloorModel =
     static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
         {
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
-            tab = ReadMeTab
+            page = ReadMePage 
             readMeData = None
             visualStates = AppStateSet.initialize
-                                     .addState(ProgressValue 1)
-                                     .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
+                .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
+                .addState(ProgressValue 1)
         }
 
     member private this.getVisualState (getter: StudioFloorVisualState -> 'o) =

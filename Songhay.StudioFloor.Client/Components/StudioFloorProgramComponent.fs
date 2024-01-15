@@ -26,13 +26,13 @@ type StudioFloorProgramComponent() =
         | GotReadMe data ->
             let m = { model with readMeData = data |> Some }
             m, Cmd.none
+        | NavigateTo page ->
+            let m = { model with page = page }
+            m, Cmd.none
         | NextProgress ->
             let m = { model with visualStates = model.iterateProgressValue() }
             m, Cmd.none
-        | SetTab tab ->
-            let m = { model with tab = tab }
-            m, Cmd.none
-        | ChangeBulmaVisualsState state ->
+        | ChangeVisualState state ->
             let m =
                 match state with
                 | ClipboardData s -> { model with visualStates = model.setClipboardData s }
@@ -40,8 +40,7 @@ type StudioFloorProgramComponent() =
                 | _ -> { model with visualStates = model.visualStates.toggleState state }
             m, Cmd.none
 
-    let view model dispatch =
-        TabsElmishComponent.EComp model dispatch
+    let view model dispatch = TabsElmishComponent.EComp model dispatch
 
     [<Inject>]
     member val HttpClient = Unchecked.defaultof<HttpClient> with get, set
@@ -57,3 +56,4 @@ type StudioFloorProgramComponent() =
         let cmd = Cmd.ofMsg StudioFloorMessage.GetReadMe
 
         Program.mkProgram (fun _ -> m, cmd) update view
+        |> Program.withRouter ElmishRoutes.router

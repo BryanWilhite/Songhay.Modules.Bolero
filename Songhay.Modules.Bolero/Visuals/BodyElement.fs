@@ -22,18 +22,12 @@ module BodyElement =
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
     /// </remarks>
     let anchorElement
-        (moreClasses: CssClassesOrEmpty)
-        (href: Uri)
-        (target: HtmlTargetOrEmpty)
-        (moreAttributes: HtmlAttributeOrEmpty)
+        (classesOrEmpty: CssClassesOrEmpty)
+        (attributeOrEmpty: HtmlAttributeOrEmpty)
         (childNode: Node) =
         a {
-            moreClasses.Value
-
-            attr.href href.OriginalString
-            target.Value
-            moreAttributes.Value
-
+            classesOrEmpty.Value
+            attributeOrEmpty.Value
             childNode
         }
 
@@ -67,12 +61,12 @@ module BodyElement =
     /// </remarks>
     let buttonElement
         (cssClasses: CssClassesOrEmpty)
-        (moreAttrs: HtmlAttributeOrEmpty)
+        (attributeOrEmpty: HtmlAttributeOrEmpty)
         (childNode: Node) =
         button {
             cssClasses.Value
 
-            moreAttrs.Value
+            attributeOrEmpty.Value
 
             childNode
         }
@@ -83,9 +77,9 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer
     /// </remarks>
-    let footerElement (moreClasses: CssClassesOrEmpty) (childNode: Node) =
+    let footerElement (classesOrEmpty: CssClassesOrEmpty) (childNode: Node) =
         footer {
-            moreClasses.Value
+            classesOrEmpty.Value
 
             childNode
         }
@@ -105,12 +99,12 @@ module BodyElement =
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
     /// </remarks>
     let imageElement
-        (cssClasses: CssClassesOrEmpty)
+        (classesOrEmpty: CssClassesOrEmpty)
         (moreAttrs: HtmlAttributeOrEmpty)
         (alt: string)
         (src: Uri) =
         img {
-            cssClasses.Value
+            classesOrEmpty.Value
 
             attr.src src.OriginalString
             attr.alt alt
@@ -123,9 +117,9 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li
     /// </remarks>
-    let listItemElement (cssClasses: CssClassesOrEmpty) (moreAttrs: HtmlAttributeOrEmpty) (childNode: Node) =
+    let listItemElement (classesOrEmpty: CssClassesOrEmpty) (moreAttrs: HtmlAttributeOrEmpty) (childNode: Node) =
         li {
-            cssClasses.Value
+            classesOrEmpty.Value
             moreAttrs.Value
 
             childNode
@@ -137,9 +131,9 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
     /// </remarks>
-    let orderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node list) =
+    let orderedList (classesOrEmpty: CssClassesOrEmpty) (liNodes: Node list) =
         ol {
-            cssClasses.Value
+            classesOrEmpty.Value
 
             forEach liNodes <| id
         }
@@ -153,11 +147,11 @@ module BodyElement =
     /// Remember that the specified child <see cref="Node" /> can be <see cref="rawHtml" />.
     ///</remarks>
     let paragraphElement
-        (cssClasses: CssClassesOrEmpty)
+        (classesOrEmpty: CssClassesOrEmpty)
         (moreAttrs: HtmlAttributeOrEmpty)
         (childNode: Node) =
         p {
-            cssClasses.Value
+            classesOrEmpty.Value
             moreAttrs.Value
 
             childNode
@@ -169,9 +163,9 @@ module BodyElement =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
     /// </remarks>
-    let unOrderedList (cssClasses: CssClassesOrEmpty) (liNodes: Node list) =
+    let unOrderedList (classesOrEmpty: CssClassesOrEmpty) (liNodes: Node list) =
         ul {
-            cssClasses.Value
+            classesOrEmpty.Value
 
             forEach liNodes <| id
         }

@@ -4,11 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Models\StudioFloorTab.fs" />
-    <Compile Include="Models\StudioFloorVisualState.fs" />
-    <Compile Include="Models\StudioFloorMessage.fs" />
+    <Compile Include="Models\StudioFloorPrimitives.fs" />
     <Compile Include="Models\StudioFloorModel.fs" />
     <Compile Include="ProgramComponentUtility.fs" />
+    <Compile Include="ElmishRoutes.fs" />
     <Compile Include="Components\BoleroJsRuntimeClipboardApiElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeCssCustomPropertyElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeWindowAnimationComponent.fs" />
@@ -16,6 +15,7 @@
     <Compile Include="Components\BulmaColumnsComponent.fs" />
     <Compile Include="Components\SvgComponent.fs" />
     <Compile Include="Components\BulmaVisualsElmishComponent.fs" />
+    <Compile Include="Components\ReadMeElmishComponent.fs" />
     <Compile Include="Components\TabsElmishComponent.fs" />
     <Compile Include="Components\StudioFloorProgramComponent.fs" />
     <Compile Include="Startup.fs" />

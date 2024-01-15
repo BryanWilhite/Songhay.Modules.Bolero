@@ -7,10 +7,8 @@ open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma
 open Songhay.Modules.Bolero.Visuals.Bulma.Component
-open Songhay.Modules.Bolero.Visuals.Bulma.Element
-open Songhay.Modules.Bolero.Visuals.Bulma.Layout
 
-open Songhay.Modules.Models
+open Songhay.StudioFloor.Client
 open Songhay.StudioFloor.Client.Models
 
 type TabsElmishComponent() =
@@ -20,25 +18,22 @@ type TabsElmishComponent() =
         ecomp<TabsElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) =
-        oldModel.tab <> newModel.tab
-        || oldModel.readMeData <> newModel.readMeData
+        oldModel.readMeData <> newModel.readMeData
+        || oldModel.page <> newModel.page
         || oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model dispatch =
         concat {
-            let anchor tab (node: Node) =
-                anchorButtonElement
-                    NoCssClasses
-                    (HasAttr <| on.click (fun _ -> SetTab tab |> dispatch))
-                    node
 
-            let tabs =
+            let tabPairs =
                 [
-                    (text "README", ReadMeTab)
-                    (concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimeTab)
-                    (text "Bulma Visuals", BulmaVisualsTab)
+                    ( text "README", ReadMePage )
+                    ( concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimePage )
+                    ( text "Bulma Visuals", BulmaVisualsPage )
                 ]
-                |> List.map (fun (node, tab) -> anchor tab node, tab)
+                |> List.map (fun (n, page) ->
+                        anchorElement NoCssClasses (HasAttr <| ElmishRoutes.router.HRef page) n, page
+                )
 
             bulmaTabs
                 (HasClasses <| CssClasses [
@@ -47,20 +42,11 @@ type TabsElmishComponent() =
                     CssClass.elementIsFullWidth
                     SizeLarge.CssClass
                 ])
-                (fun pg -> model.tab = pg)
-                tabs
+                (fun page -> model.page = page)
+                tabPairs
 
-            cond model.tab <| function
-            | ReadMeTab ->
-                if model.readMeData.IsNone then
-                    bulmaLoader
-                        (HasClasses <| CssClasses [ DisplayInlineBlock.CssClass; CssClass.p (All, L6); CssClass.m (All, L6) ])
-                else
-                    (bulmaNotification
-                        (HasClasses <| CssClasses [ ColorPrimary.CssClass ])
-                        (rawHtml model.readMeData.Value))
-
-            | BoleroJsRuntimeTab -> BoleroJsRuntimeElmishComponent.EComp model dispatch
-
-            | BulmaVisualsTab -> BulmaVisualsElmishComponent.EComp model dispatch
+            cond model.page <| function
+            | ReadMePage -> ReadMeElmishComponent.EComp model dispatch
+            | BoleroJsRuntimePage -> BoleroJsRuntimeElmishComponent.EComp model dispatch
+            | BulmaVisualsPage -> BulmaVisualsElmishComponent.EComp model dispatch
         }

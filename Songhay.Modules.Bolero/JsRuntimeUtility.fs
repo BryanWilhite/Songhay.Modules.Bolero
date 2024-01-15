@@ -47,7 +47,7 @@ module JsRuntimeUtility =
     /// The specified <c>args</c> object array has its elements converted to strings
     /// before it is passed to the <see cref="IJSRuntime.InvokeVoidAsync" /> method.
     /// </remarks>
-    let callConsoleMethodAsync (methodName: string) ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) =
+    let callConsoleMethodAsync (methodName: string) (args: obj[]) (jsRuntime: IJSRuntime) =
         let toStringArray (oArray: obj[]) =
             oArray |> Array.map(fun o -> if o :? string then o else $"{o}" )
 
@@ -60,7 +60,7 @@ module JsRuntimeUtility =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/console/debug
     /// </remarks>
-    let consoleDebugAsync ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "debug" args
+    let consoleDebugAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "debug" args
 
     ///<summary>
     /// Calls the <c>console.error</c> method
@@ -69,7 +69,7 @@ module JsRuntimeUtility =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/console/error
     /// </remarks>
-    let consoleErrorAsync ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "error" args
+    let consoleErrorAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "error" args
 
     ///<summary>
     /// Calls the <c>console.info</c> method
@@ -78,7 +78,7 @@ module JsRuntimeUtility =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/console/info
     /// </remarks>
-    let consoleInfoAsync ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "info" args
+    let consoleInfoAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "info" args
 
     ///<summary>
     /// Calls the <c>console.log</c> method
@@ -87,7 +87,7 @@ module JsRuntimeUtility =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/console/log
     /// </remarks>
-    let consoleLogAsync ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "log" args
+    let consoleLogAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "log" args
 
     ///<summary>
     /// Calls the <c>console.warn</c> method
@@ -96,7 +96,7 @@ module JsRuntimeUtility =
     /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/API/console/warn
     /// </remarks>
-    let consoleWarnAsync ([<ParamArray>]args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "warn" args
+    let consoleWarnAsync (args: obj[]) (jsRuntime: IJSRuntime) = jsRuntime |> callConsoleMethodAsync "warn" args
 
     ///<summary>
     /// Calls the <c>window.navigator.clipboard.writeText</c> method.
