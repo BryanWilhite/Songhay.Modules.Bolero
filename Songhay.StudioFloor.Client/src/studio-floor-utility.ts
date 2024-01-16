@@ -9,7 +9,7 @@ export class StudioFloorUtility {
             try {
                 const x: number | null = await instance.invokeMethodAsync('invokeAsync', null);
 
-                console.warn({x});
+                console.warn('motionFunction:', {x});
     
                 console.info(animation.getDiagnosticStatus());
     

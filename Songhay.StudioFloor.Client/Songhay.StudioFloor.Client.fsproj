@@ -6,8 +6,8 @@
   <ItemGroup>
     <Compile Include="Models\StudioFloorPrimitives.fs" />
     <Compile Include="Models\StudioFloorModel.fs" />
-    <Compile Include="ProgramComponentUtility.fs" />
     <Compile Include="ElmishRoutes.fs" />
+    <Compile Include="ProgramComponentUtility.fs" />
     <Compile Include="Components\BoleroJsRuntimeClipboardApiElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeCssCustomPropertyElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeWindowAnimationComponent.fs" />
@@ -30,6 +30,9 @@
   <ItemGroup>
     <Content Include="src\scss\index.scss" />
     <Content Include="src\scss\colors\bulma.scss" />
+    <TypeScriptCompile Include="src\_index.ts" />
+    <TypeScriptCompile Include="src\bolero-utility.ts" />
+    <TypeScriptCompile Include="src\studio-floor-utility.ts" />
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\index.min.css" />

@@ -6,7 +6,7 @@ export class StudioFloorUtility {
         WindowAnimation.registerAndGenerate(1, (animation) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const x = yield instance.invokeMethodAsync('invokeAsync', null);
-                console.warn({ x });
+                console.warn('motionFunction:', { x });
                 console.info(animation.getDiagnosticStatus());
                 if (!x || x > 99) {
                     WindowAnimation.cancelAnimation();

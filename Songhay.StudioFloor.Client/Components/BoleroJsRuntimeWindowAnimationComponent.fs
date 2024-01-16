@@ -22,7 +22,9 @@ type BoleroJsRuntimeWindowAnimationComponent() =
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeWindowAnimationComponent, _, _> model dispatch { attr.empty() }
 
-    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates.states <> newModel.visualStates.states
+    override this.ShouldRender(oldModel, newModel) =
+        oldModel.progressValue <> newModel.progressValue ||
+        oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model _ =
         div {
@@ -54,11 +56,11 @@ type BoleroJsRuntimeWindowAnimationComponent() =
                 (text "start animation")
             bulmaProgressElement
                 (HasClasses <| CssClasses [ SizeLarge.CssClass ])
-                (model.getProgressValue(), 100)
-                (text $"{model.getProgressValue()}%%")
+                (model.progressValue, 100)
+                (text $"{model.progressValue}%%")
         }
 
     [<JSInvokable>]
     member this.invokeAsync() =
         this.Dispatch NextProgress
-        Task.FromResult <| this.Model.getProgressValue()
+        Task.FromResult <| this.Model.progressValue

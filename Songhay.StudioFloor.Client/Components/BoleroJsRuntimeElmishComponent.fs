@@ -16,7 +16,9 @@ type BoleroJsRuntimeElmishComponent() =
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeElmishComponent, _, _> model dispatch { attr.empty() }
 
-    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates.states <> newModel.visualStates.states
+    override this.ShouldRender(oldModel, newModel) =
+        oldModel.progressValue <> newModel.progressValue ||
+        oldModel.visualStates.states <> newModel.visualStates.states
 
     override this.View model dispatch =
         bulmaSection

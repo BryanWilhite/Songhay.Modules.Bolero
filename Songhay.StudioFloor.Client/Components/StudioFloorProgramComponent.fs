@@ -30,7 +30,7 @@ type StudioFloorProgramComponent() =
             let m = { model with page = page }
             m, Cmd.none
         | NextProgress ->
-            let m = { model with visualStates = model.iterateProgressValue() }
+            let m = { model with progressValue = model.progressValue + 1 }
             m, Cmd.none
         | ChangeVisualState state ->
             let m =

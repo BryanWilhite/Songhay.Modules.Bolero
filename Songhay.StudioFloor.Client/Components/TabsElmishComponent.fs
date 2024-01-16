@@ -18,6 +18,7 @@ type TabsElmishComponent() =
         ecomp<TabsElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) =
+        oldModel.progressValue <> newModel.progressValue ||
         oldModel.readMeData <> newModel.readMeData
         || oldModel.page <> newModel.page
         || oldModel.visualStates.states <> newModel.visualStates.states

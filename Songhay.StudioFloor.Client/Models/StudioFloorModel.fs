@@ -10,6 +10,7 @@ type StudioFloorModel =
     {
         blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
         page: StudioFloorPage
+        progressValue: int
         readMeData: string option
         visualStates: AppStateSet<StudioFloorVisualState>
     }
@@ -17,7 +18,8 @@ type StudioFloorModel =
     static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
         {
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
-            page = ReadMePage 
+            page = ReadMePage
+            progressValue = 1 
             readMeData = None
             visualStates = AppStateSet.initialize
                 .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
@@ -29,13 +31,14 @@ type StudioFloorModel =
         |> Set.map(getter)
         |> Set.toArray |> Array.head
 
-    member this.getClipboardData() = this.getVisualState (fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]" )
+    member this.getClipboardData() = this.getVisualState(fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]")
 
-    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> n | _ -> 1 )
+    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> n | _ -> 1)
 
     member this.iterateProgressValue() =
         let currentScalar = this.getProgressValue()
         let nextValue = ProgressValue <| currentScalar + 1
+
         this.visualStates.removeState(ProgressValue currentScalar).addState(nextValue)
 
     member this.setClipboardData data =
