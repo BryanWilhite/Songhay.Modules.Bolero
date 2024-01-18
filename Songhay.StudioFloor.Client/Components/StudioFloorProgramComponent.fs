@@ -29,14 +29,12 @@ type StudioFloorProgramComponent() =
         | NavigateTo page ->
             let m = { model with page = page }
             m, Cmd.none
-        | NextProgress ->
-            let m = { model with visualStates = model.iterateProgressValue() }
-            m, Cmd.none
         | ChangeVisualState state ->
             let m =
                 match state with
                 | ClipboardData s -> { model with visualStates = model.setClipboardData s }
                 | DropDownItem n -> { model with visualStates = model.toggleDropDownItemState n }
+                | ProgressValue _ -> { model with visualStates = model.iterateProgressValue() }
                 | _ -> { model with visualStates = model.visualStates.toggleState state }
             m, Cmd.none
 

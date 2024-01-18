@@ -60,5 +60,6 @@ type BoleroJsRuntimeWindowAnimationComponent() =
 
     [<JSInvokable>]
     member this.invokeAsync() =
-        this.Dispatch NextProgress
-        Task.FromResult <| this.Model.getProgressValue()
+        let x = this.Model.getProgressValue()
+        this.Dispatch (ChangeVisualState <| ProgressValue x)
+        Task.FromResult x
