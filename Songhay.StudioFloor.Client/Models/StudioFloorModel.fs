@@ -10,7 +10,6 @@ type StudioFloorModel =
     {
         blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
         page: StudioFloorPage
-        progressValue: int
         readMeData: string option
         visualStates: AppStateSet<StudioFloorVisualState>
     }
@@ -19,27 +18,25 @@ type StudioFloorModel =
         {
             blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
             page = ReadMePage
-            progressValue = 1 
             readMeData = None
             visualStates = AppStateSet.initialize
                 .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
                 .addState(ProgressValue 1)
         }
 
-    member private this.getVisualState (getter: StudioFloorVisualState -> 'o) =
+    member private this.getVisualState (getter: StudioFloorVisualState -> 'o option) =
         this.visualStates.states
-        |> Set.map(getter)
-        |> Set.toArray |> Array.head
+        |> List.ofSeq
+        |> List.choose getter
+        |> List.head
 
-    member this.getClipboardData() = this.getVisualState(fun i -> match i with | ClipboardData s -> s | _ -> "[!empty]")
+    member this.getClipboardData() = this.getVisualState(fun i -> match i with | ClipboardData s -> Some s | _ -> None)
 
-    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> n | _ -> 1)
+    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> Some n | _ -> None)
 
     member this.iterateProgressValue() =
         let currentScalar = this.getProgressValue()
-        let nextValue = ProgressValue <| currentScalar + 1
-
-        this.visualStates.removeState(ProgressValue currentScalar).addState(nextValue)
+        this.visualStates.removeState(ProgressValue currentScalar).addState(ProgressValue <| currentScalar + 1)
 
     member this.setClipboardData data =
         let currentData = this.getClipboardData()

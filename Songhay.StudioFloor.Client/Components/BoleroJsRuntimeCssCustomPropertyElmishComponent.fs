@@ -71,5 +71,5 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                             }
                         )
                     })
-                (text "set computed style with CSS variable")
+                (text "set computed style with CSS variable 🐎💄")
         }

@@ -3,7 +3,7 @@ import { DomUtility, WindowAnimation } from 'songhay';
 export class StudioFloorUtility {
     static runMyAnimation(instance: DotNet.DotNetObject) : void {
 
-        console.warn({instance});
+        console.warn('runMyAnimation', {instance});
 
         WindowAnimation.registerAndGenerate(1, async animation => {
             try {

@@ -2,7 +2,7 @@ import { __awaiter } from "tslib";
 import { DomUtility, WindowAnimation } from 'songhay';
 export class StudioFloorUtility {
     static runMyAnimation(instance) {
-        console.warn({ instance });
+        console.warn('runMyAnimation', { instance });
         WindowAnimation.registerAndGenerate(1, (animation) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const x = yield instance.invokeMethodAsync('invokeAsync', null);
