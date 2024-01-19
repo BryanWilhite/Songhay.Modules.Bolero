@@ -30,9 +30,9 @@ type StudioFloorModel =
         |> List.choose getter
         |> List.head
 
-    member this.getClipboardData() = this.getVisualState(fun i -> match i with | ClipboardData s -> Some s | _ -> None)
+    member this.getClipboardData() = this.getVisualState(function ClipboardData s -> Some s | _ -> None)
 
-    member this.getProgressValue() = this.getVisualState(fun i -> match i with | ProgressValue n -> Some n | _ -> None)
+    member this.getProgressValue() = this.getVisualState(function ProgressValue n -> Some n | _ -> None)
 
     member this.iterateProgressValue() =
         let currentScalar = this.getProgressValue()

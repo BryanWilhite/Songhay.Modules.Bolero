@@ -90,7 +90,7 @@ module SvgElement =
         svg {
             "xmlns" => SvgUri
             attr.style "display: none;"
-            forEach svgDictionary <| fun pair -> pair.Value
+            forEach svgDictionary <| _.Value
         }
 
     let toSvgUse (attr: HtmlAttributeOrEmpty) (id: Identifier) =
