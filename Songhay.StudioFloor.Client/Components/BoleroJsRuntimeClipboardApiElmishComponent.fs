@@ -18,7 +18,7 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeClipboardApiElmishComponent, _, _> model dispatch { attr.empty() }
 
-    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates.states <> newModel.visualStates.states
+    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates <> newModel.visualStates
 
     override this.View model dispatch =
         let buttonCaption = "copy Source to clipboard 📋"

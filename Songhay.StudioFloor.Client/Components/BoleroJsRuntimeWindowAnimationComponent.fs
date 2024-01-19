@@ -22,7 +22,7 @@ type BoleroJsRuntimeWindowAnimationComponent() =
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeWindowAnimationComponent, _, _> model dispatch { attr.empty() }
 
-    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates.states <> newModel.visualStates.states
+    override this.ShouldRender(oldModel, newModel) = oldModel.visualStates <> newModel.visualStates
 
     override this.View model _ =
         div {
