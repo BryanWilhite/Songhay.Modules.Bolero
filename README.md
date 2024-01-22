@@ -108,9 +108,7 @@ This JavaScript is similar to [the code provided in the Bulma documentation](htt
 
 ## the ‘studio floor’ for this Solution
 
-<video controls title="Songhay Studio Floor on the desktop" width="640">
-    <source src="https://githubusercontent.com/BryanWilhite/Songhay.Modules.Bolero/main/.github/video/desktop.mp4" />
-</video>
+<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://githubusercontent.com/BryanWilhite/Songhay.Modules.Bolero/main/.github/video/desktop.mp4" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 
 The `Songhay.StudioFloor.Client` project [[GitHub](https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client)] has at least two purposes:
 
