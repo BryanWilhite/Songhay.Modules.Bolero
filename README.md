@@ -54,11 +54,6 @@ override this.View model dispatch =
     }
 ```
 
->**Warning**
->
->This approach to the <acronym title="Domain-Specific Language">DSL</acronym> is wrapping functions around <acronym title="Computation Expression">CE</acronym>s instead of wrapping <acronym title="Computation Expression">CE</acronym>s with <acronym title="Computation Expression">CE</acronym>s. Research in this direction is underway… on and off…
->
-
 The preference here (at the moment) is to have more types than functions for the <acronym title="Domain-Specific Language">DSL</acronym>. These types are grouped into four models of primitives:
 
 1. Bulma Primitives [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Models/BulmaPrimitives.fs)]
@@ -74,12 +69,13 @@ These models support the functions of the Visuals:
 4. Bulma Component Visuals [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/Component.fs)]
 5. Bulma CSS Class names [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/CssClass.fs)]
 6. Bulma Element Visuals [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/Element.fs)]
-7. Bulma Layout Visuals [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/Layout.fs)]
+7. Bulma Form Element Visuals [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/Form.fs)]
+8. Bulma Layout Visuals [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Visuals/Bulma/Layout.fs)]
 
 The coverage of HTML is quite limited because Bulma itself has its own, excellent HTML <acronym title="Domain-Specific Language">DSL</acronym> on which this work depends heavily. The _generic_ <acronym title="Cascading Style Sheets">CSS</acronym> coverage is starting off with typography. The Bulma-specific coverage is the most extensive but lacking in the following areas:
 
-- [the Bulma form](https://bulma.io/documentation/form/)
-- [Bulma pagination](https://bulma.io/documentation/components/pagination/)
+- [the Bulma pagination component](https://bulma.io/documentation/components/pagination/)
+- [the Bulma file form element](https://bulma.io/documentation/form/file/)
 
 I look forward to working a bit more on this Bulma coverage, likely starting with Bulma pagination.
 
