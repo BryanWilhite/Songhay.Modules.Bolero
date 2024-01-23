@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Bolero" Version="0.*" />
     <PackageReference Include="Bolero.Build" Version="0.23.52" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.26" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.*" />
     <PackageReference Remove="FSharp.Core" />
   </ItemGroup>
