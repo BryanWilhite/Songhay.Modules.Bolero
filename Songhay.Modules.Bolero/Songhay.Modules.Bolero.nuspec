@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Songhay.Modules.Bolero</id>
-        <version>6.3.0</version>
+        <version>6.4.0</version>
         <description>shared functions and types for Bolero, supporting CSS 💄, specifically Bulma CSS 🍱🖼</description>
         <authors>Bryan D. Wilhite</authors>
         <title>Songhay Modules, Publications</title>
@@ -13,15 +13,15 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <summary>shared functions and types for Bolero, supporting CSS 💄, specifically Bulma CSS 🍱🖼</summary>
         <readme>README.md</readme>
-        <releaseNotes>🏗 https://github.com/users/BryanWilhite/projects/20</releaseNotes>
-        <copyright>(c) 2023 Bryan D. Wilhite</copyright>
+        <releaseNotes>🏗 https://github.com/users/BryanWilhite/projects/27</releaseNotes>
+        <copyright>(c) 2024 Bryan D. Wilhite</copyright>
         <tags>FSharp;Songhay;Modules;CSS;Bulma;Html;SVG;Blazor;WebAssembly</tags>
         <repository type="git" url="https://github.com/BryanWilhite/Songhay.Modules.Bolero"></repository>
         <dependencies>
             <group targetFramework=".NET6.0">
                 <dependency id="Bolero" version="0.22.44" />
-                <dependency id="FsToolkit.ErrorHandling" version="4.8.0" />
-                <dependency id="Songhay.Modules" version="6.3.7" />
+                <dependency id="FsToolkit.ErrorHandling" version="4.15.1" />
+                <dependency id="Songhay.Modules" version="6.4.2" />
             </group>
         </dependencies>
     </metadata>
