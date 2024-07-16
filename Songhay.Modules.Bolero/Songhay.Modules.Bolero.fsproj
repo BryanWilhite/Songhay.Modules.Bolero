@@ -10,6 +10,7 @@
       <Compile Include="JsonDocumentUtility.fs" />
       <Compile Include="JsRuntimeUtility.fs" />
       <Compile Include="RemoteHandlerUtility.fs" />
+      <Compile Include="ServiceProviderUtility.fs" />
       <Compile Include="SvgUtility.fs" />
       <Compile Include="Models\CssPrimitives.fs" />
       <Compile Include="Models\HtmlPrimitives.fs" />
