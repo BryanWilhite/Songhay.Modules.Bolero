@@ -4,6 +4,7 @@ open System
 open System.Net.Http
 open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.DependencyInjection
+open Microsoft.Extensions.Logging
 open Microsoft.JSInterop
 
 /// <summary>
@@ -28,6 +29,12 @@ module ServiceProviderUtility =
     /// of this application.
     /// </summary>
     let getHttpClient() = getBlazorService<HttpClient>()
+
+    /// <summary>
+    /// Gets <see cref="ILogger" /> from the <see cref="IServiceProvider"/>
+    /// of this application.
+    /// </summary>
+    let getILogger() = getBlazorService<ILogger>()
 
     /// <summary>
     /// Gets <see cref="IJSRuntime" /> from the <see cref="IServiceProvider"/>
