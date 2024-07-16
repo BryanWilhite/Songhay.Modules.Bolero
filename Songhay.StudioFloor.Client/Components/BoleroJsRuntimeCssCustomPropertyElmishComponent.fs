@@ -1,5 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open Microsoft.JSInterop
 open Bolero
 open Bolero.Html
 
@@ -14,6 +15,8 @@ open Songhay.StudioFloor.Client.Models
 
 type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
+
+    let jsRuntime = Songhay.Modules.Bolero.ServiceProviderUtility.getIJSRuntime()
 
     let demoCssCustomPropertyHtmlRef = HtmlRef()
 
@@ -55,17 +58,17 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                         on.async.click (fun _ ->
                             async {
                                 let! currentColor =
-                                    model.blazorServices.jsRuntime
+                                    jsRuntime
                                     |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value
                                     |> Async.AwaitTask
 
                                 let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
 
-                                model.blazorServices.jsRuntime
+                                jsRuntime
                                 |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
                                 |> ignore
 
-                                model.blazorServices.jsRuntime
+                                jsRuntime
                                 |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor
                                 |> ignore
                             }

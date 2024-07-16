@@ -1,22 +1,19 @@
 namespace Songhay.StudioFloor.Client.Models
 
-open System.Net.Http
+open System
 
-open Microsoft.AspNetCore.Components
-open Microsoft.JSInterop
 open Songhay.Modules.Models
 
 type StudioFloorModel =
     {
-        blazorServices: {| httpClient: HttpClient; jsRuntime: IJSRuntime; navigationManager: NavigationManager |}
         page: StudioFloorPage
         readMeData: string option
         visualStates: AppStateSet<StudioFloorVisualState>
     }
 
-    static member initialize (httpClient: HttpClient) (jsRuntime: IJSRuntime) (navigationManager: NavigationManager) =
+    static member initialize (serviceProvider: IServiceProvider) =
+        Songhay.Modules.Bolero.ServiceProviderUtility.setBlazorServiceProvider serviceProvider
         {
-            blazorServices = {| httpClient = httpClient; jsRuntime = jsRuntime; navigationManager = navigationManager |}
             page = ReadMePage
             readMeData = None
             visualStates = AppStateSet.initialize

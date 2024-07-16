@@ -18,6 +18,9 @@ open Songhay.StudioFloor.Client.Models
 
 module ProgramComponentUtility =
 
+    let httpClient = Songhay.Modules.Bolero.ServiceProviderUtility.getHttpClient()
+    let jsRuntime = Songhay.Modules.Bolero.ServiceProviderUtility.getIJSRuntime()
+
     module Remote =
         let tryDownloadToStringAsync (client: HttpClient, uri: Uri) =
             async {
@@ -34,7 +37,7 @@ module ProgramComponentUtility =
             let data = result |> Result.valueOr (fun code -> $"The expected README data is not here. [error code: {code}]")
             GotReadMe data
         let label = $"{nameof Remote.tryDownloadToStringAsync}:" |> Some
-        let failure ex = model.blazorServices.jsRuntime |> passErrorToConsole label ex |> Error
+        let failure ex = jsRuntime |> passErrorToConsole label ex |> Error
         let uri = ("./README.html", UriKind.Relative) |> Uri
 
-        Cmd.OfAsync.either Remote.tryDownloadToStringAsync (model.blazorServices.httpClient, uri) success failure
+        Cmd.OfAsync.either Remote.tryDownloadToStringAsync (httpClient, uri) success failure

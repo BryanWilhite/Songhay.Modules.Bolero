@@ -1,5 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open Microsoft.JSInterop
 open Bolero
 open Bolero.Html
 
@@ -14,6 +15,8 @@ open Songhay.StudioFloor.Client.Models
 
 type BoleroJsRuntimeClipboardApiElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
+
+    let jsRuntime = Songhay.Modules.Bolero.ServiceProviderUtility.getIJSRuntime()
 
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeClipboardApiElmishComponent, _, _> model dispatch { attr.empty() }
@@ -71,7 +74,7 @@ type BoleroJsRuntimeClipboardApiElmishComponent() =
                         attrs {
                             Button.ToAttr
                             on.async.click (fun _ ->
-                                    model.blazorServices.jsRuntime
+                                    jsRuntime
                                     |> copyToClipboard (model.getClipboardData())
                                     |> Async.AwaitTask
                                 )
