@@ -11,7 +11,7 @@ open Microsoft.JSInterop
 /// Functions for the <see cref="IServiceProvider" /> interface.
 /// </summary>
 module ServiceProviderUtility =
-    let mutable private serviceProvider: IServiceProvider = null
+    let mutable private serviceProvider = Unchecked.defaultof<IServiceProvider>
 
     /// <summary>
     /// Gets the specified <c>'service</c>
