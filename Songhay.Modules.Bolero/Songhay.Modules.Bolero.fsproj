@@ -16,6 +16,7 @@
       <Compile Include="Models\HtmlPrimitives.fs" />
       <Compile Include="Models\SvgPrimitives.fs" />
       <Compile Include="Models\BulmaPrimitives.fs" />
+      <Compile Include="Models\ElmishComponentHtmlRefPolicy.fs" />
       <Compile Include="Visuals\BodyElement.fs" />
       <Compile Include="Visuals\HeadElement.fs" />
       <Compile Include="Visuals\SvgElement.fs" />
