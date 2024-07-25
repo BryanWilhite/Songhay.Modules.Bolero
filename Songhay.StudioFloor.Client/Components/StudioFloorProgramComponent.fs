@@ -41,11 +41,8 @@ type StudioFloorProgramComponent() =
 
     let view model dispatch = TabsElmishComponent.EComp model dispatch
 
-    [<Inject>]
-    member val ServiceProvider = Unchecked.defaultof<IServiceProvider> with get, set
-
     override this.Program =
-        let m = StudioFloorModel.initialize this.ServiceProvider
+        let m = StudioFloorModel.initialize this.Services
         let cmd = Cmd.ofMsg StudioFloorMessage.GetReadMe
 
         Program.mkProgram (fun _ -> m, cmd) update view
