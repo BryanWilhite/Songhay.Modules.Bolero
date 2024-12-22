@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Songhay.Modules.Bolero</id>
-        <version>6.4.1</version>
+        <version>8.0.0</version>
         <description>shared functions and types for Bolero, supporting CSS 💄, specifically Bulma CSS 🍱🖼</description>
         <authors>Bryan D. Wilhite</authors>
         <title>Songhay Modules, Publications</title>
@@ -13,21 +13,21 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <summary>shared functions and types for Bolero, supporting CSS 💄, specifically Bulma CSS 🍱🖼</summary>
         <readme>README.md</readme>
-        <releaseNotes>🏗 https://github.com/users/BryanWilhite/projects/30</releaseNotes>
+        <releaseNotes>upgrade to .NET 8.0📦🔝</releaseNotes>
         <copyright>(c) 2024 Bryan D. Wilhite</copyright>
         <tags>FSharp;Songhay;Modules;CSS;Bulma;Html;SVG;Blazor;WebAssembly</tags>
         <repository type="git" url="https://github.com/BryanWilhite/Songhay.Modules.Bolero"></repository>
         <dependencies>
-            <group targetFramework=".NET6.0">
+            <group targetFramework=".net8.0">
                 <dependency id="Bolero" version="0.22.44" />
-                <dependency id="FsToolkit.ErrorHandling" version="4.15.1" />
-                <dependency id="Songhay.Modules" version="6.4.2" />
+                <dependency id="FsToolkit.ErrorHandling" version="4.18.0" />
+                <dependency id="Songhay.Modules" version="8.0.0" />
             </group>
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Debug\net6.0\Songhay*.dll" target="lib\net6.0" />
-        <file src="bin\Debug\net6.0\Songhay*.json" target="lib\net6.0" />
+        <file src="bin\Debug\net8.0\Songhay*.dll" target="lib\net8.0" />
+        <file src="bin\Debug\net8.0\Songhay*.json" target="lib\net8.0" />
         <file src="**\*.fs" exclude="**\obj\**" target="src" />
         <file src="..\LICENSE.md" target="" />
         <file src="..\README.md" target=""/>

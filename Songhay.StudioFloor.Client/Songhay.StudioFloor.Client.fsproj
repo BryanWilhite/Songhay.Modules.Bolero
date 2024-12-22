@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\StudioFloorPrimitives.fs" />
@@ -22,9 +22,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bolero" Version="0.*" />
-    <PackageReference Include="Bolero.Build" Version="0.23.52" />
+    <PackageReference Include="Bolero.Build" Version="0.24.39" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.32" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.*" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageReference Remove="FSharp.Core" />
   </ItemGroup>
   <ItemGroup>

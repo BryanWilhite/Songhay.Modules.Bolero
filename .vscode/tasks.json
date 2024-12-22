@@ -130,19 +130,19 @@
             "command": "dotnet",
             "type": "shell",
             "args": [
-                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/Statiq.Docs.Shell.dll",
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net8.0/Statiq.Docs.Shell.dll",
                 "--configuration",
                 "Release",
                 "--",
                 "--root",
-                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/",
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net8.0/",
                 "--log-level",
                 "Information",
                 "--log-file",
                 "${workspaceFolder}/Statiq.Docs.Shell/statiq-"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net6.0/"
+                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net8.0/"
             },
             "problemMatcher": "$msCompile"
         },
@@ -155,10 +155,10 @@
                 "add",
                 "--force",
                 "git@github.com:statiqdev/Docable.git",
-                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net6.0/theme/"
+                "${workspaceFolder}/Statiq.Docs.Shell/bin/Release/net8.0/theme/"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net6.0/"
+                "cwd": "${workspaceRoot}/Statiq.Docs.Shell/bin/Release/net8.0/"
             },
             "problemMatcher": "$msCompile"
         },
