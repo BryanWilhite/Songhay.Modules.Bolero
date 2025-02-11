@@ -1,10 +1,5 @@
 namespace Songhay.StudioFloor.Client.Components
 
-open System
-open System.Net.Http
-open Microsoft.AspNetCore.Components
-open Microsoft.JSInterop
-
 open Elmish
 open Bolero
 
