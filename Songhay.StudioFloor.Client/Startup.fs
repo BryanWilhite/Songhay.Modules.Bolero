@@ -17,5 +17,6 @@ module Program =
         builder.RootComponents.Add<StudioFloorProgramComponent>("#studio-floor")
         builder.Services.AddScoped<HttpClient>(fun _ ->
             new HttpClient(BaseAddress = Uri builder.HostEnvironment.BaseAddress)) |> ignore
+        builder.Services.AddLogging() |> ignore
         builder.Build().RunAsync() |> ignore
         0
