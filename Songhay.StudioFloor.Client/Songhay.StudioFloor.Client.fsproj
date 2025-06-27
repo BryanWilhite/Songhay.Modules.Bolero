@@ -8,6 +8,7 @@
     <Compile Include="Models\StudioFloorModel.fs" />
     <Compile Include="ElmishRoutes.fs" />
     <Compile Include="ProgramComponentUtility.fs" />
+    <Compile Include="Components\AppSettingsComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeClipboardApiElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeCssCustomPropertyElmishComponent.fs" />
     <Compile Include="Components\BoleroJsRuntimeWindowAnimationComponent.fs" />

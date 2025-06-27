@@ -6,6 +6,7 @@ type StudioFloorPage =
     | [<EndPoint "/">] ReadMePage
     | [<EndPoint "/bolero-js-runtime/">] BoleroJsRuntimePage
     | [<EndPoint "/bulma-visuals/">] BulmaVisualsPage
+    | [<EndPoint "/blazor-config/">] BlazorConfiguration
 
 type StudioFloorVisualState =
     | ClipboardData of string

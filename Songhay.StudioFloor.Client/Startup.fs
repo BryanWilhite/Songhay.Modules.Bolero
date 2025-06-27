@@ -4,6 +4,7 @@ open System
 open System.Net.Http
 
 open Microsoft.AspNetCore.Components.WebAssembly.Hosting
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 
 open Songhay.StudioFloor.Client.Components

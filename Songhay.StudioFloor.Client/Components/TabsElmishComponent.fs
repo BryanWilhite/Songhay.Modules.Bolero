@@ -30,6 +30,7 @@ type TabsElmishComponent() =
                     ( text "README", ReadMePage )
                     ( concat { text "Bolero "; code { text "IJsRuntime" } }, BoleroJsRuntimePage )
                     ( text "Bulma Visuals", BulmaVisualsPage )
+                    ( text "Blazor Configuration", BlazorConfiguration )
                 ]
                 |> List.map (fun (n, page) ->
                         anchorElement NoCssClasses (HasAttr <| ElmishRoutes.router.HRef page) n, page
@@ -49,4 +50,5 @@ type TabsElmishComponent() =
             | ReadMePage -> ReadMeElmishComponent.EComp model dispatch
             | BoleroJsRuntimePage -> BoleroJsRuntimeElmishComponent.EComp model dispatch
             | BulmaVisualsPage -> BulmaVisualsElmishComponent.EComp model dispatch
+            | BlazorConfiguration -> AppSettingsComponent.BComp
         }
