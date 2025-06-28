@@ -1,6 +1,7 @@
 namespace Songhay.StudioFloor.Client.Components
 
 open Microsoft.AspNetCore.Components
+open Microsoft.Extensions.Logging
 open Microsoft.JSInterop
 open Bolero
 open Bolero.Html

@@ -26,7 +26,8 @@ type AppSettingsComponent() =
         comp<AppSettingsComponent> { Attr.Empty() }
 
     override this.Render() =
-        this.logger.LogInformation("Helooo!")
+        this.logger.LogDebug("Log debug! (LogLevel in appsettings.json is ignored.)")
+        this.logger.LogWarning("`builder.Logging.SetMinimumLevel` must be set for logging level to be recognized.")
 
         let mutable myDictionary = Dictionary<string, string>()
         (this.configuration.GetSection "MyDictionary").Bind myDictionary
