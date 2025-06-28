@@ -1,5 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open Microsoft.AspNetCore.Components
 open Microsoft.JSInterop
 open Bolero
 open Bolero.Html
@@ -16,16 +17,17 @@ open Songhay.StudioFloor.Client.Models
 type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
-    let jsRuntime = Songhay.Modules.Bolero.ServiceProviderUtility.getIJSRuntime()
-
     let demoCssCustomPropertyHtmlRef = HtmlRef()
+
+    [<Inject>]
+    member val private jsRuntime = Unchecked.defaultof<IJSRuntime> with get, set
 
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeCssCustomPropertyElmishComponent, _, _> model dispatch { attr.empty() }
 
     override this.ShouldRender(oldModel, newModel) = oldModel.visualStates <> newModel.visualStates
 
-    override this.View model _ =
+    override this.View _ _ =
         let colorAzure = "azure"
         let colorYellow = "yellow"
         let cssVariable = CssCustomProperty.fromInput "main-bg-color"
@@ -58,17 +60,17 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                         on.async.click (fun _ ->
                             async {
                                 let! currentColor =
-                                    jsRuntime
+                                    this.jsRuntime
                                     |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value
                                     |> Async.AwaitTask
 
                                 let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
 
-                                jsRuntime
+                                this.jsRuntime
                                 |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
                                 |> ignore
 
-                                jsRuntime
+                                this.jsRuntime
                                 |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor
                                 |> ignore
                             }

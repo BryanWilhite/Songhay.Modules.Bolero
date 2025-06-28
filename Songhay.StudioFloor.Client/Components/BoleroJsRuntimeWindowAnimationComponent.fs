@@ -1,5 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open Microsoft.AspNetCore.Components
 open Microsoft.JSInterop
 open System.Threading.Tasks
 
@@ -19,7 +20,8 @@ open Songhay.StudioFloor.Client.Models
 type BoleroJsRuntimeWindowAnimationComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
 
-    let jsRuntime = Songhay.Modules.Bolero.ServiceProviderUtility.getIJSRuntime()
+    [<Inject>]
+    member val private jsRuntime = Unchecked.defaultof<IJSRuntime> with get, set
 
     static member EComp model dispatch =
         ecomp<BoleroJsRuntimeWindowAnimationComponent, _, _> model dispatch { attr.empty() }
@@ -47,7 +49,7 @@ type BoleroJsRuntimeWindowAnimationComponent() =
                         on.async.click (fun _ ->
                                 let dotNetObjectReference = DotNetObjectReference.Create(this)
                                 let qualifiedName = $"{rx}.StudioFloorUtility.runMyAnimation"
-                                jsRuntime.InvokeVoidAsync(qualifiedName, dotNetObjectReference).AsTask()
+                                this.jsRuntime.InvokeVoidAsync(qualifiedName, dotNetObjectReference).AsTask()
                                 |> Async.AwaitTask
                             )
                     })
