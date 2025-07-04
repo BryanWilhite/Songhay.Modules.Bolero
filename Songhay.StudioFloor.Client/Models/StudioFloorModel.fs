@@ -12,7 +12,9 @@ type StudioFloorModel =
     }
 
     static member initialize (serviceProvider: IServiceProvider) =
+
         Songhay.Modules.Bolero.ServiceProviderUtility.setBlazorServiceProvider serviceProvider
+
         {
             page = ReadMePage
             readMeData = None
@@ -21,15 +23,9 @@ type StudioFloorModel =
                 .addState(ProgressValue 1)
         }
 
-    member private this.getVisualState (getter: StudioFloorVisualState -> 'o option) =
-        this.visualStates.states
-        |> List.ofSeq
-        |> List.choose getter
-        |> List.head
+    member this.getClipboardData() = this.visualStates.chooseState(function ClipboardData s -> Some s | _ -> None)
 
-    member this.getClipboardData() = this.getVisualState(function ClipboardData s -> Some s | _ -> None)
-
-    member this.getProgressValue() = this.getVisualState(function ProgressValue n -> Some n | _ -> None)
+    member this.getProgressValue() = this.visualStates.chooseState(function ProgressValue n -> Some n | _ -> None)
 
     member this.iterateProgressValue() =
         let currentScalar = this.getProgressValue()
