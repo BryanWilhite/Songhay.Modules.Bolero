@@ -15,7 +15,7 @@ module Program =
     [<EntryPoint>]
     let Main args =
         let builder = WebAssemblyHostBuilder.CreateDefault(args)
-        builder.Logging.SetMinimumLevel(LogLevel.Debug) |> ignore
+        builder.Logging.SetMinimumLevel(LogLevel.Debug) |> ignore //this expression is here because Blazor WASM ignores `Logging` declarations in appsettings.json
         builder.RootComponents.Add<StudioFloorProgramComponent>("#studio-floor")
         builder.Services.AddScoped<HttpClient>(fun _ ->
             new HttpClient(BaseAddress = Uri builder.HostEnvironment.BaseAddress)) |> ignore

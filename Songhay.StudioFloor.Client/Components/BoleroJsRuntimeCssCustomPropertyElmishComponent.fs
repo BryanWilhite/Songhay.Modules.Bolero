@@ -1,7 +1,6 @@
 namespace Songhay.StudioFloor.Client.Components
 
 open Microsoft.AspNetCore.Components
-open Microsoft.Extensions.Logging
 open Microsoft.JSInterop
 open Bolero
 open Bolero.Html
@@ -45,7 +44,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
             attr.ref demoCssCustomPropertyHtmlRef
             bulmaMessage
                 (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
-                (Html.p { text "Click the button to demonstrate:" })
+                (para { text "Click the button to demonstrate:" })
                 (
                     [
                         li { text "a call "; code { text "getComputedStylePropertyValueAsync" }; text " to get the current color" }
