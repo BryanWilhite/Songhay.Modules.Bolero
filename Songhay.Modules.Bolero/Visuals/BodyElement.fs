@@ -142,6 +142,17 @@ module BodyElement =
     /// Returns the HTML paragraph element, <c>p</c>, adorned with any CSS classes and any attributes.
     ///</summary>
     /// <remarks>
+    /// This member is an ‘alias’ of <see cref="Html.p"/> from Bolero
+    /// because <see cref="Html.p"/> clashes with <see cref="CssClass.p"/>.
+    ///
+    /// For more CSS support see <see cref="paragraphElement"/>.
+    ///</remarks>
+    let para = p
+
+    ///<summary>
+    /// Returns the HTML paragraph element, <c>p</c>, adorned with any CSS classes and any attributes.
+    ///</summary>
+    /// <remarks>
     /// 📖 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p
     /// 
     /// Remember that the specified child <see cref="Node" /> can be <see cref="rawHtml" />.

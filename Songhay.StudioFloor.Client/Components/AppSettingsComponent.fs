@@ -8,6 +8,7 @@ open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
 open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
 open Songhay.Modules.Bolero.Visuals.Bulma.Element
 open Songhay.Modules.Bolero.Visuals.Bulma.Layout
@@ -40,19 +41,19 @@ type AppSettingsComponent() =
                     (
                         concat {
                             h1 { "Blazor Configuration" |> text }
-                            Html.p {
+                            para {
                                 Html.label { "type name: " |> text }
                                 $"`{this.configuration}`" |> text
                             }
-                            Html.p {
+                            para {
                                 Html.label { "simple string value: " |> text }
                                 this.configuration.GetValue "Greeting" |> text
                             }
-                            Html.p {
+                            para {
                                 Html.label { "default logging level: " |> text }
                                 this.configuration.GetValue "Logging:LogLevel:Default" |> text
                             }
-                            Html.p {
+                            para {
                                 Html.label { "value from dictionary: " |> text }
                                 myDictionary["two"] |> text
                             }

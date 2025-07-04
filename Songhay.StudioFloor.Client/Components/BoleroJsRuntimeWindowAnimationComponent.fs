@@ -33,7 +33,7 @@ type BoleroJsRuntimeWindowAnimationComponent() =
             [ p (All, L4); m (All, L4); elementTextAlign AlignCentered; ColorEmpty.BackgroundCssClassLight ] |> CssClasses.toHtmlClassFromList
             bulmaMessage
                 (HasClasses CssClasses[ message; ColorPrimary.CssClass; DisplayInlineBlock.CssClass ])
-                ( Html.p { text "Click the button to demonstrate:" })
+                ( para { text "Click the button to demonstrate:" })
                 (
                     [
                         li { text "calling the JavaScript that will start a browser-window-level animation callback loop" }
