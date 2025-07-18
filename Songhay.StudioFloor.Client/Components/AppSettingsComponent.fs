@@ -30,8 +30,10 @@ type AppSettingsComponent() =
         this.logger.LogDebug("Log debug! (LogLevel in appsettings.json is ignored.)")
         this.logger.LogWarning("`builder.Logging.SetMinimumLevel` must be set for logging level to be recognized.")
 
-        let mutable myDictionary = Dictionary<string, string>()
+        let myDictionary = Dictionary<string, string>()
         (this.configuration.GetSection "MyDictionary").Bind myDictionary
+
+        let restApiMetadata = "PlayerApi" |> RestApiMetadata.fromConfiguration this.configuration
 
         bulmaColumnsContainer
             (HasClasses <| CssClasses [ m (All, L4) ])
@@ -56,6 +58,15 @@ type AppSettingsComponent() =
                             para {
                                 Html.label { "value from dictionary: " |> text }
                                 myDictionary["two"] |> text
+                            }
+                            h2 { "conventional RestApiMetadata" |> text }
+                            para {
+                                Html.label { "string representation: " |> text }
+                                restApiMetadata.ToString() |> text
+                            }
+                            para {
+                                Html.label { "endpoint-prefix claim: " |> text }
+                                restApiMetadata.GetClaim "endpoint-prefix" |> Option.defaultWith (fun() -> "[missing!]") |> text
                             }
                         }
                     )

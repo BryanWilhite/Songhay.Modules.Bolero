@@ -1,6 +1,7 @@
 namespace Songhay.Modules.Bolero
 
 open System
+open Microsoft.Extensions.Configuration
 
 open Bolero.Html
 
@@ -8,7 +9,6 @@ open Bolero.Html
 /// Utility functions mostly for <see cref="Node" />.
 /// </summary>
 module BoleroUtility =
-
     /// <summary>
     /// Wraps <see cref="Environment.NewLine" /> to format markup.
     /// </summary>
