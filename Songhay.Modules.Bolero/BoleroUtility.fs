@@ -9,6 +9,11 @@ open Bolero.Html
 /// Utility functions mostly for <see cref="Node" />.
 /// </summary>
 module BoleroUtility =
+
+    /// <summary> conventional name of server-side class used in appsetings.json</summary>
+    [<Literal>]
+    let RestApiMetadata = "RestApiMetadata"
+
     /// <summary>
     /// Wraps <see cref="Environment.NewLine" /> to format markup.
     /// </summary>

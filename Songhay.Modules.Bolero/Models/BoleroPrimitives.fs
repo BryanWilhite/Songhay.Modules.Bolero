@@ -3,11 +3,13 @@ namespace Songhay.Modules.Bolero.Models
 open System.Collections.Generic
 open Microsoft.Extensions.Configuration
 
+open Songhay.Modules.Bolero.BoleroUtility
+
 type APiBase =
     | APiBase of string
 
     static member fromConfiguration (input: IConfiguration) (name :string) =
-        match input.GetValue $"RestApiMetadata:{name}:ApiBase" with
+        match input.GetValue $"{RestApiMetadata}:{name}:ApiBase" with
         | null ->  APiBase System.String.Empty
         | s -> APiBase s
 
@@ -22,7 +24,7 @@ type ClaimsSet =
         let claimSet = Dictionary<string, string>()
 
         try
-            (input.GetSection $"RestApiMetadata:{name}:ClaimsSet").Bind claimSet
+            (input.GetSection $"{RestApiMetadata}:{name}:ClaimsSet").Bind claimSet
         with | _ -> ()
 
         ClaimsSet claimSet
