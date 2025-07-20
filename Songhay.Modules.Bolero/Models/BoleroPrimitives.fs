@@ -63,23 +63,21 @@ type RestApiMetadata =
         let prefix = this.GetClaim "endpoint-prefix"
         let routeTemplate = this.GetClaim key
 
-        if prefix.IsSome && routeTemplate.IsSome then
+        if prefix.IsNone || routeTemplate.IsNone then None
+        else
             let routeData = routeTemplate.Value.Split '|'
-            let code = routeData |> Array.tryLast
             let mutable route = routeData |> Array.head
             let matches = regex.Matches route
 
-            for m in matches do
-                if m.Index < args.Length then
-                    route <- route.Replace(m.Value, args[m.Index])
+            if matches.Count <> args.Length then None
+            else
+                ( matches |> Array.ofSeq, args ) ||> Array.iter2(fun m arg -> route <- route.Replace(m.Value, arg))
 
-            builder.Path <- $"{prefix.Value.Trim '/'}/{route.TrimStart '/'}"
+                builder.Path <- $"{prefix.Value.Trim '/'}/{route.Trim '/'}"
 
-            if code.IsSome then
-                builder.Query <- $"code={code.Value}"
+                let code = routeData |> Array.tryLast
+                if code.IsSome then builder.Query <- $"code={code.Value}"
 
-            Some builder.Uri
-        else
-            None
+                Some builder.Uri
 
     override this.ToString() = $"( {fst this.Value}, {snd this.Value} )"

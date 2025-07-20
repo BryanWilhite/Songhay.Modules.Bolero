@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Models\BoleroPrimitivesTests.fs" />
         <Compile Include="Models\CssPrimitivesTests.fs" />
         <Compile Include="Models\HtmlPrimitivesTests.fs" />
         <Compile Include="Models\BulmaPrimitivesTests.fs" />
