@@ -13,7 +13,7 @@ type BoleroPrimitivesTests(testOutputHelper: ITestOutputHelper) =
             yield
                 [|
                     RestApiMetadata (
-                        APiBase "http://localhost:3001",
+                        ApiBase "http://localhost:3001",
                         ClaimsSet <| Dictionary<_,_>(dict [
                             ("endpoint-prefix", "api/player/v1")
                             ("route-for-video-yt-playlist", "video/youtube/playlist/{subFolder}/{blobName}|placeholder")
@@ -26,7 +26,7 @@ type BoleroPrimitivesTests(testOutputHelper: ITestOutputHelper) =
             yield
                 [|
                     RestApiMetadata (
-                        APiBase "http://localhost:3001/",
+                        ApiBase "http://localhost:3001/",
                         ClaimsSet <| Dictionary<_,_>(dict [
                             ("endpoint-prefix", "/api/player/v1/")
                             ("route-for-video-yt-playlist", "/video/youtube/playlist/{subFolder}/{blobName}/|placeholder")
@@ -39,7 +39,7 @@ type BoleroPrimitivesTests(testOutputHelper: ITestOutputHelper) =
             yield
                 [|
                     RestApiMetadata (
-                        APiBase "http://localhost:3001/",
+                        ApiBase "http://localhost:3001/",
                         ClaimsSet <| Dictionary<_,_>(dict [
                             ("endpoint-prefix", "/api/player/v1/")
                             ("route-for-video-yt-playlist", "/video/youtube/playlist/{subFolder}/{blobName}/|placeholder")
@@ -52,7 +52,7 @@ type BoleroPrimitivesTests(testOutputHelper: ITestOutputHelper) =
             yield
                 [|
                     RestApiMetadata (
-                        APiBase "http://localhost:3001/",
+                        ApiBase "http://localhost:3001/",
                         ClaimsSet <| Dictionary<_,_>(dict [
                             ("endpoint-prefix", "/api/player/v1/")
                         ])

@@ -8,21 +8,42 @@ open Microsoft.FSharp.Collections
 
 open Songhay.Modules.Bolero.BoleroUtility
 
-type APiBase =
-    | APiBase of string
+///<summary>
+/// Defines the “base” conventional uniform identifier of an API.
+///</summary>
+/// <remarks>
+/// The name of this type is inspired by the phrase “base URL”
+/// used for the description of the `base` HTML element
+/// (https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/base).
+/// </remarks>
+type ApiBase =
+    //<summary> the “base” conventional uniform identifier of an API </summary>
+    | ApiBase of string
 
+    //<summary> returns <see cref="ApiBase" /> from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string) =
         match input.GetValue $"{RestApiMetadata}:{name}:ApiBase" with
-        | null ->  APiBase String.Empty
-        | s -> APiBase s
+        | null ->  ApiBase String.Empty
+        | s -> ApiBase s
 
-    member this.Value = let (APiBase v) = this in v
+    //<summary> returns the underlying <see cref="string" /> of the DU case </summary>
+    member this.Value = let (ApiBase v) = this in v
 
+    //<summary> Returns a string that represents the current object. </summary>
     override this.ToString() = this.Value
 
+///<summary>
+/// Defines the conventional “claims” of an API.
+///</summary>
+/// <remarks>
+/// The use of the word “claims” in this context goes beyond “claims challenges”
+/// for authentication and includes the routes of the API iteself.
+/// </remarks>
 type ClaimsSet =
+    //<summary> the conventional “claims” of an API </summary>
     | ClaimsSet of Dictionary<string, string>
 
+    //<summary> returns <see cref="ClaimsSet" /> from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string) =
         let claimSet = Dictionary<string, string>()
 
@@ -32,31 +53,42 @@ type ClaimsSet =
 
         ClaimsSet claimSet
 
+    //<summary> returns the underlying dictionary of the DU case </summary>
     member this.Value = let (ClaimsSet v) = this in v
 
+    //<summary> Returns a string that represents the current object. </summary>
     override this.ToString() = this.Value.ToString()
 
+///<summary>
+/// Defines all of the information needed to access an API.
+///</summary>
 type RestApiMetadata =
-    | RestApiMetadata of APiBase * ClaimsSet
+    //<summary> all of the information needed to access an API </summary>
+    | RestApiMetadata of ApiBase * ClaimsSet
 
+    //<summary> returns <see cref="RestApiMetadata" /> from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string)=
-        let apiBase = name |> APiBase.fromConfiguration input
+        let apiBase = name |> ApiBase.fromConfiguration input
         let claimSet = name |> ClaimsSet.fromConfiguration input
 
         RestApiMetadata (apiBase, claimSet)
 
+    //<summary> returns the underlying tuple of the DU case </summary>
     member this.Value = let (RestApiMetadata (apiBase, claimsSet)) = this in (apiBase, claimsSet)
 
+    //<summary> returns the underlying <see cref="ApiBase.Value" /> of this type </summary>
     member this.GetApiBase =
         let apiBase = (fst this.Value).Value
         apiBase
 
+    //<summary> returns a claim from the <see cref="ClaimsSet" /> of this type with the specified dictionary key </summary>
     member this.GetClaim (key: string) =
         let claimSet = (snd this.Value).Value
         match claimSet.TryGetValue key with
         | false, _ -> None
         | true, d -> Some d
 
+    //<summary> builds and returns a <see cref="Uri" /> with the specified <see cref="ClaimsSet" /> dictionary key </summary>
     member this.ToUriFromClaim (key: string, [<ParamArray>] args: string[]) =
         let regex = Regex("\{[^}]+\}")
         let builder = UriBuilder(this.GetApiBase)
@@ -80,4 +112,5 @@ type RestApiMetadata =
 
                 Some builder.Uri
 
+    //<summary> Returns a string that represents the current object. </summary>
     override this.ToString() = $"( {fst this.Value}, {snd this.Value} )"
