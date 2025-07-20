@@ -1,7 +1,10 @@
 namespace Songhay.Modules.Bolero.Models
 
+open System
 open System.Collections.Generic
+open System.Text.RegularExpressions
 open Microsoft.Extensions.Configuration
+open Microsoft.FSharp.Collections
 
 open Songhay.Modules.Bolero.BoleroUtility
 
@@ -10,7 +13,7 @@ type APiBase =
 
     static member fromConfiguration (input: IConfiguration) (name :string) =
         match input.GetValue $"{RestApiMetadata}:{name}:ApiBase" with
-        | null ->  APiBase System.String.Empty
+        | null ->  APiBase String.Empty
         | s -> APiBase s
 
     member this.Value = let (APiBase v) = this in v
@@ -53,5 +56,30 @@ type RestApiMetadata =
         match claimSet.TryGetValue key with
         | false, _ -> None
         | true, d -> Some d
+
+    member this.ToUriFromClaim (key: string, [<ParamArray>] args: string[]) =
+        let regex = Regex("\{[^}]+\}")
+        let builder = UriBuilder(this.GetApiBase)
+        let prefix = this.GetClaim "endpoint-prefix"
+        let routeTemplate = this.GetClaim key
+
+        if prefix.IsSome && routeTemplate.IsSome then
+            let routeData = routeTemplate.Value.Split '|'
+            let code = routeData |> Array.tryLast
+            let mutable route = routeData |> Array.head
+            let matches = regex.Matches route
+
+            for m in matches do
+                if m.Index < args.Length then
+                    route <- route.Replace(m.Value, args[m.Index])
+
+            builder.Path <- $"{prefix.Value.Trim '/'}/{route.TrimStart '/'}"
+
+            if code.IsSome then
+                builder.Query <- $"code={code.Value}"
+
+            Some builder.Uri
+        else
+            None
 
     override this.ToString() = $"( {fst this.Value}, {snd this.Value} )"
