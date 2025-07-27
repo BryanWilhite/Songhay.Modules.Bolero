@@ -3,6 +3,7 @@ namespace Songhay.Modules.Bolero
 open System
 open System.Net.Http
 open Microsoft.AspNetCore.Components
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 open Microsoft.JSInterop
@@ -29,6 +30,12 @@ module ServiceProviderUtility =
     /// of this application.
     /// </summary>
     let getHttpClient() = getBlazorService<HttpClient>()
+
+    /// <summary>
+    /// Gets <see cref="IConfiguration" /> from the <see cref="IServiceProvider"/>
+    /// of this application.
+    /// </summary>
+    let getIConfiguration() = getBlazorService<IConfiguration>()
 
     /// <summary>
     /// Gets <see cref="ILogger" /> from the <see cref="IServiceProvider"/>
