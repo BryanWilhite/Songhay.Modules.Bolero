@@ -37,7 +37,7 @@ type ApiBase =
 ///</summary>
 /// <remarks>
 /// The use of the word “claims” in this context goes beyond “claims challenges”
-/// for authentication and includes the routes of the API iteself.
+/// for authentication and includes the routes of the API itself.
 /// </remarks>
 type ClaimsSet =
     //<summary> the conventional “claims” of an API </summary>
@@ -77,7 +77,7 @@ type RestApiMetadata =
     member this.Value = let (RestApiMetadata (apiBase, claimsSet)) = this in (apiBase, claimsSet)
 
     //<summary> returns the underlying <see cref="ApiBase.Value" /> of this type </summary>
-    member this.GetApiBase =
+    member this.GetApiBase() =
         let apiBase = (fst this.Value).Value
         apiBase
 
@@ -91,7 +91,7 @@ type RestApiMetadata =
     //<summary> builds and returns a <see cref="Uri" /> with the specified <see cref="ClaimsSet" /> dictionary key </summary>
     member this.ToUriFromClaim (key: string, [<ParamArray>] args: string[]) =
         let regex = Regex("\{[^}]+\}")
-        let builder = UriBuilder(this.GetApiBase)
+        let builder = UriBuilder(this.GetApiBase())
         let prefix = this.GetClaim "endpoint-prefix"
         let routeTemplate = this.GetClaim key
 

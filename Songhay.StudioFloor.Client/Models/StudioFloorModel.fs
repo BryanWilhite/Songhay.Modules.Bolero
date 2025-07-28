@@ -2,12 +2,14 @@ namespace Songhay.StudioFloor.Client.Models
 
 open System
 
+open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Models
 
 type StudioFloorModel =
     {
         page: StudioFloorPage
         readMeData: string option
+        restApiMetadata: RestApiMetadata
         visualStates: AppStateSet<StudioFloorVisualState>
     }
 
@@ -18,6 +20,7 @@ type StudioFloorModel =
         {
             page = ReadMePage
             readMeData = None
+            restApiMetadata = "PlayerApi" |> RestApiMetadata.fromConfiguration (Songhay.Modules.Bolero.ServiceProviderUtility.getIConfiguration())
             visualStates = AppStateSet.initialize
                 .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
                 .addState(ProgressValue 1)

@@ -3,6 +3,9 @@ namespace Songhay.StudioFloor.Client.Components
 open Elmish
 open Bolero
 
+open Microsoft.Extensions.Logging
+open Songhay.Modules.Bolero
+open Songhay.Modules.Bolero.Models
 open Songhay.StudioFloor.Client
 open Songhay.StudioFloor.Client.Models
 
@@ -20,6 +23,13 @@ type StudioFloorProgramComponent() =
             let cmd = pcu.getCommandForGetReadMe model
             model, cmd
         | GotReadMe data ->
+            ServiceProviderUtility.getIJSRuntime() |> JsRuntimeUtility.consoleWarnAsync [|
+                    $"{nameof StudioFloorProgramComponent}: hey! This is a warning for the {nameof GotReadMe} state!";
+                    $"\n{nameof StudioFloorProgramComponent}: {nameof ILogger} available in Elmish update function?: {ServiceProviderUtility.getILogger() <> null}";
+                    $"\n{nameof StudioFloorProgramComponent}: {nameof RestApiMetadata} available on Elmish model?: {model.restApiMetadata.GetApiBase() <> System.String.Empty}"
+                |]
+                |> ignore
+
             let m = { model with readMeData = data |> Some }
             m, Cmd.none
         | NavigateTo page ->
@@ -38,7 +48,7 @@ type StudioFloorProgramComponent() =
 
     override this.Program =
         let m = StudioFloorModel.initialize this.Services
-        let cmd = Cmd.ofMsg StudioFloorMessage.GetReadMe
+        let cmd = Cmd.ofMsg GetReadMe
 
         Program.mkProgram (fun _ -> m, cmd) update view
         |> Program.withRouter ElmishRoutes.router

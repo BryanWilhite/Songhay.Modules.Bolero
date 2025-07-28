@@ -27,8 +27,9 @@ type AppSettingsComponent() =
         comp<AppSettingsComponent> { Attr.Empty() }
 
     override this.Render() =
-        this.logger.LogDebug("Log debug! (LogLevel in appsettings.json is ignored.)")
-        this.logger.LogWarning("`builder.Logging.SetMinimumLevel` must be set for logging level to be recognized.")
+        this.logger.LogDebug $"{nameof AppSettingsComponent}: Log debug! (LogLevel in appsettings.json is ignored.)"
+        this.logger.LogWarning $"{nameof AppSettingsComponent}: `builder.Logging.SetMinimumLevel` must be set for logging level to be recognized."
+        this.logger.LogWarning $"\n{nameof AppSettingsComponent}: {nameof ILogger} available in Blazor render override?: {Songhay.Modules.Bolero.ServiceProviderUtility.getILogger() <> null}"
 
         let myDictionary = Dictionary<string, string>()
         (this.configuration.GetSection "MyDictionary").Bind myDictionary

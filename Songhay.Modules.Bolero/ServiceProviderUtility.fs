@@ -41,6 +41,11 @@ module ServiceProviderUtility =
     /// Gets <see cref="ILogger" /> from the <see cref="IServiceProvider"/>
     /// of this application.
     /// </summary>
+    /// <remarks>
+    /// An instance of <see cref="ILogger" /> appears to not be available
+    /// from the <see cref="IServiceProvider"/> for the WASM-based version of Blazor.
+    /// Use <c>[<Inject>]</c> on the component level or the <c>JsRuntimeUtility.console*</c> members instead.
+    /// </remarks>
     let getILogger() = getBlazorService<ILogger>()
 
     /// <summary>
