@@ -95,7 +95,7 @@ type DomElementEvent =
     /// on the <c>@on{DOM EVENT}:preventDefault</c> directive attribute of Blazor.
     /// 📖 https://docs.microsoft.com/en-us/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0#prevent-default-actions
     /// </remarks>
-    member this.PreventDefault = on.preventDefault $"on{this.Name}" true
+    member this.PreventDefault = on.preventDefault $"{this.Name}" true
 
 ///<summary>
 /// Defines a type representing an <see cref="Attr" />
