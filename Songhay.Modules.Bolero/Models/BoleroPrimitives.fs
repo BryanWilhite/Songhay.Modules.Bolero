@@ -2,9 +2,11 @@ namespace Songhay.Modules.Bolero.Models
 
 open System
 open System.Collections.Generic
+open System.Linq
 open System.Text.RegularExpressions
 open Microsoft.Extensions.Configuration
 open Microsoft.FSharp.Collections
+open FsToolkit.ErrorHandling
 
 open Songhay.Modules.Bolero.BoleroUtility
 
@@ -22,9 +24,10 @@ type ApiBase =
 
     //<summary> returns <see cref="ApiBase" /> from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string) =
-        match input.GetValue $"{RestApiMetadata}:{name}:ApiBase" with
-        | null ->  ApiBase String.Empty
-        | s -> ApiBase s
+        let key = input.GetValue $"{RestApiMetadata}:{name}:ApiBase"
+        match key with
+        | null ->  Error <| exn $"The expected {nameof IConfiguration} value for key `{key}` is not here."
+        | s -> Ok <| ApiBase s
 
     //<summary> returns the underlying <see cref="string" /> of the DU case </summary>
     member this.Value = let (ApiBase v) = this in v
@@ -45,13 +48,15 @@ type ClaimsSet =
 
     //<summary> returns <see cref="ClaimsSet" /> from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string) =
+        let key = $"{RestApiMetadata}:{name}:ClaimsSet"
         let claimSet = Dictionary<string, string>()
 
         try
-            (input.GetSection $"{RestApiMetadata}:{name}:ClaimsSet").Bind claimSet
+            (input.GetSection key).Bind claimSet
         with | _ -> ()
 
-        ClaimsSet claimSet
+        if claimSet.Count() = 0 then Error <| exn $"The expected {nameof IConfiguration} value for key `{key}` is not here."
+        else Ok <| ClaimsSet claimSet
 
     //<summary> returns the underlying dictionary of the DU case </summary>
     member this.Value = let (ClaimsSet v) = this in v
@@ -60,10 +65,10 @@ type ClaimsSet =
     override this.ToString() = this.Value.ToString()
 
 ///<summary>
-/// Defines all of the information needed to access an API.
+/// Defines all the information needed to access an API.
 ///</summary>
 type RestApiMetadata =
-    //<summary> all of the information needed to access an API </summary>
+    //<summary> all the information needed to access an API </summary>
     | RestApiMetadata of ApiBase * ClaimsSet
 
     //<summary> returns <see cref="RestApiMetadata" /> from the conventional <see cref="IConfiguration" /> </summary>
@@ -71,7 +76,10 @@ type RestApiMetadata =
         let apiBase = name |> ApiBase.fromConfiguration input
         let claimSet = name |> ClaimsSet.fromConfiguration input
 
-        RestApiMetadata (apiBase, claimSet)
+        if Result.isOk apiBase && Result.isOk claimSet then
+            Ok <| RestApiMetadata (apiBase |> Result.valueOr raise, claimSet |> Result.valueOr raise)
+        else
+            Error <| exn ""
 
     //<summary> returns the underlying tuple of the DU case </summary>
     member this.Value = let (RestApiMetadata (apiBase, claimsSet)) = this in (apiBase, claimsSet)

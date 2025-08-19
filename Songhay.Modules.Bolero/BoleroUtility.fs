@@ -1,8 +1,6 @@
 namespace Songhay.Modules.Bolero
 
 open System
-open Microsoft.Extensions.Configuration
-
 open Bolero.Html
 
 /// <summary>
