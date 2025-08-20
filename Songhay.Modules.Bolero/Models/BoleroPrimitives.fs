@@ -5,6 +5,7 @@ open System.Collections.Generic
 open System.Linq
 open System.Text.RegularExpressions
 open Microsoft.Extensions.Configuration
+open Microsoft.Extensions.Logging
 open Microsoft.FSharp.Collections
 open FsToolkit.ErrorHandling
 
@@ -76,10 +77,23 @@ type RestApiMetadata =
         let apiBase = name |> ApiBase.fromConfiguration input
         let claimSet = name |> ClaimsSet.fromConfiguration input
 
-        if Result.isOk apiBase && Result.isOk claimSet then
-            Ok <| RestApiMetadata (apiBase |> Result.valueOr raise, claimSet |> Result.valueOr raise)
-        else
-            Error <| exn ""
+        Result.zip apiBase claimSet
+        |> Result.mapError id
+        |> Result.map RestApiMetadata
+
+    static member toApiBase (restApiMetadataOption: RestApiMetadata option) =
+        restApiMetadataOption
+        |> Option.map(_.GetApiBase())
+
+    static member toClaim (key: string) (restApiMetadataOption: RestApiMetadata option) =
+        match restApiMetadataOption with
+        | Some restApiMetadata -> restApiMetadata.GetClaim key
+        | _ -> None
+
+    static member toRestApiMetadataOption (loggerOption: ILogger option) (restApiMetadataResult: Result<RestApiMetadata, exn>) = 
+        restApiMetadataResult
+        |> Result.teeError (fun e -> loggerOption |> Option.map (fun logger -> logger.LogError <| e.Message ) |> ignore)
+        |> Option.ofResult
 
     //<summary> returns the underlying tuple of the DU case </summary>
     member this.Value = let (RestApiMetadata (apiBase, claimsSet)) = this in (apiBase, claimsSet)
@@ -97,19 +111,21 @@ type RestApiMetadata =
         | true, d -> Some d
 
     //<summary> builds and returns a <see cref="Uri" /> with the specified <see cref="ClaimsSet" /> dictionary key </summary>
-    member this.ToUriFromClaim (key: string, [<ParamArray>] args: string[]) =
+    member this.ToUriResultFromClaim (key: string, [<ParamArray>] args: string[]) =
         let regex = Regex("\{[^}]+\}")
         let builder = UriBuilder(this.GetApiBase())
-        let prefix = this.GetClaim "endpoint-prefix"
+        let prefixKey = "endpoint-prefix"
+        let prefix = this.GetClaim prefixKey
         let routeTemplate = this.GetClaim key
 
-        if prefix.IsNone || routeTemplate.IsNone then None
+        if prefix.IsNone then Error <| exn $"The expected {nameof prefix} from key `{prefixKey}` is not here."
+        else if routeTemplate.IsNone then Error <| exn $"The expected {nameof routeTemplate} from key `{key}` is not here."
         else
             let routeData = routeTemplate.Value.Split '|'
             let mutable route = routeData |> Array.head
             let matches = regex.Matches route
 
-            if matches.Count <> args.Length then None
+            if matches.Count <> args.Length then Error <| exn $"The expected number of route {nameof matches} from key `{key}` is not here."
             else
                 ( matches |> Array.ofSeq, args ) ||> Array.iter2(fun m arg -> route <- route.Replace(m.Value, arg))
 
@@ -118,7 +134,7 @@ type RestApiMetadata =
                 let code = routeData |> Array.tryLast
                 if code.IsSome then builder.Query <- $"code={code.Value}"
 
-                Some builder.Uri
+                Ok builder.Uri
 
     //<summary> Returns a string that represents the current object. </summary>
     override this.ToString() = $"( {fst this.Value}, {snd this.Value} )"

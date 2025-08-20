@@ -34,7 +34,10 @@ type AppSettingsComponent() =
         let myDictionary = Dictionary<string, string>()
         (this.configuration.GetSection "MyDictionary").Bind myDictionary
 
-        let restApiMetadata = "PlayerApi" |> RestApiMetadata.fromConfiguration this.configuration
+        let restApiMetadataOption =
+            "PlayerApi"
+            |> RestApiMetadata.fromConfiguration this.configuration
+            |> RestApiMetadata.toRestApiMetadataOption None 
 
         bulmaColumnsContainer
             (HasClasses <| CssClasses [ m (All, L4) ])
@@ -63,11 +66,11 @@ type AppSettingsComponent() =
                             h2 { "conventional RestApiMetadata" |> text }
                             para {
                                 Html.label { "string representation: " |> text }
-                                restApiMetadata.ToString() |> text
+                                restApiMetadataOption.ToString() |> text
                             }
                             para {
                                 Html.label { "endpoint-prefix claim: " |> text }
-                                restApiMetadata.GetClaim "endpoint-prefix" |> Option.defaultWith (fun() -> "[missing!]") |> text
+                                restApiMetadataOption |> RestApiMetadata.toClaim "endpoint-prefix" |> Option.defaultWith (fun() -> "[missing!]") |> text
                             }
                         }
                     )
