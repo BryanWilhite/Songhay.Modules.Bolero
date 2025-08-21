@@ -9,6 +9,8 @@ open Microsoft.Extensions.Logging
 open Microsoft.FSharp.Collections
 open FsToolkit.ErrorHandling
 
+open Microsoft.JSInterop
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.BoleroUtility
 
 ///<summary>
@@ -72,7 +74,7 @@ type RestApiMetadata =
     //<summary> all the information needed to access an API </summary>
     | RestApiMetadata of ApiBase * ClaimsSet
 
-    //<summary> returns <see cref="RestApiMetadata" /> from the conventional <see cref="IConfiguration" /> </summary>
+    //<summary> returns <see cref="RestApiMetadata" /> result from the conventional <see cref="IConfiguration" /> </summary>
     static member fromConfiguration (input: IConfiguration) (name :string)=
         let apiBase = name |> ApiBase.fromConfiguration input
         let claimSet = name |> ClaimsSet.fromConfiguration input
@@ -81,18 +83,10 @@ type RestApiMetadata =
         |> Result.mapError id
         |> Result.map RestApiMetadata
 
-    static member toApiBase (restApiMetadataOption: RestApiMetadata option) =
-        restApiMetadataOption
-        |> Option.map(_.GetApiBase())
-
-    static member toClaim (key: string) (restApiMetadataOption: RestApiMetadata option) =
-        match restApiMetadataOption with
-        | Some restApiMetadata -> restApiMetadata.GetClaim key
-        | _ -> None
-
-    static member toRestApiMetadataOption (loggerOption: ILogger option) (restApiMetadataResult: Result<RestApiMetadata, exn>) = 
+    //<summary> converts <see cref="RestApiMetadata" /> result to <c>option</c> with the specified error logging action</summary>
+    static member toRestApiMetadataOption (loggingAction: exn -> unit) (restApiMetadataResult: Result<RestApiMetadata, exn>) = 
         restApiMetadataResult
-        |> Result.teeError (fun e -> loggerOption |> Option.map (fun logger -> logger.LogError <| e.Message ) |> ignore)
+        |> Result.teeError loggingAction
         |> Option.ofResult
 
     //<summary> returns the underlying tuple of the DU case </summary>

@@ -26,7 +26,7 @@ type StudioFloorProgramComponent() =
             ServiceProviderUtility.getIJSRuntime() |> JsRuntimeUtility.consoleWarnAsync [|
                     $"{nameof StudioFloorProgramComponent}: hey! This is a warning for the {nameof GotReadMe} state!";
                     $"\n{nameof StudioFloorProgramComponent}: {nameof ILogger} available in Elmish update function?: {ServiceProviderUtility.getILogger() <> null}";
-                    $"\n{nameof StudioFloorProgramComponent}: {nameof RestApiMetadata} available on Elmish model?: {model.restApiMetadataOption |> RestApiMetadata.toApiBase |> Option.isSome}"
+                    $"\n{nameof StudioFloorProgramComponent}: {nameof RestApiMetadata} available on Elmish model?: {model.restApiMetadataOption |> Option.map(_.GetApiBase()) |> Option.isSome}"
                 |]
                 |> ignore
 

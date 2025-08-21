@@ -4,9 +4,11 @@ open System.Collections.Generic
 open Bolero
 open Bolero.Html
 
+open FsToolkit.ErrorHandling
 open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
@@ -37,7 +39,7 @@ type AppSettingsComponent() =
         let restApiMetadataOption =
             "PlayerApi"
             |> RestApiMetadata.fromConfiguration this.configuration
-            |> RestApiMetadata.toRestApiMetadataOption None 
+            |> RestApiMetadata.toRestApiMetadataOption (fun e -> this.logger.LogException e) 
 
         bulmaColumnsContainer
             (HasClasses <| CssClasses [ m (All, L4) ])
@@ -70,7 +72,10 @@ type AppSettingsComponent() =
                             }
                             para {
                                 Html.label { "endpoint-prefix claim: " |> text }
-                                restApiMetadataOption |> RestApiMetadata.toClaim "endpoint-prefix" |> Option.defaultWith (fun() -> "[missing!]") |> text
+                                restApiMetadataOption
+                                |> Option.map (fun restApiMetadata -> restApiMetadata.GetClaim "endpoint-prefix" |> Option.defaultValue "[missing claim!]")
+                                |> Option.defaultValue "[missing!]"
+                                |> text
                             }
                         }
                     )
