@@ -5,12 +5,9 @@ open System.Collections.Generic
 open System.Linq
 open System.Text.RegularExpressions
 open Microsoft.Extensions.Configuration
-open Microsoft.Extensions.Logging
 open Microsoft.FSharp.Collections
 open FsToolkit.ErrorHandling
 
-open Microsoft.JSInterop
-open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.BoleroUtility
 
 ///<summary>
@@ -80,7 +77,6 @@ type RestApiMetadata =
         let claimSet = name |> ClaimsSet.fromConfiguration input
 
         Result.zip apiBase claimSet
-        |> Result.mapError id
         |> Result.map RestApiMetadata
 
     //<summary> converts <see cref="RestApiMetadata" /> result to <c>option</c> with the specified error logging action</summary>

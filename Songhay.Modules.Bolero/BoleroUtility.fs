@@ -8,7 +8,7 @@ open Bolero.Html
 /// </summary>
 module BoleroUtility =
 
-    /// <summary> conventional name of server-side class used in appsetings.json</summary>
+    /// <summary> conventional name of server-side class used in appsetings.json to hydrate <see cref="RestApiMetadata"/></summary>
     [<Literal>]
     let RestApiMetadata = "RestApiMetadata"
 
