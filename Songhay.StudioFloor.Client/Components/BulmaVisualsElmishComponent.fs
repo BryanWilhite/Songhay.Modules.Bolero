@@ -5,6 +5,7 @@ open Bolero.Html
 
 open Microsoft.AspNetCore.Components
 open Microsoft.JSInterop
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Components
 open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
@@ -102,8 +103,7 @@ type BulmaVisualsElmishComponent() =
                                 DomElementEvent.Click.PreventDefault 
                                 attrs {
                                     on.async.click (fun _ ->
-                                        this.jsRuntime |> consoleWarnAsync [| $"{nameof DomElementEvent.Click.PreventDefault} click!" |]
-                                        |> Async.AwaitTask)
+                                        this.jsRuntime.LogWarningAsync $"{nameof DomElementEvent.Click.PreventDefault} click!")
                                 }
                                 attr.href "#"
                                 text "click and see console output"
@@ -119,8 +119,7 @@ type BulmaVisualsElmishComponent() =
                                 (HasAttr <|
                                     attrs {
                                         on.async.click (fun _ ->
-                                            this.jsRuntime |> consoleWarnAsync [| $"{nameof DomElementEvent.Click.PreventDefault} click!" |]
-                                            |> Async.AwaitTask)
+                                            this.jsRuntime.LogWarningAsync $"{nameof DomElementEvent.Click.PreventDefault} click!")
                                     })
                                 (text "click and see console output"))
 

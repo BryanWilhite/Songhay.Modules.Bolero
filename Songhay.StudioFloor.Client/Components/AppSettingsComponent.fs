@@ -68,7 +68,7 @@ type AppSettingsComponent() =
                             h2 { "conventional RestApiMetadata" |> text }
                             para {
                                 Html.label { "string representation: " |> text }
-                                restApiMetadataOption.ToString() |> text
+                                restApiMetadataOption |> Option.map _.ToString() |> Option.defaultValue "[missing!]" |> text
                             }
                             para {
                                 Html.label { "endpoint-prefix claim: " |> text }
