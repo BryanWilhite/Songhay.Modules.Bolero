@@ -3,7 +3,11 @@ namespace Songhay.StudioFloor.Client.Components
 open Bolero
 open Bolero.Html
 
+open Microsoft.AspNetCore.Components
+open Microsoft.JSInterop
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Components
+open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
 
 open Songhay.Modules.Bolero.Visuals.BodyElement
@@ -15,6 +19,9 @@ open Songhay.StudioFloor.Client.Models
 
 type BulmaVisualsElmishComponent() =
     inherit ElmishComponent<StudioFloorModel, StudioFloorMessage>()
+
+    [<Inject>]
+    member val private jsRuntime = Unchecked.defaultof<IJSRuntime> with get, set
 
     static member EComp model dispatch =
         ecomp<BulmaVisualsElmishComponent, _, _> model dispatch { attr.empty() }
@@ -88,15 +95,36 @@ type BulmaVisualsElmishComponent() =
                     (concat {
 
                         getArticleTile
+                            (concat {
+                                code {text $"{nameof DomElementEvent.Click.PreventDefault}" }
+                                text " (anchor CTE)"
+                            })
+                            (a {
+                                DomElementEvent.Click.PreventDefault 
+                                attrs {
+                                    on.async.click (fun _ ->
+                                        this.jsRuntime.LogWarningAsync $"{nameof DomElementEvent.Click.PreventDefault} click!")
+                                }
+                                attr.href "#"
+                                text "click and see console output"
+                            })
+
+                        getArticleTile
+                            (concat {
+                                code {text $"{nameof DomElementEvent.Click.PreventDefault}" }
+                                text $" ({nameof anchorButtonElement})"
+                            })
+                            (anchorButtonElement
+                                NoCssClasses
+                                (HasAttr <|
+                                    attrs {
+                                        on.async.click (fun _ ->
+                                            this.jsRuntime.LogWarningAsync $"{nameof DomElementEvent.Click.PreventDefault} click!")
+                                    })
+                                (text "click and see console output"))
+
+                        getArticleTile
                             (text $"{nameof AppVersionsComponent}")
                             AppVersionsComponent.BComp
-
-                        getArticleTile
-                            (text System.String.Empty)
-                            (empty())
-
-                        getArticleTile
-                            (text System.String.Empty)
-                            (empty())
                     })
             })

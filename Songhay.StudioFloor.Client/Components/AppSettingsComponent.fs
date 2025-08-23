@@ -1,12 +1,14 @@
 namespace Songhay.StudioFloor.Client.Components
 
 open System.Collections.Generic
-open Bolero
-open Bolero.Html
-
 open Microsoft.AspNetCore.Components
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.Logging
+open Bolero
+open Bolero.Html
+open FsToolkit.ErrorHandling
+
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement
 open Songhay.Modules.Bolero.Visuals.Bulma.CssClass
@@ -29,12 +31,15 @@ type AppSettingsComponent() =
     override this.Render() =
         this.logger.LogDebug $"{nameof AppSettingsComponent}: Log debug! (LogLevel in appsettings.json is ignored.)"
         this.logger.LogWarning $"{nameof AppSettingsComponent}: `builder.Logging.SetMinimumLevel` must be set for logging level to be recognized."
-        this.logger.LogWarning $"\n{nameof AppSettingsComponent}: {nameof ILogger} available in Blazor render override?: {Songhay.Modules.Bolero.ServiceProviderUtility.getILogger() <> null}"
+        this.logger.LogWarning $"\n{nameof AppSettingsComponent}: {nameof ILogger} available in Blazor render override?: {ServiceProviderUtility.getILogger() <> null}"
 
         let myDictionary = Dictionary<string, string>()
         (this.configuration.GetSection "MyDictionary").Bind myDictionary
 
-        let restApiMetadata = "PlayerApi" |> RestApiMetadata.fromConfiguration this.configuration
+        let restApiMetadataOption =
+            "PlayerApi"
+            |> RestApiMetadata.fromConfiguration this.configuration
+            |> RestApiMetadata.toRestApiMetadataOption (fun e -> this.logger.LogException e) 
 
         bulmaColumnsContainer
             (HasClasses <| CssClasses [ m (All, L4) ])
@@ -63,11 +68,14 @@ type AppSettingsComponent() =
                             h2 { "conventional RestApiMetadata" |> text }
                             para {
                                 Html.label { "string representation: " |> text }
-                                restApiMetadata.ToString() |> text
+                                restApiMetadataOption |> Option.map _.ToString() |> Option.defaultValue "[missing!]" |> text
                             }
                             para {
                                 Html.label { "endpoint-prefix claim: " |> text }
-                                restApiMetadata.GetClaim "endpoint-prefix" |> Option.defaultWith (fun() -> "[missing!]") |> text
+                                restApiMetadataOption
+                                |> Option.map (fun restApiMetadata -> restApiMetadata.GetClaim "endpoint-prefix" |> Option.defaultValue "[missing claim!]")
+                                |> Option.defaultValue "[missing!]"
+                                |> text
                             }
                         }
                     )

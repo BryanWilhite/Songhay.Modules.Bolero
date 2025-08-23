@@ -2,25 +2,30 @@ namespace Songhay.StudioFloor.Client.Models
 
 open System
 
+open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Models
+open Songhay.Modules.Bolero.ServiceProviderUtility
 
 type StudioFloorModel =
     {
         page: StudioFloorPage
         readMeData: string option
-        restApiMetadata: RestApiMetadata
+        restApiMetadataOption: RestApiMetadata option
         visualStates: AppStateSet<StudioFloorVisualState>
     }
 
     static member initialize (serviceProvider: IServiceProvider) =
 
-        Songhay.Modules.Bolero.ServiceProviderUtility.setBlazorServiceProvider serviceProvider
+        setBlazorServiceProvider serviceProvider
 
         {
             page = ReadMePage
             readMeData = None
-            restApiMetadata = "PlayerApi" |> RestApiMetadata.fromConfiguration (Songhay.Modules.Bolero.ServiceProviderUtility.getIConfiguration())
+            restApiMetadataOption =
+                "PlayerApi"
+                |> RestApiMetadata.fromConfiguration (getIConfiguration())
+                |> RestApiMetadata.toRestApiMetadataOption (getILogger().LogException)
             visualStates = AppStateSet.initialize
                 .addState(ClipboardData "Enter any text you want here or just copy this sentence to the clipboard.")
                 .addState(ProgressValue 1)

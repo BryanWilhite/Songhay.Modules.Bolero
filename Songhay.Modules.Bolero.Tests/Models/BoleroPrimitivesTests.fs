@@ -1,8 +1,14 @@
 namespace Songhay.Modules.Bolero.Tests.Models
 
+open System
 open System.Collections.Generic
 open Xunit
 open Xunit.Abstractions
+
+open FsUnit.Xunit
+open FsUnit.CustomMatchers
+open FsToolkit.ErrorHandling
+
 
 open Songhay.Modules.Bolero.Models
 
@@ -67,13 +73,13 @@ type BoleroPrimitivesTests(testOutputHelper: ITestOutputHelper) =
     [<MemberData(nameof BoleroPrimitivesTests.UriFromClaimTestData)>]
     member this.``RestApiMetadata.ToUriFromClaim test``(input: RestApiMetadata, key: string, args: string[], expectedOriginalString: string option) =
 
-        let actual = input.ToUriFromClaim(key, args)
+        let actual = input.ToUriResultFromClaim(key, args)
 
         if expectedOriginalString.IsNone then
-            Assert.True(actual.IsNone)
-            testOutputHelper.WriteLine $"{nameof None} expected"
+            actual |> should be (ofCase <@ Result<Uri,exn>.Error @>)
+            testOutputHelper.WriteLine $"{nameof Error} expected"
         else
-            Assert.True(actual.IsSome)
-            testOutputHelper.WriteLine $"{nameof actual}: {actual.Value}"
+            actual |> should be (ofCase <@ Result<Uri,exn>.Ok @>)
+            testOutputHelper.WriteLine $"{nameof actual}: {actual |> Result.valueOr raise}"
 
-            Assert.Equal(expectedOriginalString.Value, actual.Value.OriginalString)
+            Assert.Equal(expectedOriginalString.Value, (actual |> Result.valueOr raise).OriginalString)

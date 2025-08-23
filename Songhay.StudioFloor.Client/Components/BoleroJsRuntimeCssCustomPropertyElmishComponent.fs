@@ -1,10 +1,12 @@
 namespace Songhay.StudioFloor.Client.Components
 
+open System
 open Microsoft.AspNetCore.Components
 open Microsoft.JSInterop
 open Bolero
 open Bolero.Html
 
+open Songhay.Modules.Bolero
 open Songhay.Modules.Models
 open Songhay.Modules.Bolero.JsRuntimeUtility
 open Songhay.Modules.Bolero.Models
@@ -47,9 +49,9 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                 (para { text "Click the button to demonstrate:" })
                 (
                     [
-                        li { text "a call "; code { text "getComputedStylePropertyValueAsync" }; text " to get the current color" }
-                        li { text "a get the next color and call "; code { text "consoleInfoAsync" }; text " to log the current and next color" }
-                        li { text "a call "; code { text "setComputedStylePropertyValueAsync" }; text " to set the background color" }
+                        li { text "a call "; code { text $"{nameof getComputedStylePropertyValueAsync}" }; text " to get the current color" }
+                        li { text "a get the next color and call "; code { text $"{nameof this.jsRuntime.LogInformation}" }; text " to log the current and next color" }
+                        li { text "a call "; code { text $"{nameof setComputedStylePropertyValueAsync}" }; text " to set the background color" }
                     ]
                     |> orderedList (HasClasses <| CssClasses [ LowerRoman.CssClass; elementTextAlign AlignLeft ])
                 )
@@ -66,9 +68,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
 
                                 let nextColor = if currentColor = colorAzure then colorYellow else colorAzure
 
-                                this.jsRuntime
-                                |> consoleInfoAsync [| $"{nameof currentColor}: {currentColor}"; $"{nameof nextColor}: {nextColor}" |]
-                                |> ignore
+                                this.jsRuntime.LogInformation $"{nameof currentColor}: {currentColor}{Environment.NewLine}{nameof nextColor}: {nextColor}"
 
                                 this.jsRuntime
                                 |> setComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value nextColor

@@ -4,10 +4,8 @@ open System
 open System.Net
 open System.Net.Http
 open Microsoft.FSharp.Core
-open Elmish
-
 open FsToolkit.ErrorHandling
-open Bolero.Remoting.Client
+open Elmish
 
 open Songhay.Modules.HttpClientUtility
 open Songhay.Modules.HttpRequestMessageUtility
