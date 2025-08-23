@@ -6,18 +6,50 @@
 
 These are the main concerns of this work:
 
-- Utility, mostly sharing functions for Remoting and `IJSRuntime`
+- Utility, mostly sharing functions for Remoting, `ILogger` and `IJSRuntime`
 - Visuals, a deliberately incomplete coverage of HTML, CSS and [Bulma](https://bulma.io/) by [Jeremy Thomas](https://jgthms.com/)
 - Models (Primitives), F♯ primitive obsession, supporting the Visuals
 
 ## Utility
 
-There are four utilities:
+There are five utilities:
 
-1. a utility for [Bolero](https://github.com/fsbolero/bolero) [[src](Songhay.Modules.Bolero/BoleroUtility.fs)]
+1. a utility for [Bolero](https://github.com/fsbolero/bolero) [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/BoleroUtility.fs)]
 2. a utility for JSON documents [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/JsonDocumentUtility.fs)]
 3. a utility for `IJSRuntime` [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/JsRuntimeUtility.fs)]
 4. a utility for `IRemoteService` [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/RemoteHandlerUtility.fs)]
+5. a utility for `IServiceProvider` [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/ServiceProviderUtility.fs)]
+
+## support for Blazor `wwwroot/appsettings.json` conventions
+
+The `Songhay.StudioFloor.Client` [project](https://github.com/BryanWilhite/) showcases Bolero/Blazor in action (see “the ‘studio floor’ for this Solution” below). This project demonstrates how the `RestApiMetadata` type [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.Modules.Bolero/Models/BoleroPrimitives.fs)] reads `appsettings.json` of the form:
+
+```json
+{
+    "RestApiMetadata": {
+        "PlayerApi": {
+            "ApiBase": "http://localhost:3001",
+            "ClaimsSet": {
+                "endpoint-prefix": "api/player/v1",
+                "route-for-video-yt-manifest": "video/youtube/{presentationKey}|placeholder",
+                "route-for-video-yt-index": "video/youtube/playlist/index/{suffix}|placeholder",
+                "route-for-video-yt-playlist": "video/youtube/playlist/{subFolder}/{blobName}|placeholder",
+                "route-for-video-yt-playlist-set": "video/youtube/playlists/{suffix}/{id}|placeholder",
+                "route-for-video-yt-curated-manifest": "video/youtube/videos/{presentationKey}|placeholder"
+            }
+        }
+    }
+}
+```
+
+The Elmish `model` [[src](https://github.com/BryanWilhite/Songhay.Modules.Bolero/blob/main/Songhay.StudioFloor.Client/Models/StudioFloorModel.fs)] in the ‘studio floor’ sample shows how this JSON is loaded:
+
+```fsharp
+restApiMetadataOption =
+    "PlayerApi"
+    |> RestApiMetadata.fromConfiguration (getIConfiguration())
+    |> RestApiMetadata.toRestApiMetadataOption (getILogger().LogException)
+```
 
 ## Visuals and Models
 
@@ -108,9 +140,9 @@ This JavaScript is similar to [the code provided in the Bulma documentation](htt
 
 <figure>
     <a href="https://www.youtube.com/watch?v=rAwZw6UPRXw">
-        <img alt="`Songhay.Modules.Bolero` release 6.4.0" src="https://img.youtube.com/vi/rAwZw6UPRXw/maxresdefault.jpg" width="480" />
+        <img alt="`Songhay.Modules.Bolero`" src="https://img.youtube.com/vi/rAwZw6UPRXw/maxresdefault.jpg" width="480" />
     </a>
-    <p><small>`Songhay.Modules.Bolero` release 6.4.0</small></p>
+    <p><small>`Songhay.Modules.Bolero`</small></p>
 </figure>
 
 </div>
