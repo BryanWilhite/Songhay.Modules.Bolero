@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
@@ -33,8 +33,8 @@
 
     <ItemGroup>
         <PackageReference Include="Bolero" Version="0.24.39" />
-        <PackageReference Include="FsToolkit.ErrorHandling" Version="5.0.0" />
-        <PackageReference Include="Songhay.Modules" Version="8.0.1" />
+        <PackageReference Include="FsToolkit.ErrorHandling" Version="5.2.0" />
+        <PackageReference Include="Songhay.Modules" Version="10.0.0" />
         <PackageReference Remove="FSharp.Core" />
     </ItemGroup>
 
