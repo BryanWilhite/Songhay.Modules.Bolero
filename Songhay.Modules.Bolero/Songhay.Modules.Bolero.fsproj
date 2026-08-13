@@ -34,7 +34,7 @@
     <ItemGroup>
         <PackageReference Include="Bolero" Version="0.24.39" />
         <PackageReference Include="FsToolkit.ErrorHandling" Version="5.2.0" />
-        <PackageReference Include="Songhay.Modules" Version="10.0.0" />
+        <PackageReference Include="Songhay.Modules" Version="10.1.0" />
         <PackageReference Remove="FSharp.Core" />
     </ItemGroup>
 
