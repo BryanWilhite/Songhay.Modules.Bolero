@@ -8,6 +8,7 @@ open Bolero
 open Bolero.Html
 open FsToolkit.ErrorHandling
 
+open Songhay.Modules
 open Songhay.Modules.Bolero
 open Songhay.Modules.Bolero.Models
 open Songhay.Modules.Bolero.Visuals.BodyElement

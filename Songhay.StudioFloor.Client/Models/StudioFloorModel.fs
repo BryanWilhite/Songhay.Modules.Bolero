@@ -2,8 +2,7 @@ namespace Songhay.StudioFloor.Client.Models
 
 open System
 
-open Songhay.Modules.Bolero
-open Songhay.Modules.Bolero.Models
+open Songhay.Modules
 open Songhay.Modules.Models
 open Songhay.Modules.Bolero.ServiceProviderUtility
 

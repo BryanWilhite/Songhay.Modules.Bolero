@@ -5,7 +5,7 @@ open Bolero
 
 open Microsoft.Extensions.Logging
 open Songhay.Modules.Bolero
-open Songhay.Modules.Bolero.Models
+open Songhay.Modules.Models
 open Songhay.StudioFloor.Client
 open Songhay.StudioFloor.Client.Models
 
