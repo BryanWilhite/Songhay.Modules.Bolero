@@ -34,7 +34,7 @@
     <Content Include="src\scss\index.scss" />
     <Content Include="src\scss\colors\bulma.scss" />
     <TypeScriptCompile Include="src\_index.ts" />
-    <TypeScriptCompile Include="src\bolero-utility.ts" />
+    <TypeScriptCompile Include="src\blazor-interop-utility.ts" />
     <TypeScriptCompile Include="src\studio-floor-utility.ts" />
   </ItemGroup>
   <ItemGroup>

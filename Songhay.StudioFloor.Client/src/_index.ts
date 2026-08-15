@@ -1,3 +1,3 @@
 /* utilities */
-export { BoleroUtility } from './bolero-utility';
+export { BlazorInteropUtility } from './blazor-interop-utility';
 export { StudioFloorUtility } from './studio-floor-utility';
