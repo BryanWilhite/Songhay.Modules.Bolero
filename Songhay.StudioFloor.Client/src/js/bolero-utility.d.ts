@@ -1,5 +1,5 @@
-import { CssUtility, DomUtility } from 'songhay';
+import { DomUtility } from 'songhay';
 export declare class BoleroUtility {
-    static css: CssUtility;
-    static dom: DomUtility;
+    static getComputedStylePropertyValue(element: HTMLElement, propertyName: string): string | null;
+    static getDomUtil(): DomUtility;
 }

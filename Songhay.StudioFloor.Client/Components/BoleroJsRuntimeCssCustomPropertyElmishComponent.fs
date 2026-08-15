@@ -61,6 +61,7 @@ type BoleroJsRuntimeCssCustomPropertyElmishComponent() =
                     attrs {
                         on.async.click (fun _ ->
                             async {
+
                                 let! currentColor =
                                     this.jsRuntime
                                     |> getComputedStylePropertyValueAsync demoCssCustomPropertyHtmlRef cssVariable.Value

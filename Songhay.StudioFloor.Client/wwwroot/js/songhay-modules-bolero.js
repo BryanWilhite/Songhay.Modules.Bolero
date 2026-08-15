@@ -749,9 +749,13 @@ class DomUtility {
 ;// CONCATENATED MODULE: ./src/bolero-utility.ts
 
 class BoleroUtility {
+    static getComputedStylePropertyValue(element, propertyName) {
+        return CssUtility.getComputedStylePropertyValue(element, propertyName);
+    }
+    static getDomUtil() {
+        return DomUtility;
+    }
 }
-BoleroUtility.css = CssUtility;
-BoleroUtility.dom = DomUtility;
 
 ;// CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.mjs
 /******************************************************************************

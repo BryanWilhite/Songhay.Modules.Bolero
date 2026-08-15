@@ -6,6 +6,7 @@ open Microsoft.JSInterop
 open FsToolkit.ErrorHandling
 
 open Bolero
+open Songhay.Modules.Bolero.Models
 
 /// <summary>
 /// Functions for the <see cref="IJSRuntime" /> interface.
@@ -14,20 +15,6 @@ module JsRuntimeUtility =
     /// <summary> conventional namespace prefix for <c>songhay-core</c> JavaScript </summary>
     [<Literal>]
     let rx = "rx"
-
-    /// <summary> magic string for the <c>BoleroUtility</c> JavaScript class </summary>
-    /// <remarks>
-    /// <c>BoleroUtility.css</c> is tree-shaken from:
-    ///
-    /// 📖 https://github.com/BryanWilhite/songhay-core/blob/master/src/utilities/css.utility.ts
-    ///
-    /// The conventional TypeScript project generating <c>BoleroUtility</c>:
-    ///
-    /// 📖 https://github.com/BryanWilhite/Songhay.Modules.Bolero/tree/main/Songhay.StudioFloor.Client/src
-    ///
-    /// </remarks>
-    [<Literal>]
-    let BoleroUtilityCss = "BoleroUtility.css"
 
     /// <summary>
     /// Tries to get <see cref="ElementReference" /> to a rendered element
@@ -115,7 +102,7 @@ module JsRuntimeUtility =
     /// </remarks>
     let getComputedStylePropertyValueAsync (htmlRef: HtmlRef) (propertyName: string) (jsRuntime: IJSRuntime) =
         let elementRef = htmlRef |> tryGetElementReference |> Result.valueOr raise
-        jsRuntime.InvokeAsync<string>($"{rx}.{BoleroUtilityCss}.getComputedStylePropertyValue", elementRef, propertyName).AsTask()
+        jsRuntime.InvokeAsync<string>($"{rx}.{BlazorInteropUtility.getComputedStylePropertyValue}", elementRef, propertyName).AsTask()
 
     ///<summary>
     /// Calls the <c>CssUtility.getComputedStylePropertyValueById</c> method in <c>songhay-core</c>.
@@ -124,7 +111,7 @@ module JsRuntimeUtility =
     /// 📖 https://github.com/BryanWilhite/songhay-core/blob/master/src/utilities/css.utility.ts#L49
     /// </remarks>
     let getComputedStylePropertyValueByIdAsync (elementId: string) (propertyName: string) (jsRuntime: IJSRuntime) =
-        jsRuntime.InvokeAsync<string>($"{rx}.{BoleroUtilityCss}.getComputedStylePropertyValueById", elementId, propertyName).AsTask()
+        jsRuntime.InvokeAsync<string>($"{rx}.{BlazorInteropUtility.getComputedStylePropertyValueById}", elementId, propertyName).AsTask()
 
     ///<summary>
     /// Calls the <c>CssUtility.getComputedStylePropertyValueByQuery</c> method in <c>songhay-core</c>.
@@ -133,7 +120,7 @@ module JsRuntimeUtility =
     /// 📖 https://github.com/BryanWilhite/songhay-core/blob/master/src/utilities/css.utility.ts#L70
     /// </remarks>
     let getComputedStylePropertyValueByQueryAsync (query: string) (propertyName: string) (jsRuntime: IJSRuntime) =
-        jsRuntime.InvokeAsync<string>($"{rx}.{BoleroUtilityCss}.getComputedStylePropertyValueByQuery", query, propertyName).AsTask()
+        jsRuntime.InvokeAsync<string>($"{rx}.{BlazorInteropUtility.getComputedStylePropertyValueByQuery}", query, propertyName).AsTask()
 
     ///<summary>
     /// Calls the <see cref="consoleErrorAsync" /> function
@@ -161,4 +148,4 @@ module JsRuntimeUtility =
     /// </remarks>
     let setComputedStylePropertyValueAsync (htmlRef: HtmlRef) (propertyName: string) (propertyValue: string) (jsRuntime: IJSRuntime) =
         let elementRef = htmlRef |> tryGetElementReference |> Result.valueOr raise
-        jsRuntime.InvokeVoidAsync($"{rx}.{BoleroUtilityCss}.setComputedStylePropertyValue", elementRef, propertyName, propertyValue).AsTask()
+        jsRuntime.InvokeVoidAsync($"{rx}.{BlazorInteropUtility.setComputedStylePropertyValue}", elementRef, propertyName, propertyValue).AsTask()

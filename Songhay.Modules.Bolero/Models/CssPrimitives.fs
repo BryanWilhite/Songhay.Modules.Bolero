@@ -34,7 +34,7 @@ type CssClasses =
     //<summary> pre-pends the specified list of <see cref="string" /> to this instance </summary>
     member this.PrependList (l: string list) = CssClasses (List.append l this.Value)
 
-    //<summary> reduces the underlying list of <see cref="string" /> the the value of the <c>class</c> attribute </summary>
+    //<summary> reduces the underlying list of <see cref="string" /> the value of the <c>class</c> attribute </summary>
     member this.ToAttributeValue = this.Value |> List.reduce(fun a b -> $"{a} {b}")
 
     //<summary> calls <see cref="ToAttributeValue" /> and return the result of <c>attr.``class``</c> </summary>
